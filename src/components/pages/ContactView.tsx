@@ -1,9 +1,13 @@
 "use client";
 
 import { useState, type FormEvent } from "react";
-import Image from "next/image";
-import { Mail } from "lucide-react";
+import { Clock, Mail, MapPin, Phone } from "lucide-react";
+import dynamic from "next/dynamic";
 import PageHeader from "@/components/automotive/PageHeader";
+import Reveal from "@/components/ui/Reveal";
+import FaqSection from "@/components/automotive/FaqSection";
+
+const Globe = dynamic(() => import("@/components/three/Globe"), { ssr: false });
 import { C } from "@/lib/content";
 import { useLang } from "@/lib/i18n";
 
@@ -57,6 +61,33 @@ export default function ContactView() {
         title={C.pages.contact.title}
         body={C.pages.contact.body}
       />
+
+      <section className="bg-ink pt-12 lg:pt-16" aria-label={t(C.pages.contact.eyebrow)}>
+        <ul className="mx-auto grid w-full max-w-[1400px] gap-3 px-4 sm:grid-cols-2 sm:px-6 lg:grid-cols-4 lg:gap-4 lg:px-10">
+          {[
+            { Icon: Mail, label: C.pages.contact.email, value: C.contactInfo.email, href: `mailto:${C.contactInfo.email}`, ltr: true },
+            { Icon: Phone, label: { ar: "الهاتف", en: "Phone" }, value: C.contactInfo.phone.en, href: `tel:${C.contactInfo.phone.en.replace(/\s/g, "")}`, ltr: true },
+            { Icon: MapPin, label: C.pages.contact.studio, value: t(C.contactInfo.address), href: undefined, ltr: false },
+            { Icon: Clock, label: C.pages.contact.hours, value: t(C.pages.contact.hoursValue), href: undefined, ltr: false },
+          ].map(({ Icon, label, value, href, ltr }, i) => {
+            const body = (
+              <>
+                <span className="inline-flex size-11 items-center justify-center rounded-2xl bg-volt/12 text-volt transition-all duration-500 group-hover:rotate-[-8deg] group-hover:scale-110 group-hover:bg-volt group-hover:text-white"><Icon className="size-5" strokeWidth={1.8} /></span>
+                <span className="mt-4 block text-[0.74rem] text-dim">{t(label)}</span>
+                <span className="mt-1 block break-words font-display text-[0.98rem] font-semibold text-fog" dir={ltr ? "ltr" : undefined}>{value}</span>
+              </>
+            );
+            const cls = "group block h-full rounded-[22px] hairline bg-ink-2 p-5 transition-all duration-500 hover:-translate-y-1.5 hover:border-volt/60";
+            return (
+              <li key={i}>
+                <Reveal delay={i * 0.07} className="h-full">
+                  {href ? <a href={href} className={cls}>{body}</a> : <div className={cls}>{body}</div>}
+                </Reveal>
+              </li>
+            );
+          })}
+        </ul>
+      </section>
 
       <section className="contact-studio relative isolate overflow-hidden bg-ink py-16 lg:py-24" aria-label={t(C.pages.contact.eyebrow)}>
         <div className="pointer-events-none absolute -end-32 top-20 size-[32rem] rounded-full border border-[#75d6c3]/10" aria-hidden="true" />
@@ -154,12 +185,11 @@ export default function ContactView() {
           </div>
 
           <aside className="flex flex-col gap-5 lg:col-span-5">
-            <div className="contact-art overflow-hidden rounded-[24px] border border-[#75d6c3]/20">
-              <div className="relative aspect-[16/10]">
-                <ImagePlaceholder />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-transparent to-[#75d6c3]/10" />
-                <span className="absolute start-5 top-5 rounded-full border border-white/20 bg-black/45 px-3 py-1.5 text-[0.62rem] tracking-[0.2em] text-white/80 backdrop-blur-md">EVAY / STUDIO</span>
-                <span className="absolute inset-x-5 bottom-5 flex items-end justify-between gap-3"><span className="eyebrow text-white/75">{t(C.pages.contact.studio)}</span><span className="size-2 rounded-full bg-[#75d6c3] shadow-[0_0_18px_rgba(117,214,195,.9)]" /></span>
+            <div className="relative aspect-[4/3] overflow-hidden rounded-[24px] hairline bg-ink-2 sm:aspect-[16/10]">
+              <Globe />
+              <div className="pointer-events-none absolute inset-x-0 bottom-0 flex items-center justify-between gap-3 bg-gradient-to-t from-ink-2 to-transparent p-5">
+                <span className="eyebrow text-mist">{t(C.pages.contact.studio)}</span>
+                <span className="text-[0.8rem] text-fog">{t(C.contactInfo.address)}</span>
               </div>
             </div>
 
@@ -185,19 +215,7 @@ export default function ContactView() {
         </div>
       </section>
 
+      <FaqSection />
     </>
-  );
-}
-
-function ImagePlaceholder() {
-  return (
-    <Image
-      src="/media/images/night-city.jpg"
-      alt=""
-      fill
-      sizes="(min-width: 1024px) 40vw, 100vw"
-      className="object-cover"
-      loading="lazy"
-    />
   );
 }

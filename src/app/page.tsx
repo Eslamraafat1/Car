@@ -1,4 +1,4 @@
-import CinematicHero from "@/components/automotive/CinematicHero";
+import HeroCarousel from "@/components/automotive/HeroCarousel";
 import CompanyIntro from "@/components/automotive/CompanyIntro";
 import VisionMission from "@/components/automotive/VisionMission";
 import ServicesStack from "@/components/automotive/ServicesStack";
@@ -12,7 +12,7 @@ import FaqSection from "@/components/automotive/FaqSection";
 export default function HomePage() {
   return (
     <>
-      <CinematicHero />
+      <HeroCarousel />
       <CompanyIntro />
       <VisionMission />
       <ServicesStack />

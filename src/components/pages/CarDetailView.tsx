@@ -3,7 +3,11 @@
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowLeft, ArrowRight, Mail } from "lucide-react";
+import dynamic from "next/dynamic";
 import VehicleCollection from "@/components/automotive/VehicleCollection";
+import SpecsStory from "@/components/automotive/SpecsStory";
+
+const ShaderImage = dynamic(() => import("@/components/three/ShaderImage"), { ssr: false });
 import { C } from "@/lib/content";
 import { useLang } from "@/lib/i18n";
 import { CATEGORY_LABELS, type Vehicle, specValue } from "@/lib/vehicles";
@@ -30,6 +34,7 @@ export default function CarDetailView({ vehicle, related }: CarDetailViewProps) 
             sizes="100vw"
             className="object-cover"
           />
+          <ShaderImage src={vehicle.image} />
           <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black via-black/35 to-black/60" />
           <div
             className="pointer-events-none absolute inset-0"
@@ -121,6 +126,8 @@ export default function CarDetailView({ vehicle, related }: CarDetailViewProps) 
           </div>
         </div>
       </section>
+
+      <SpecsStory vehicle={vehicle} />
 
       {related.length > 0 && (
         <VehicleCollection

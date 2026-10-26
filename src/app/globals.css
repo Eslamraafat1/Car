@@ -531,3 +531,20 @@ html[dir="rtl"] .display,
 html[dir="rtl"] .font-display { font-family: var(--font-ar-display), var(--font-grotesk), system-ui, sans-serif; }
 html[dir="rtl"] .display { font-weight: 600; }
 html[dir="rtl"] .keep-tracking { font-family: var(--font-grotesk), system-ui, sans-serif; }
+
+/* ---------- hero carousel ---------- */
+
+.hc-char { transform: translateY(115%); transition: transform 0.9s cubic-bezier(0.2, 0.8, 0.1, 1); }
+.hc-char[data-on="true"] { transform: translateY(0); }
+.hc-char[data-on="false"] { transform: translateY(-115%); transition-duration: 0.5s; }
+.hc-line { opacity: 0; transform: translateY(18px); }
+.hc-line[data-on="true"] { opacity: 1; transform: none; }
+
+@keyframes hc-bar { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+.hc-bar { animation-name: hc-bar; animation-timing-function: linear; animation-fill-mode: forwards; }
+
+@media (max-height: 700px) { .hide-short { display: none; } }
+
+@media (prefers-reduced-motion: reduce) {
+  .hc-char, .hc-line { transition: none !important; }
+}

@@ -7,6 +7,9 @@ import type { BiStr } from "@/lib/content";
 import { useLang } from "@/lib/i18n";
 import { gsap, useGSAP, useReducedMotion } from "@/lib/motion";
 import KineticHeading from "@/components/ui/KineticHeading";
+import dynamic from "next/dynamic";
+
+const ShaderImage = dynamic(() => import("@/components/three/ShaderImage"), { ssr: false });
 
 interface PageHeaderProps {
   eyebrow: BiStr;
@@ -125,6 +128,7 @@ export default function PageHeader({ eyebrow, title, body, children }: PageHeade
                 sizes="(min-width: 1024px) 42vw, 100vw"
                 className="page-masthead-image object-cover"
               />
+              <ShaderImage src={art.image} />
             </div>
             <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/10 to-black/20" />
             <div className="page-masthead-art-grid absolute inset-0" />

@@ -2,9 +2,10 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useMemo, useRef, useState, useSyncExternalStore, type ReactNode } from "react";
+import { useMemo, useRef, useState, useSyncExternalStore, type ReactNode, useEffect } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { ArrowRight, Heart } from "lucide-react";
+import { FILTER_EVENT } from "@/components/automotive/ExploreCategories";
 import { C, type BiStr } from "@/lib/content";
 import { useLang } from "@/lib/i18n";
 import KineticHeading from "@/components/ui/KineticHeading";
@@ -130,6 +131,11 @@ export default function VehicleCollection({
 }: VehicleCollectionProps) {
   const { t, lang } = useLang();
   const [filter, setFilter] = useState<FilterKey>("all");
+  useEffect(() => {
+    const onFilter = (e: Event) => setFilter((e as CustomEvent<FilterKey>).detail);
+    window.addEventListener(FILTER_EVENT, onFilter);
+    return () => window.removeEventListener(FILTER_EVENT, onFilter);
+  }, []);
   const favorites = useSyncExternalStore(subscribeToFavorites, getFavoritesSnapshot, () => EMPTY_FAVORITES);
 
   const filters = [
