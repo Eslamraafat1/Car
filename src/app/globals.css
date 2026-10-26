@@ -426,33 +426,20 @@ body {
 
 /* ---------- footer wordmark ---------- */
 
-.footer-wordmark { line-height: 0.78; }
-
-.footer-wordmark-text {
-  display: block;
-  font-family: var(--font-display);
-  font-weight: 700;
-  font-size: clamp(3.2rem, 15.5vw, 13.5rem);
-  letter-spacing: -0.045em;
-  background-image: linear-gradient(
-    105deg,
-    var(--c-fog) 0 38%,
-    var(--c-volt) 50%,
-    var(--c-fog) 62% 100%
-  );
-  background-size: 320% 100%;
-  background-position: 100% 0;
+.foot-word {
+  font-size: clamp(5rem, 27vw, 24rem);
+  background-image: linear-gradient(100deg, rgba(255, 255, 255, 0.07) 0 42%, #2f7bff 52%, #ffffff 62% 100%);
+  background-size: 300% 100%;
+  background-position: 0% 0;
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
-  transition: background-position 2.6s cubic-bezier(0.22, 0.61, 0.36, 1);
+  -webkit-text-stroke: 1px rgba(255, 255, 255, 0.14);
 }
 
-.footer-wordmark.is-in .footer-wordmark-text,
-.footer-wordmark-text:hover { background-position: 0% 0; }
-
-.footer-wordmark-text { opacity: 0.16; transition: background-position 2.6s cubic-bezier(0.22, 0.61, 0.36, 1), opacity 1.1s ease; }
-.footer-wordmark.is-in .footer-wordmark-text { opacity: 1; }
+.evay-loader { display: none; }
+html.has-loader .evay-loader { display: flex; }
+html.has-loader body { overflow: hidden; }
 
 /* ---------- 404 headlight search ---------- */
 
@@ -486,8 +473,9 @@ body {
   .beam,
   .float-slow,
   .shine::after,
+  .spin-slow,
   .gradient-pan { animation: none !important; }
-  .footer-wordmark-text { background-position: 50% 0; opacity: 1; }
+  .foot-word { background-position: 100% 0 !important; }
 }
 
 /* ---------- ambient motion ---------- */
@@ -530,3 +518,9 @@ html[dir="rtl"] *:not(.keep-tracking)::after {
 html[dir="rtl"] .eyebrow { text-transform: none; font-size: 0.82rem; }
 html[dir="rtl"] body { line-height: 1.75; }
 html[dir="rtl"] .display { line-height: 1.2; }
+
+.no-scrollbar { scrollbar-width: none; }
+.no-scrollbar::-webkit-scrollbar { display: none; }
+
+@keyframes spin-slow { to { transform: rotate(360deg); } }
+.spin-slow { animation: spin-slow 22s linear infinite; }

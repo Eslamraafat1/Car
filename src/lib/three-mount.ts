@@ -1,0 +1,121 @@
+import type * as ThreeNs from "three";
+
+export type Three = typeof ThreeNs;
+
+export interface SceneApi {
+  /** Called every rendered frame. `dt` is seconds since the previous frame. */
+  update: (time: number, dt: number) => void;
+  resize?: (width: number, height: number) => void;
+  dispose?: () => void;
+}
+
+export interface SceneContext {
+  THREE: Three;
+  renderer: ThreeNs.WebGLRenderer;
+  container: HTMLElement;
+  width: number;
+  height: number;
+  /** Cheap devices get lighter scenes (fewer particles, simpler geometry). */
+  lite: boolean;
+}
+
+interface MountOptions {
+  /** Upper bound for the device pixel ratio. */
+  maxDpr?: number;
+  /** Render a single still frame and never animate. */
+  still?: boolean;
+}
+
+/**
+ * Mounts a Three.js scene into `container`. The library is imported lazily so
+ * it never touches the main bundle, the loop only runs while the container is
+ * on screen and the tab is visible, and everything is disposed on cleanup.
+ * Resolves to a cleanup function (a no-op when WebGL is unavailable).
+ */
+export async function mountThree(
+  container: HTMLElement,
+  setup: (ctx: SceneContext) => SceneApi | Promise<SceneApi>,
+  { maxDpr = 1.75, still = false }: MountOptions = {},
+): Promise<() => void> {
+  const THREE = await import("three");
+
+  let renderer: ThreeNs.WebGLRenderer;
+  try {
+    renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true, powerPreference: "high-performance" });
+  } catch {
+    return () => {};
+  }
+
+  const lite = window.matchMedia("(max-width: 767px)").matches || (navigator.hardwareConcurrency ?? 8) <= 4;
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, lite ? Math.min(maxDpr, 1.5) : maxDpr));
+  renderer.setClearColor(0x000000, 0);
+  const canvas = renderer.domElement;
+  canvas.style.cssText = "position:absolute;inset:0;width:100%;height:100%;display:block;";
+  canvas.setAttribute("aria-hidden", "true");
+  container.appendChild(canvas);
+
+  const rect = () => {
+    const r = container.getBoundingClientRect();
+    return { w: Math.max(1, Math.round(r.width)), h: Math.max(1, Math.round(r.height)) };
+  };
+  let { w, h } = rect();
+  renderer.setSize(w, h, false);
+
+  const api = await setup({ THREE, renderer, container, width: w, height: h, lite });
+
+  let disposed = false;
+  let visible = true;
+  let raf = 0;
+  let last = performance.now();
+  const start = last;
+
+  const frame = (now: number) => {
+    raf = 0;
+    if (disposed) return;
+    const dt = Math.min((now - last) / 1000, 0.1);
+    last = now;
+    api.update((now - start) / 1000, dt);
+    if (!still && visible && !document.hidden) raf = requestAnimationFrame(frame);
+  };
+  const kick = () => {
+    if (!raf && !disposed && !still) {
+      last = performance.now();
+      raf = requestAnimationFrame(frame);
+    }
+  };
+
+  const ro = new ResizeObserver(() => {
+    ({ w, h } = rect());
+    renderer.setSize(w, h, false);
+    api.resize?.(w, h);
+    if (still || !raf) frame(performance.now());
+  });
+  ro.observe(container);
+  api.resize?.(w, h);
+
+  const io = new IntersectionObserver(([entry]) => {
+    visible = entry.isIntersecting;
+    if (visible) kick();
+  });
+  io.observe(container);
+
+  const onVisibility = () => {
+    if (!document.hidden) kick();
+  };
+  document.addEventListener("visibilitychange", onVisibility);
+
+  frame(performance.now());
+  if (!still) kick();
+
+  return () => {
+    disposed = true;
+    if (raf) cancelAnimationFrame(raf);
+    ro.disconnect();
+    io.disconnect();
+    document.removeEventListener("visibilitychange", onVisibility);
+    api.dispose?.();
+    renderer.dispose();
+    renderer.forceContextLoss();
+    canvas.remove();
+  };
+}

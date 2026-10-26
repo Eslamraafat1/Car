@@ -2,7 +2,6 @@
 
 import Image from "next/image";
 import PageHeader from "@/components/automotive/PageHeader";
-import FinalCTA from "@/components/automotive/FinalCTA";
 import { C } from "@/lib/content";
 import { useLang } from "@/lib/i18n";
 import Reveal from "@/components/ui/Reveal";
@@ -89,8 +88,6 @@ export default function AboutView() {
           </figure>
         </div>
       </section>
-
-      <FinalCTA />
     </>
   );
 }

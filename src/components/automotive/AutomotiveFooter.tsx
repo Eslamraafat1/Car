@@ -1,103 +1,141 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useRef, useState } from "react";
-import { ArrowUp } from "lucide-react";
+import { usePathname } from "next/navigation";
+import { useRef } from "react";
+import { ArrowUpRight, Mail, MapPin, Phone } from "lucide-react";
 import { C } from "@/lib/content";
 import { useLang } from "@/lib/i18n";
-import { getLenis } from "@/lib/smooth-scroll";
+import { gsap, useGSAP, usePrefersReducedMotion } from "@/lib/motion";
+import DotGrid from "@/components/ui/DotGrid";
+import KineticHeading from "@/components/ui/KineticHeading";
+import MagneticButton from "@/components/ui/MagneticButton";
+import ThemeToggle from "@/components/ui/ThemeToggle";
+import { EvayMark } from "@/components/automotive/AutomotiveNavbar";
+
+const FOOT_TITLE = { ar: "لنبدأ رحلتك معًا.", en: "LET'S START YOUR JOURNEY." };
+const FOOT_EYEBROW = { ar: "هل أنت مستعد؟", en: "Ready when you are" };
 
 export default function AutomotiveFooter() {
-  const { t, lang, toggleLang } = useLang();
-  const wordRef = useRef<HTMLDivElement | null>(null);
-  const [wordOn, setWordOn] = useState(false);
+  const { t, toggleLang } = useLang();
+  const pathname = usePathname();
+  const rootRef = useRef<HTMLElement | null>(null);
+  const reduced = usePrefersReducedMotion();
+  const info = C.contactInfo;
+  const ctaHref = pathname === "/contact" ? `mailto:${info.email}` : "/contact";
 
-  /* The wordmark fills with a light sweep the first time it enters view. */
-  useEffect(() => {
-    const el = wordRef.current;
-    if (!el) return;
-    const io = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setWordOn(true);
-          io.disconnect();
-        }
-      },
-      { threshold: 0.3 },
-    );
-    io.observe(el);
-    return () => io.disconnect();
-  }, []);
+  /* The wordmark fills with colour as the footer scrolls into view. */
+  useGSAP(
+    () => {
+      if (reduced) return;
+      gsap.fromTo(
+        ".foot-word",
+        { backgroundPositionX: "0%" },
+        { backgroundPositionX: "100%", ease: "none", scrollTrigger: { trigger: ".foot-word", start: "top 105%", end: "bottom 78%", scrub: 0.6 } },
+      );
+    },
+    { scope: rootRef, dependencies: [reduced], revertOnUpdate: true },
+  );
 
-  const toTop = () => {
-    const lenis = getLenis();
-    if (lenis) lenis.scrollTo(0, { duration: 1.2 });
-    else window.scrollTo({ top: 0, behavior: "smooth" });
-  };
+  const linkClass = "group/link inline-flex items-center gap-1.5 text-[0.95rem] text-white/65 transition-colors duration-300 hover:text-white";
 
   return (
-    <footer className="relative border-t border-line bg-ink-2">
-      <div className="mx-auto max-w-[1400px] px-4 pb-10 pt-16 sm:px-6 lg:px-10 lg:pt-20">
-        <div className="flex flex-col gap-10 lg:flex-row lg:items-start lg:justify-between">
-          <div className="max-w-md">
-            <p className="font-display text-xl font-semibold tracking-[0.3em] text-fog">
-              {lang === "ar" ? C.brand.nameAr : C.brand.name}
-            </p>
-            <p className="mt-4 text-sm leading-relaxed text-mist">{t(C.footer.tagline)}</p>
-            <button
-              type="button"
-              onClick={toTop}
-              className="mt-7 inline-flex items-center gap-2 rounded-full border border-line px-4 py-2 text-[0.8rem] text-mist transition-colors duration-300 hover:border-volt hover:text-fog"
-            >
-              <ArrowUp className="size-4" />
-              {lang === "ar" ? "لأعلى" : "Back to top"}
-            </button>
+    <footer ref={rootRef} className="relative isolate overflow-hidden bg-[#070809] text-white">
+      {/* call to action */}
+      <div className="relative">
+        <DotGrid className="absolute inset-0 -z-10 [mask-image:radial-gradient(70%_80%_at_50%_45%,#000,transparent)]" />
+        <div className="float-slow pointer-events-none absolute start-[-8%] top-[10%] -z-10 size-[26rem] rounded-full bg-[#1f7bff]/20 blur-[120px]" aria-hidden="true" />
+        <div className="mx-auto w-full max-w-[1400px] px-4 pb-20 pt-24 sm:px-6 lg:px-10 lg:pb-28 lg:pt-36">
+          <p className="eyebrow text-[#4da3ff]">{t(FOOT_EYEBROW)}</p>
+          <div className="mt-5 flex flex-col gap-10 lg:flex-row lg:items-end lg:justify-between">
+            <KineticHeading text={FOOT_TITLE} className="display max-w-4xl text-[clamp(2.4rem,7.4vw,6.6rem)] text-white" />
+            <MagneticButton limit={22}>
+              <Link
+                href={ctaHref}
+                aria-label={t(C.finalCta.secondary)}
+                className="shine group relative inline-flex size-28 items-center justify-center overflow-hidden rounded-full bg-[#2f7bff] text-white transition-transform duration-500 hover:scale-110 sm:size-36"
+              >
+                <span className="flex flex-col items-center gap-1 text-[0.84rem] font-semibold">
+                  {t(C.finalCta.secondary)}
+                  <ArrowUpRight className="size-6 transition-transform duration-500 group-hover:rotate-45 rtl:-scale-x-100" strokeWidth={1.8} />
+                </span>
+              </Link>
+            </MagneticButton>
           </div>
+          <a href={`mailto:${info.email}`} className="mt-10 inline-block break-all font-display text-[clamp(1.15rem,3vw,2rem)] text-white/80 underline decoration-white/25 underline-offset-8 transition-colors duration-300 hover:text-white hover:decoration-[#4da3ff]" dir="ltr">
+            {info.email}
+          </a>
+        </div>
+      </div>
 
-          <div className="grid grid-cols-2 gap-8 sm:gap-14">
-            {C.footer.columns.map((column) => (
-              <nav key={column.title.en} aria-label={t(column.title)}>
-                <h2 className="eyebrow text-mist">{t(column.title)}</h2>
-                <ul className="mt-4 space-y-2.5">
-                  {column.links.map((link) => (
-                    <li key={link.href}>
-                      <Link
-                        href={link.href}
-                        className="text-sm text-mist transition-colors duration-300 hover:text-volt"
-                      >
-                        {t(link.label)}
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-              </nav>
-            ))}
-
-            <div>
-              <h2 className="eyebrow text-mist">{t(C.nav.langLabel)}</h2>
+      {/* directory */}
+      <div className="border-t border-white/10">
+        <div className="mx-auto grid w-full max-w-[1400px] gap-12 px-4 py-14 sm:grid-cols-2 sm:px-6 lg:grid-cols-12 lg:px-10 lg:py-16">
+          <div className="sm:col-span-2 lg:col-span-4">
+            <Link href="/" className="inline-flex items-center gap-3" aria-label={C.brand.name}>
+              <EvayMark className="size-10" />
+              <span className="keep-tracking font-display text-xl font-bold tracking-[0.22em]">{C.brand.name}</span>
+            </Link>
+            <p className="mt-5 max-w-sm text-[0.95rem] leading-relaxed text-white/60">{t(C.footer.tagline)}</p>
+            <div className="mt-6 flex items-center gap-2">
               <button
                 type="button"
                 onClick={toggleLang}
-                className="mt-4 inline-flex h-9 items-center rounded-full border border-line px-4 text-[0.8rem] text-mist transition-colors duration-300 hover:border-volt hover:text-fog"
+                aria-label={t(C.nav.langLabel)}
+                className="keep-tracking inline-flex h-10 items-center rounded-full border border-white/25 px-4 text-[0.82rem] font-medium text-white/85 transition-colors hover:border-white hover:text-white"
               >
                 {t(C.nav.switchTo)}
               </button>
+              <ThemeToggle variant="overlay" />
             </div>
           </div>
-        </div>
 
-        <div className="mt-14 flex flex-col gap-4 border-t border-line pt-6 text-[0.78rem] text-mist lg:flex-row lg:items-center lg:justify-between">
+          {C.footer.columns.map((col) => (
+            <nav key={col.title.en} aria-label={t(col.title)} className="lg:col-span-2">
+              <h2 className="eyebrow text-white/45">{t(col.title)}</h2>
+              <ul className="mt-5 space-y-3.5">
+                {col.links.map((l) => (
+                  <li key={l.href}>
+                    <Link href={l.href} className={linkClass}>
+                      <span className="relative">
+                        {t(l.label)}
+                        <span className="absolute inset-x-0 -bottom-0.5 h-px origin-start scale-x-0 bg-[#4da3ff] transition-transform duration-300 group-hover/link:scale-x-100 rtl:origin-right" />
+                      </span>
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </nav>
+          ))}
+
+          <div className="lg:col-span-4">
+            <h2 className="eyebrow text-white/45">{t(C.pages.contact.eyebrow)}</h2>
+            <ul className="mt-5 space-y-4 text-[0.95rem] text-white/75">
+              <li className="flex items-center gap-3"><Mail className="size-4 shrink-0 text-[#4da3ff]" /><a href={`mailto:${info.email}`} className="transition-colors hover:text-white" dir="ltr">{info.email}</a></li>
+              <li className="flex items-center gap-3"><Phone className="size-4 shrink-0 text-[#4da3ff]" /><a href={`tel:${info.phone.replace(/\s/g, "")}`} className="transition-colors hover:text-white" dir="ltr">{info.phone}</a></li>
+              <li className="flex items-center gap-3"><MapPin className="size-4 shrink-0 text-[#4da3ff]" /><span>{t(info.address)}</span></li>
+            </ul>
+            <ul className="mt-6 flex flex-wrap gap-2">
+              {info.socials.map((s) => (
+                <li key={s.label}>
+                  <a href={s.href} target="_blank" rel="noopener noreferrer" className="keep-tracking inline-flex h-9 items-center rounded-full border border-white/20 px-4 text-[0.8rem] text-white/75 transition-all duration-300 hover:-translate-y-0.5 hover:border-[#4da3ff] hover:text-white">
+                    {s.label}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      {/* wordmark + legal */}
+      <div className="mx-auto w-full max-w-[1400px] px-4 sm:px-6 lg:px-10">
+        <div className="foot-word keep-tracking select-none pt-2 text-center font-display font-bold leading-[0.8] tracking-[-0.04em]" aria-hidden="true" dir="ltr">
+          {C.brand.name}
+        </div>
+        <div className="flex flex-col gap-4 border-t border-white/10 py-7 text-[0.78rem] text-white/45 lg:flex-row lg:items-center lg:justify-between">
           <p>{t(C.footer.rights)}</p>
-          <p className="max-w-2xl leading-relaxed">{t(C.footer.disclaimer)}</p>
-          <p className="text-dim">{t(C.footer.credit)}</p>
-        </div>
-
-        <div
-          ref={wordRef}
-          className={`footer-wordmark mt-10 overflow-hidden ${wordOn ? "is-in" : ""}`}
-          aria-hidden="true"
-        >
-          <span className="footer-wordmark-text keep-tracking">EVAY</span>
+          <p className="max-w-xl leading-relaxed">{t(C.footer.disclaimer)}</p>
         </div>
       </div>
     </footer>

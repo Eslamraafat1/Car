@@ -117,6 +117,47 @@ export const C = {
     note: { ar: "آراء توضيحية.", en: "Illustrative testimonials." },
   },
 
+  wheel: {
+    eyebrow: { ar: "الحِرفية", en: "Craftsmanship" },
+    title: { ar: "هندسة تُرى وتُلمس.", en: "ENGINEERING YOU CAN SEE AND FEEL." },
+    hint: { ar: "مرّر لتفكيك العجلة", en: "Scroll to take it apart" },
+    steps: [
+      { title: { ar: "قطعة واحدة متكاملة", en: "One complete piece" }, body: { ar: "كل سيارة نقدّمها تُفحص من الإطار إلى أصغر برغي، لأن التفاصيل الصغيرة تصنع الفرق الكبير.", en: "Every car we offer is inspected from tyre to the smallest bolt — because small details make the big difference." } },
+      { title: { ar: "نفكّكها لنطمئن", en: "We take it apart to be sure" }, body: { ar: "نتحقق من الفرامل والجنوط والهيكل قطعةً قطعة، ونوثّق كل ملاحظة في تقرير مكتوب.", en: "We check brakes, wheels and structure piece by piece, and record every finding in a written report." } },
+      { title: { ar: "ثم نعيدها كما يجب", en: "Then put it back right" }, body: { ar: "نسلّمك سيارة جاهزة للطريق بضمان معلن وخدمة متابعة بعد التسليم.", en: "You receive a road-ready car with a clear warranty and follow-up care after handover." } },
+    ],
+  },
+
+  gallery: {
+    eyebrow: { ar: "معرض السيارات", en: "The gallery" },
+    title: { ar: "لقطات من مجموعتنا.", en: "FRAMES FROM THE COLLECTION." },
+    drag: { ar: "اسحب لاستكشاف المزيد", en: "Swipe to explore" },
+    view: { ar: "عرض السيارة", en: "View car" },
+  },
+
+  faq: {
+    eyebrow: { ar: "الأسئلة الشائعة", en: "FAQ" },
+    title: { ar: "إجابات سريعة.", en: "QUICK ANSWERS." },
+    items: [
+      { q: { ar: "هل يمكنني فحص السيارة قبل الشراء؟", en: "Can I inspect a car before buying?" }, a: { ar: "بالتأكيد. نرحّب بالفحص الفني المستقل وتجربة القيادة، ونوفّر لك تقريرًا مكتوبًا لكل سيارة.", en: "Absolutely. We welcome independent inspections and test drives, and provide a written report for every car." } },
+      { q: { ar: "هل تقدّمون ضمانًا؟", en: "Do you offer a warranty?" }, a: { ar: "نعم، ضمان يصل إلى ثلاث سنوات حسب الفئة، تُوضَّح شروطه كاملة قبل التعاقد.", en: "Yes — up to three years depending on the category, with terms explained in full before you sign." } },
+      { q: { ar: "هل تساعدون في التمويل؟", en: "Can you help with financing?" }, a: { ar: "نتعاون مع جهات تمويل متعددة لنساعدك على الوصول إلى خطة تناسب ميزانيتك.", en: "We work with several lenders to help you find a plan that fits your budget." } },
+      { q: { ar: "هل تتوفر سيارات كهربائية؟", en: "Do you have electric cars?" }, a: { ar: "نعم، لدينا مجموعة متنامية من السيارات الكهربائية والهجينة مع استشارة حول الشحن.", en: "Yes — a growing selection of electric and hybrid cars, with charging advice included." } },
+      { q: { ar: "كيف أبدأ؟", en: "How do I get started?" }, a: { ar: "تواصل معنا عبر النموذج أو البريد، وسيتواصل معك أحد مستشارينا خلال يوم عمل.", en: "Reach out through the form or by email and one of our advisors will contact you within a business day." } },
+    ],
+  },
+
+  contactInfo: {
+    email: "hello@evay.example",
+    phone: "+000 00 000 0000",
+    address: { ar: "الرياض · دبي", en: "Riyadh · Dubai" },
+    socials: [
+      { label: "Instagram", href: "https://instagram.com" },
+      { label: "LinkedIn", href: "https://linkedin.com" },
+      { label: "X", href: "https://x.com" },
+    ],
+  },
+
   showcase: {
     eyebrow: { ar: "الأكثر طلبًا", en: "Featured cars" },
     title: { ar: "سيارات نفخر بها.", en: "CARS WE'RE PROUD OF." },

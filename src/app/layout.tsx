@@ -11,6 +11,7 @@ import ScrollProgress from "@/components/ui/ScrollProgress";
 import BackToTop from "@/components/ui/BackToTop";
 import CommandPalette from "@/components/ui/CommandPalette";
 import CursorAura from "@/components/ui/CursorAura";
+import Loader from "@/components/ui/Loader";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -56,17 +57,19 @@ export const viewport: Viewport = {
   ],
 };
 
-const themeInitScript = `(function(){try{var t=localStorage.getItem("evay-theme");var d=t==="dark";var r=document.documentElement;r.classList.toggle("dark",d);r.style.colorScheme=d?"dark":"light";}catch(e){}})();`;
+const themeInitScript = `(function(){try{var t=localStorage.getItem("evay-theme");var d=t==="dark";var r=document.documentElement;r.classList.toggle("dark",d);r.style.colorScheme=d?"dark":"light";}catch(e){}try{if(!sessionStorage.getItem("evay-loaded"))document.documentElement.classList.add("has-loader");}catch(e){}})();`;
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="ar"
       dir="rtl"
+      suppressHydrationWarning
       className={`${inter.variable} ${arabic.variable} ${grotesk.variable} h-full antialiased`}
     >
       <body className="min-h-full bg-ink text-fog">
         <script dangerouslySetInnerHTML={{ __html: themeInitScript }} />
+        <Loader />
         <MotionConfig reducedMotion="user">
           <ThemeProvider>
             <LanguageProvider>

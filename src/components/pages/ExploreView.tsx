@@ -1,6 +1,5 @@
 import PageHeader from "@/components/automotive/PageHeader";
 import VehicleCollection from "@/components/automotive/VehicleCollection";
-import FinalCTA from "@/components/automotive/FinalCTA";
 import { C } from "@/lib/content";
 
 export default function ExploreView() {
@@ -12,7 +11,6 @@ export default function ExploreView() {
         body={C.pages.explore.body}
       />
       <VehicleCollection withHeader={false} variant="showroom" />
-      <FinalCTA />
     </>
   );
 }

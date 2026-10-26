@@ -4,7 +4,6 @@ import Image from "next/image";
 import Link from "next/link";
 import { ArrowLeft, ArrowRight, Mail } from "lucide-react";
 import VehicleCollection from "@/components/automotive/VehicleCollection";
-import FinalCTA from "@/components/automotive/FinalCTA";
 import { C } from "@/lib/content";
 import { useLang } from "@/lib/i18n";
 import { CATEGORY_LABELS, type Vehicle, specValue } from "@/lib/vehicles";
@@ -132,8 +131,6 @@ export default function CarDetailView({ vehicle, related }: CarDetailViewProps) 
           title={C.car.related}
         />
       )}
-
-      <FinalCTA />
     </>
   );
 }

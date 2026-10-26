@@ -1,21 +1,21 @@
 "use client";
 
 import Link from "next/link";
-import { useRef, useState } from "react";
-import { ArrowDown, ArrowRight, Pause, Play } from "lucide-react";
+import { useRef } from "react";
+import { ArrowDown, ArrowRight } from "lucide-react";
 import { C } from "@/lib/content";
 import { useLang } from "@/lib/i18n";
 import { gsap, useGSAP, useReducedMotion } from "@/lib/motion";
 import { scrollToId } from "@/lib/smooth-scroll";
-import CinematicVideo, { type VideoHandle } from "@/components/automotive/CinematicVideo";
+import Image from "next/image";
+import dynamic from "next/dynamic";
+
+const HeroScene = dynamic(() => import("@/components/three/HeroScene"), { ssr: false });
 
 export default function CinematicHero() {
   const rootRef = useRef<HTMLElement | null>(null);
-  const videoHandle = useRef<VideoHandle | null>(null);
   const { t, lang } = useLang();
   const reduced = useReducedMotion();
-  const [videoPlaying, setVideoPlaying] = useState(false);
-  const [videoReady, setVideoReady] = useState(false);
 
   const words = t(C.hero.title).split(" ");
 
@@ -80,19 +80,18 @@ export default function CinematicHero() {
       aria-label={lang === "ar" ? "المشهد الافتتاحي" : "Opening scene"}
     >
       <div className="hero-media absolute inset-0 will-change-transform">
-        <CinematicVideo
-          src="/media/video/night-drive.mp4"
-          poster="/media/images/hero-poster.jpg"
-          alt={lang === "ar" ? "سيارة تنطلق في شارع ليلي" : "Car running through a night street"}
-          handleRef={videoHandle}
-          onPlayingChange={(playing) => {
-            setVideoPlaying(playing);
-            if (playing) setVideoReady(true);
-          }}
+        <Image
+          src="/media/hero/f8.webp"
+          alt={lang === "ar" ? "فيراري إف ٨ حمراء عند الغروب" : "Red Ferrari F8 at sunset"}
+          fill
+          priority
+          sizes="100vw"
+          className="object-cover"
         />
+        <HeroScene src="/media/hero/f8.webp" />
       </div>
 
-      <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-black/75 via-black/25 to-black/85" />
+      <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-black/60 via-black/5 to-black/85" />
       <div className="pointer-events-none absolute inset-0 scrim-edges opacity-90" />
       <div className="hero-dim pointer-events-none absolute inset-0 bg-ink opacity-0" />
       <div className="pointer-events-none absolute inset-0 grain" />
@@ -145,25 +144,23 @@ export default function CinematicHero() {
                 {t(C.hero.secondary)}
                 <ArrowDown className="size-4" strokeWidth={2} />
               </button>
-
-              {!reduced && videoReady && (
-                <button
-                  type="button"
-                  onClick={() => videoHandle.current?.toggle()}
-                  aria-pressed={!videoPlaying}
-                  aria-label={videoPlaying ? t(C.hero.pause) : t(C.hero.play)}
-                  className="inline-flex size-12 items-center justify-center rounded-full border border-white/20 text-white/80 transition-colors duration-300 hover:border-white/50 hover:text-white"
-                >
-                  {videoPlaying ? (
-                    <Pause className="size-4" fill="currentColor" />
-                  ) : (
-                    <Play className="size-4" fill="currentColor" />
-                  )}
-                </button>
-              )}
             </div>
           </div>
         </div>
+      </div>
+
+      <div className="hero-badge pointer-events-none absolute end-6 top-32 z-10 hidden size-32 items-center justify-center lg:flex xl:end-12" aria-hidden="true">
+        <svg viewBox="0 0 120 120" className="spin-slow absolute inset-0 size-full text-white/70">
+          <defs>
+            <path id="badge-circle" d="M60,60 m-46,0 a46,46 0 1,1 92,0 a46,46 0 1,1 -92,0" />
+          </defs>
+          <text fill="currentColor" fontSize="9.2" letterSpacing="3.4" className="keep-tracking font-display">
+            <textPath href="#badge-circle">EVAY · PREMIUM CARS · SINCE 2012 · </textPath>
+          </text>
+        </svg>
+        <span className="inline-flex size-12 items-center justify-center rounded-full bg-white/10 text-white backdrop-blur-md">
+          <ArrowDown className="size-5" strokeWidth={1.8} />
+        </span>
       </div>
 
       <div className="hero-hint pointer-events-none absolute bottom-6 end-4 z-10 hidden items-center gap-3 sm:flex lg:end-10">
