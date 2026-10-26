@@ -548,3 +548,16 @@ html[dir="rtl"] .keep-tracking { font-family: var(--font-grotesk), system-ui, sa
 @media (prefers-reduced-motion: reduce) {
   .hc-char, .hc-line { transition: none !important; }
 }
+
+/* ---------- printable company profile ---------- */
+
+@page { size: A4; margin: 0; }
+
+@media print {
+  html, body { background: #fff !important; }
+  body > :not(main) { display: none !important; }
+  .profile-doc { background: #fff !important; }
+  .profile-sheet-wrap { width: 210mm !important; height: 297mm !important; break-after: page; page-break-after: always; overflow: hidden; }
+  .profile-page { transform: none !important; box-shadow: none !important; width: 210mm !important; height: 297mm !important; }
+  * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+}

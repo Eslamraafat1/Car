@@ -30,7 +30,7 @@ export default function HorizontalGallery() {
         const track = rootRef.current?.querySelector<HTMLElement>(".gallery-track");
         const bar = rootRef.current?.querySelector<HTMLElement>(".gallery-bar");
         if (!track) return;
-        const sign = document.documentElement.dir === "rtl" ? 1 : -1;
+        const sign = lang === "ar" ? 1 : -1;
         const distance = () => Math.max(0, track.scrollWidth - window.innerWidth);
 
         const tween = gsap.fromTo(

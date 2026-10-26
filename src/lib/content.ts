@@ -53,6 +53,40 @@ export const C = {
     note: { ar: "الأرقام تقريبية.", en: "Figures are approximate." },
   },
 
+  why: {
+    eyebrow: { ar: "لماذا إيفاي", en: "Why Evay" },
+    title: { ar: "ست أسباب لتختارنا.", en: "SIX REASONS TO CHOOSE US." },
+    items: [
+      { key: "inspect", value: 300, suffix: "+", label: { ar: "نقطة فحص لكل سيارة", en: "inspection points per car" }, body: { ar: "فحص شامل للهيكل والمحرك والإلكترونيات قبل العرض.", en: "A full check of body, engine and electronics before a car is listed." } },
+      { key: "warranty", value: 3, suffix: "", label: { ar: "سنوات ضمان", en: "years of warranty" }, body: { ar: "ضمان معلن بشروط واضحة.", en: "A clear warranty with plain terms." } },
+      { key: "response", value: 24, suffix: "h", label: { ar: "ساعة للرد", en: "hours to reply" }, body: { ar: "مستشارك يتواصل معك خلال يوم عمل.", en: "Your advisor gets back to you within one business day." } },
+      { key: "pricing", value: 100, suffix: "%", label: { ar: "أسعار معلنة", en: "upfront pricing" }, body: { ar: "لا رسوم خفية ولا مفاجآت.", en: "No hidden fees, no surprises." } },
+      { key: "care", value: 12, suffix: "+", label: { ar: "سنة دعم متواصل", en: "years of support" }, body: { ar: "صيانة ومتابعة بعد التسليم.", en: "Servicing and follow-up after handover." } },
+      { key: "cities", value: 3, suffix: "", label: { ar: "مدن نخدمها", en: "cities served" }, body: { ar: "الرياض ودبي وجدة، والمزيد قريبًا.", en: "Riyadh, Dubai and Jeddah — with more on the way." } },
+    ],
+  },
+
+  awards: {
+    eyebrow: { ar: "التقدير", en: "Recognition" },
+    title: { ar: "ثقة تُوّجت بجوائز.", en: "TRUST, RECOGNISED." },
+    note: { ar: "الجوائز تجريبية.", en: "Awards are placeholders." },
+    items: [
+      { year: "2024", title: { ar: "أفضل خدمة عملاء", en: "Best Customer Service" }, by: { ar: "جوائز السيارات الإقليمية", en: "Regional Auto Awards" } },
+      { year: "2023", title: { ar: "وكيل العام للسيارات الفاخرة", en: "Luxury Dealer of the Year" }, by: { ar: "رابطة تجار السيارات", en: "Motor Traders Association" } },
+      { year: "2022", title: { ar: "الأعلى تقييمًا", en: "Top Rated Showroom" }, by: { ar: "تقييمات العملاء", en: "Customer Reviews" } },
+      { year: "2021", title: { ar: "شهادة الجودة", en: "Quality Certification" }, by: { ar: "هيئة الجودة", en: "Quality Authority" } },
+    ],
+  },
+
+  profileCta: {
+    eyebrow: { ar: "ملف الشركة", en: "Company profile" },
+    title: { ar: "حمّل ملف التعريف بإيفاي.", en: "DOWNLOAD THE EVAY PROFILE." },
+    body: { ar: "نسخة PDF موجزة عن خدماتنا وفريقنا وطريقة عملنا، جاهزة للمشاركة والطباعة.", en: "A concise PDF on our services, team and way of working — ready to share and print." },
+    download: { ar: "تحميل PDF", en: "Download PDF" },
+    web: { ar: "عرض النسخة المطبوعة", en: "Open the print version" },
+    cover: { ar: "ملف الشركة", en: "Company Profile" },
+  },
+
   vision: {
     eyebrow: { ar: "رؤيتنا ورسالتنا", en: "Vision & mission" },
     vision: { label: { ar: "الرؤية", en: "Vision" }, text: { ar: "أن نكون الوجهة الأولى والأكثر ثقة لكل من يبحث عن سيارته في المنطقة.", en: "To be the most trusted destination for anyone choosing a car in the region." } },
@@ -253,6 +287,7 @@ export const C = {
         { label: { ar: "الرئيسية", en: "Home" }, href: "/" },
         { label: { ar: "من نحن", en: "About" }, href: "/about" },
         { label: { ar: "اتصل بنا", en: "Contact" }, href: "/contact" },
+        { label: { ar: "ملف الشركة", en: "Company profile" }, href: "/profile" },
       ]},
     ],
     rights: { ar: "© ٢٠٢٦ إيفاي. جميع الحقوق محفوظة.", en: "© 2026 Evay. All rights reserved." },

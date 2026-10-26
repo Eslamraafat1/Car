@@ -1,6 +1,7 @@
 "use client";
 
 import { useRef, type ReactNode } from "react";
+import { useLang } from "@/lib/i18n";
 import { gsap, ScrollTrigger, useGSAP, usePrefersReducedMotion } from "@/lib/motion";
 
 /**
@@ -20,13 +21,14 @@ export default function VelocityMarquee({
 }) {
   const rootRef = useRef<HTMLDivElement | null>(null);
   const reduced = usePrefersReducedMotion();
+  const { lang } = useLang();
 
   useGSAP(
     () => {
       if (reduced) return;
       const track = rootRef.current?.querySelector<HTMLElement>(".vm-track");
       if (!track) return;
-      const rtl = document.documentElement.dir === "rtl";
+      const rtl = lang === "ar";
       const dir = (reverse ? -1 : 1) * (rtl ? -1 : 1);
       const tween = gsap.fromTo(track, { xPercent: dir > 0 ? 0 : -50 }, { xPercent: dir > 0 ? -50 : 0, duration, ease: "none", repeat: -1 });
       const base = dir > 0 ? 1 : -1;
@@ -46,7 +48,7 @@ export default function VelocityMarquee({
         tween.kill();
       };
     },
-    { scope: rootRef, dependencies: [reduced, reverse], revertOnUpdate: true },
+    { scope: rootRef, dependencies: [reduced, reverse, lang], revertOnUpdate: true },
   );
 
   return (

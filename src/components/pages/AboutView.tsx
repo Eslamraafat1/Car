@@ -9,6 +9,8 @@ import ServicesStack from "@/components/automotive/ServicesStack";
 import StatsBand from "@/components/automotive/StatsBand";
 import WordBand from "@/components/ui/WordBand";
 import VisionMission from "@/components/automotive/VisionMission";
+import Awards from "@/components/automotive/Awards";
+import ProfileCTA from "@/components/automotive/ProfileCTA";
 import Team from "@/components/automotive/Team";
 import Partners from "@/components/automotive/Partners";
 
@@ -81,8 +83,10 @@ export default function AboutView() {
           </figure>
         </div>
       </section>
+      <Awards />
       <Team />
       <Partners />
+      <ProfileCTA />
     </>
   );
 }

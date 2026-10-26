@@ -5,6 +5,8 @@ import ServicesStack from "@/components/automotive/ServicesStack";
 import WheelSection from "@/components/automotive/WheelSection";
 import HorizontalGallery from "@/components/automotive/HorizontalGallery";
 import ProcessSection from "@/components/automotive/ProcessSection";
+import WhyEvay from "@/components/automotive/WhyEvay";
+import ProfileCTA from "@/components/automotive/ProfileCTA";
 import Partners from "@/components/automotive/Partners";
 import Testimonials from "@/components/automotive/Testimonials";
 import FaqSection from "@/components/automotive/FaqSection";
@@ -19,8 +21,10 @@ export default function HomePage() {
       <WheelSection />
       <HorizontalGallery />
       <ProcessSection />
+      <WhyEvay />
       <Partners />
       <Testimonials />
+      <ProfileCTA />
       <FaqSection />
     </>
   );

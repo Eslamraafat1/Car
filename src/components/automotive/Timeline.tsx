@@ -48,7 +48,7 @@ export default function Timeline() {
         const track = rootRef.current?.querySelector<HTMLElement>(".tl-track");
         const bar = rootRef.current?.querySelector<HTMLElement>(".tl-bar");
         if (!track) return;
-        const sign = document.documentElement.dir === "rtl" ? 1 : -1;
+        const sign = lang === "ar" ? 1 : -1;
         const distance = () => Math.max(0, track.scrollWidth - window.innerWidth + 120);
         gsap.fromTo(
           track,
