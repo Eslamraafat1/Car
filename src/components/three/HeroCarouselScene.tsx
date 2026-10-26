@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, type MutableRefObject } from "react";
-import { mountThree } from "@/lib/three-mount";
+import { mountThreeWhenNear } from "@/lib/three-mount";
 
 export interface CarouselApi {
   /** Starts a transition to slide `index`; `dir` is +1 when the new slide enters from the right. */
@@ -104,10 +104,9 @@ export default function HeroCarouselScene({
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
-    let cleanup: (() => void) | undefined;
     let cancelled = false;
 
-    mountThree(
+    const dispose = mountThreeWhenNear(
       el,
       async ({ THREE, renderer, lite, width, height }) => {
         const scene = new THREE.Scene();
@@ -260,14 +259,11 @@ export default function HeroCarouselScene({
         };
       },
       { maxDpr: 1.5 },
-    ).then((c) => {
-      if (cancelled) c();
-      else cleanup = c;
-    });
+    );
 
     return () => {
       cancelled = true;
-      cleanup?.();
+      dispose();
     };
   }, [urls, apiRef]);
 

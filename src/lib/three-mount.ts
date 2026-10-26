@@ -119,3 +119,45 @@ export async function mountThree(
     canvas.remove();
   };
 }
+
+/**
+ * Like `mountThree`, but waits until the container is near the viewport, so
+ * WebGL setup (and the three.js chunk) never competes with first paint for
+ * scenes that start far below the fold. Returns a synchronous cleanup.
+ */
+export function mountThreeWhenNear(
+  container: HTMLElement,
+  setup: (ctx: SceneContext) => SceneApi | Promise<SceneApi>,
+  options: MountOptions = {},
+  margin = "400px",
+): () => void {
+  let cleanup: (() => void) | undefined;
+  let cancelled = false;
+  let started = false;
+
+  const start = () => {
+    if (started || cancelled) return;
+    started = true;
+    mountThree(container, setup, options).then((c) => {
+      if (cancelled) c();
+      else cleanup = c;
+    });
+  };
+
+  const io = new IntersectionObserver(
+    ([entry]) => {
+      if (entry.isIntersecting) {
+        io.disconnect();
+        start();
+      }
+    },
+    { rootMargin: margin },
+  );
+  io.observe(container);
+
+  return () => {
+    cancelled = true;
+    io.disconnect();
+    cleanup?.();
+  };
+}

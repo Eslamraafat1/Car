@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import { mountThree } from "@/lib/three-mount";
+import { mountThreeWhenNear } from "@/lib/three-mount";
 
 /** [lat, lon] of cities Evay serves. The first two are the studios. */
 const CITIES: [number, number][] = [
@@ -23,11 +23,9 @@ export default function Globe() {
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
-    let cleanup: (() => void) | undefined;
-    let cancelled = false;
     const still = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-    mountThree(
+    const dispose = mountThreeWhenNear(
       el,
       async ({ THREE, renderer, lite, width, height }) => {
         const scene = new THREE.Scene();
@@ -186,14 +184,10 @@ export default function Globe() {
         };
       },
       { maxDpr: 2, still },
-    ).then((c) => {
-      if (cancelled) c();
-      else cleanup = c;
-    });
+    );
 
     return () => {
-      cancelled = true;
-      cleanup?.();
+      dispose();
     };
   }, []);
 

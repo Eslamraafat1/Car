@@ -34,6 +34,13 @@ function canWebGL() {
   }
 }
 
+function subscribeLoader(cb: () => void) {
+  const mo = new MutationObserver(cb);
+  mo.observe(document.documentElement, { attributes: true, attributeFilter: ["class"] });
+  return () => mo.disconnect();
+}
+const loaderSnapshot = () => document.documentElement.classList.contains("has-loader");
+
 /**
  * Home — the opening carousel. WebGL sweeps one car out and the next one in
  * (motion blur, RGB split, a blade of light), while the model name, specs and
@@ -46,6 +53,8 @@ export default function HeroCarousel() {
   const rootRef = useRef<HTMLElement | null>(null);
   const apiRef = useRef<CarouselApi | null>(null);
   const glOk = useSyncExternalStore(() => () => {}, canWebGL, () => false);
+  // keep WebGL idle while the intro loader plays so the two never fight for the main thread
+  const loaderActive = useSyncExternalStore(subscribeLoader, loaderSnapshot, () => false);
   const [glReady, setGlReady] = useState(false);
   const [index, setIndex] = useState(0);
   const [dir, setDir] = useState<1 | -1>(1);
@@ -64,7 +73,7 @@ export default function HeroCarousel() {
   const urls = useMemo(() => cars.map((c) => c.hero), [cars]);
   const n = cars.length;
 
-  const mode: Mode = !reduced && glOk ? "gl" : "dom";
+  const mode: Mode = !reduced && glOk && !loaderActive ? "gl" : "dom";
   const go = useCallback(
     (to: number, forward: boolean) => {
       const next = ((to % n) + n) % n;

@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { mountThree } from "@/lib/three-mount";
+import { mountThreeWhenNear } from "@/lib/three-mount";
 import { usePrefersReducedMotion } from "@/lib/motion";
 
 const VERT = /* glsl */ `
@@ -52,10 +52,9 @@ export default function ShaderImage({ src, className = "" }: { src: string; clas
   useEffect(() => {
     const el = ref.current;
     if (!el || reduced) return;
-    let cleanup: (() => void) | undefined;
     let cancelled = false;
 
-    mountThree(
+    const dispose = mountThreeWhenNear(
       el,
       async ({ THREE, renderer, width, height }) => {
         const scene = new THREE.Scene();
@@ -126,14 +125,11 @@ export default function ShaderImage({ src, className = "" }: { src: string; clas
         };
       },
       { maxDpr: 1.5 },
-    ).then((c) => {
-      if (cancelled) c();
-      else cleanup = c;
-    });
+    );
 
     return () => {
       cancelled = true;
-      cleanup?.();
+      dispose();
     };
   }, [src, reduced]);
 

@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, type MutableRefObject } from "react";
-import { mountThree } from "@/lib/three-mount";
+import { mountThreeWhenNear } from "@/lib/three-mount";
 
 export interface WheelProgress {
   /** 0 → 1 across the pinned section. */
@@ -20,11 +20,9 @@ export default function WheelScene({ progress }: { progress: MutableRefObject<Wh
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
-    let cleanup: (() => void) | undefined;
-    let cancelled = false;
     const still = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-    mountThree(
+    const dispose = mountThreeWhenNear(
       el,
       async ({ THREE, renderer, lite, width, height }) => {
         const { RoomEnvironment } = await import("three/examples/jsm/environments/RoomEnvironment.js");
@@ -199,14 +197,10 @@ export default function WheelScene({ progress }: { progress: MutableRefObject<Wh
         };
       },
       { maxDpr: 2, still },
-    ).then((c) => {
-      if (cancelled) c();
-      else cleanup = c;
-    });
+    );
 
     return () => {
-      cancelled = true;
-      cleanup?.();
+      dispose();
     };
   }, [progress]);
 

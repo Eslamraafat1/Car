@@ -438,6 +438,16 @@ body {
 }
 
 .evay-loader { display: none; }
+@keyframes ld-scroll { to { transform: translateX(-50%); } }
+.ld-scroll { animation: ld-scroll var(--ld-speed, 30s) linear infinite; }
+@keyframes ld-road { to { background-position: -200px 0; } }
+.ld-road { background-image: repeating-linear-gradient(90deg, rgba(255,255,255,.7) 0 56px, transparent 56px 112px); background-size: 112px 100%; animation: ld-road 0.45s linear infinite; }
+@keyframes ld-bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-2.5px); } }
+.ld-bounce { animation: ld-bounce 0.28s ease-in-out infinite; }
+@keyframes ld-spin { to { transform: rotate(360deg); } }
+.ld-spin { animation: ld-spin 0.32s linear infinite; transform-box: view-box; }
+@keyframes ld-beam { 0%, 100% { opacity: 0.85; } 50% { opacity: 1; } }
+.ld-beam { animation: ld-beam 1.2s ease-in-out infinite; }
 html.has-loader .evay-loader { display: flex; }
 html.has-loader body { overflow: hidden; }
 
