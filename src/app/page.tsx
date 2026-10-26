@@ -1,11 +1,11 @@
 import CinematicHero from "@/components/automotive/CinematicHero";
 import CompanyIntro from "@/components/automotive/CompanyIntro";
-import MarqueeStrip from "@/components/automotive/MarqueeStrip";
-import EngineeringSection from "@/components/automotive/EngineeringSection";
+import VisionMission from "@/components/automotive/VisionMission";
+import ServicesStack from "@/components/automotive/ServicesStack";
 import WheelSection from "@/components/automotive/WheelSection";
 import HorizontalGallery from "@/components/automotive/HorizontalGallery";
 import ProcessSection from "@/components/automotive/ProcessSection";
-import AutomotiveShowcase from "@/components/automotive/AutomotiveShowcase";
+import Partners from "@/components/automotive/Partners";
 import Testimonials from "@/components/automotive/Testimonials";
 import FaqSection from "@/components/automotive/FaqSection";
 
@@ -14,12 +14,12 @@ export default function HomePage() {
     <>
       <CinematicHero />
       <CompanyIntro />
-      <MarqueeStrip />
-      <EngineeringSection />
+      <VisionMission />
+      <ServicesStack />
       <WheelSection />
       <HorizontalGallery />
       <ProcessSection />
-      <AutomotiveShowcase />
+      <Partners />
       <Testimonials />
       <FaqSection />
     </>

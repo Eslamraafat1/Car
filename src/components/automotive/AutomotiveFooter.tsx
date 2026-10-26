@@ -37,18 +37,18 @@ export default function AutomotiveFooter() {
     { scope: rootRef, dependencies: [reduced], revertOnUpdate: true },
   );
 
-  const linkClass = "group/link inline-flex items-center gap-1.5 text-[0.95rem] text-white/65 transition-colors duration-300 hover:text-white";
+  const linkClass = "group/link inline-flex items-center gap-1.5 text-[0.95rem] text-mist transition-colors duration-300 hover:text-fog";
 
   return (
-    <footer ref={rootRef} className="relative isolate overflow-hidden bg-[#070809] text-white">
+    <footer ref={rootRef} className="relative isolate overflow-hidden bg-ink-3 text-fog">
       {/* call to action */}
       <div className="relative">
         <DotGrid className="absolute inset-0 -z-10 [mask-image:radial-gradient(70%_80%_at_50%_45%,#000,transparent)]" />
-        <div className="float-slow pointer-events-none absolute start-[-8%] top-[10%] -z-10 size-[26rem] rounded-full bg-[#1f7bff]/20 blur-[120px]" aria-hidden="true" />
+        <div className="float-slow pointer-events-none absolute start-[-8%] top-[10%] -z-10 size-[26rem] rounded-full bg-volt/20 blur-[120px]" aria-hidden="true" />
         <div className="mx-auto w-full max-w-[1400px] px-4 pb-20 pt-24 sm:px-6 lg:px-10 lg:pb-28 lg:pt-36">
-          <p className="eyebrow text-[#4da3ff]">{t(FOOT_EYEBROW)}</p>
+          <p className="eyebrow text-volt">{t(FOOT_EYEBROW)}</p>
           <div className="mt-5 flex flex-col gap-10 lg:flex-row lg:items-end lg:justify-between">
-            <KineticHeading text={FOOT_TITLE} className="display max-w-4xl text-[clamp(2.4rem,7.4vw,6.6rem)] text-white" />
+            <KineticHeading text={FOOT_TITLE} className="display max-w-4xl text-[clamp(2.4rem,7.4vw,6.6rem)] text-fog" />
             <MagneticButton limit={22}>
               <Link
                 href={ctaHref}
@@ -62,44 +62,44 @@ export default function AutomotiveFooter() {
               </Link>
             </MagneticButton>
           </div>
-          <a href={`mailto:${info.email}`} className="mt-10 inline-block break-all font-display text-[clamp(1.15rem,3vw,2rem)] text-white/80 underline decoration-white/25 underline-offset-8 transition-colors duration-300 hover:text-white hover:decoration-[#4da3ff]" dir="ltr">
+          <a href={`mailto:${info.email}`} className="mt-10 inline-block break-all font-display text-[clamp(1.15rem,3vw,2rem)] text-mist underline decoration-fog/25 underline-offset-8 transition-colors duration-300 hover:text-fog hover:decoration-volt" dir="ltr">
             {info.email}
           </a>
         </div>
       </div>
 
       {/* directory */}
-      <div className="border-t border-white/10">
-        <div className="mx-auto grid w-full max-w-[1400px] gap-12 px-4 py-14 sm:grid-cols-2 sm:px-6 lg:grid-cols-12 lg:px-10 lg:py-16">
-          <div className="sm:col-span-2 lg:col-span-4">
+      <div className="border-t border-line">
+        <div className="mx-auto grid w-full max-w-[1400px] grid-cols-2 gap-x-6 gap-y-12 px-4 py-14 sm:px-6 lg:grid-cols-12 lg:px-10 lg:py-16">
+          <div className="col-span-2 lg:col-span-4">
             <Link href="/" className="inline-flex items-center gap-3" aria-label={C.brand.name}>
               <EvayMark className="size-10" />
               <span className="keep-tracking font-display text-xl font-bold tracking-[0.22em]">{C.brand.name}</span>
             </Link>
-            <p className="mt-5 max-w-sm text-[0.95rem] leading-relaxed text-white/60">{t(C.footer.tagline)}</p>
+            <p className="mt-5 max-w-sm text-[0.95rem] leading-relaxed text-mist">{t(C.footer.tagline)}</p>
             <div className="mt-6 flex items-center gap-2">
               <button
                 type="button"
                 onClick={toggleLang}
                 aria-label={t(C.nav.langLabel)}
-                className="keep-tracking inline-flex h-10 items-center rounded-full border border-white/25 px-4 text-[0.82rem] font-medium text-white/85 transition-colors hover:border-white hover:text-white"
+                className="keep-tracking inline-flex h-10 items-center rounded-full border border-line px-4 text-[0.82rem] font-medium text-fog transition-colors hover:border-fog hover:text-fog"
               >
                 {t(C.nav.switchTo)}
               </button>
-              <ThemeToggle variant="overlay" />
+              <ThemeToggle variant="surface" />
             </div>
           </div>
 
           {C.footer.columns.map((col) => (
             <nav key={col.title.en} aria-label={t(col.title)} className="lg:col-span-2">
-              <h2 className="eyebrow text-white/45">{t(col.title)}</h2>
+              <h2 className="eyebrow text-dim">{t(col.title)}</h2>
               <ul className="mt-5 space-y-3.5">
                 {col.links.map((l) => (
                   <li key={l.href}>
                     <Link href={l.href} className={linkClass}>
                       <span className="relative">
                         {t(l.label)}
-                        <span className="absolute inset-x-0 -bottom-0.5 h-px origin-start scale-x-0 bg-[#4da3ff] transition-transform duration-300 group-hover/link:scale-x-100 rtl:origin-right" />
+                        <span className="absolute inset-x-0 -bottom-0.5 h-px origin-start scale-x-0 bg-volt transition-transform duration-300 group-hover/link:scale-x-100 rtl:origin-right" />
                       </span>
                     </Link>
                   </li>
@@ -108,17 +108,17 @@ export default function AutomotiveFooter() {
             </nav>
           ))}
 
-          <div className="lg:col-span-4">
-            <h2 className="eyebrow text-white/45">{t(C.pages.contact.eyebrow)}</h2>
-            <ul className="mt-5 space-y-4 text-[0.95rem] text-white/75">
-              <li className="flex items-center gap-3"><Mail className="size-4 shrink-0 text-[#4da3ff]" /><a href={`mailto:${info.email}`} className="transition-colors hover:text-white" dir="ltr">{info.email}</a></li>
-              <li className="flex items-center gap-3"><Phone className="size-4 shrink-0 text-[#4da3ff]" /><a href={`tel:${info.phone.replace(/\s/g, "")}`} className="transition-colors hover:text-white" dir="ltr">{info.phone}</a></li>
-              <li className="flex items-center gap-3"><MapPin className="size-4 shrink-0 text-[#4da3ff]" /><span>{t(info.address)}</span></li>
+          <div className="col-span-2 lg:col-span-4">
+            <h2 className="eyebrow text-dim">{t(C.pages.contact.eyebrow)}</h2>
+            <ul className="mt-5 space-y-4 text-[0.95rem] text-mist">
+              <li className="flex items-center gap-3"><Mail className="size-4 shrink-0 text-volt" /><a href={`mailto:${info.email}`} className="transition-colors hover:text-fog" dir="ltr">{info.email}</a></li>
+              <li className="flex items-center gap-3"><Phone className="size-4 shrink-0 text-volt" /><a href={`tel:${info.phone.en.replace(/\s/g, "")}`} className="transition-colors hover:text-fog" dir="ltr">{t(info.phone)}</a></li>
+              <li className="flex items-center gap-3"><MapPin className="size-4 shrink-0 text-volt" /><span>{t(info.address)}</span></li>
             </ul>
             <ul className="mt-6 flex flex-wrap gap-2">
               {info.socials.map((s) => (
                 <li key={s.label}>
-                  <a href={s.href} target="_blank" rel="noopener noreferrer" className="keep-tracking inline-flex h-9 items-center rounded-full border border-white/20 px-4 text-[0.8rem] text-white/75 transition-all duration-300 hover:-translate-y-0.5 hover:border-[#4da3ff] hover:text-white">
+                  <a href={s.href} target="_blank" rel="noopener noreferrer" className="keep-tracking inline-flex h-9 items-center rounded-full border border-line px-4 text-[0.8rem] text-mist transition-all duration-300 hover:-translate-y-0.5 hover:border-volt hover:text-fog">
                     {s.label}
                   </a>
                 </li>
@@ -133,7 +133,7 @@ export default function AutomotiveFooter() {
         <div className="foot-word keep-tracking select-none pt-2 text-center font-display font-bold leading-[0.8] tracking-[-0.04em]" aria-hidden="true" dir="ltr">
           {C.brand.name}
         </div>
-        <div className="flex flex-col gap-4 border-t border-white/10 py-7 text-[0.78rem] text-white/45 lg:flex-row lg:items-center lg:justify-between">
+        <div className="flex flex-col gap-4 border-t border-line py-7 text-[0.78rem] text-dim lg:flex-row lg:items-center lg:justify-between">
           <p>{t(C.footer.rights)}</p>
           <p className="max-w-xl leading-relaxed">{t(C.footer.disclaimer)}</p>
         </div>

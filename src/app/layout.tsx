@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Inter, Tajawal, Space_Grotesk } from "next/font/google";
+import { Inter, IBM_Plex_Sans_Arabic, Readex_Pro, Space_Grotesk } from "next/font/google";
 import { MotionConfig } from "framer-motion";
 import "./globals.css";
 import { LanguageProvider } from "@/lib/i18n";
@@ -19,10 +19,17 @@ const inter = Inter({
   display: "swap",
 });
 
-const arabic = Tajawal({
+const arabic = IBM_Plex_Sans_Arabic({
   subsets: ["arabic"],
-  weight: ["400", "500", "700", "800", "900"],
+  weight: ["300", "400", "500", "600", "700"],
   variable: "--font-ar",
+  display: "swap",
+});
+
+const arabicDisplay = Readex_Pro({
+  subsets: ["arabic"],
+  weight: ["400", "500", "600", "700"],
+  variable: "--font-ar-display",
   display: "swap",
 });
 
@@ -65,7 +72,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       lang="ar"
       dir="rtl"
       suppressHydrationWarning
-      className={`${inter.variable} ${arabic.variable} ${grotesk.variable} h-full antialiased`}
+      className={`${inter.variable} ${arabic.variable} ${arabicDisplay.variable} ${grotesk.variable} h-full antialiased`}
     >
       <body className="min-h-full bg-ink text-fog">
         <script dangerouslySetInnerHTML={{ __html: themeInitScript }} />

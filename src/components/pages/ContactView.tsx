@@ -86,6 +86,7 @@ export default function ContactView() {
                       type={field.type}
                       required={field.required}
                       autoComplete={field.autoComplete}
+                      placeholder={t(C.pages.contact.ph[field.key])}
                       value={form[field.key]}
                       onChange={update(field.key)}
                       className={inputClass}
@@ -106,6 +107,7 @@ export default function ContactView() {
                     name="message"
                     required
                     rows={5}
+                    placeholder={t(C.pages.contact.ph.message)}
                     value={form.message}
                     onChange={update("message")}
                     className={`${inputClass} resize-y`}
@@ -161,7 +163,7 @@ export default function ContactView() {
               </div>
             </div>
 
-            <dl className="relative rounded-[24px] border border-[#75d6c3]/15 bg-[#0b1212] p-6">
+            <dl className="relative rounded-[24px] border border-[#75d6c3]/15 bg-ink-2 p-6">
               <div className="border-b border-line pb-4">
                 <dt className="text-[0.72rem] tracking-wider text-dim">
                   {t(C.pages.contact.studio)}

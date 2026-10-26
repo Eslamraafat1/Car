@@ -39,6 +39,10 @@ export const C = {
       ar: "منذ عام ٢٠١٢ نساعد عملاءنا على امتلاك السيارة المناسبة فعلًا. ننتقي الموديلات بعناية، ونعرضها بشفافية كاملة، ونهتم بتجربتك حتى بعد التسليم.",
       en: "Since 2012 we have helped clients own the car that truly fits them. We curate with care, present with full transparency and look after you long after handover.",
     },
+    big: {
+      ar: "في إيفاي نؤمن أن اختيار السيارة قرار كبير، ولهذا نرافقك في كل خطوة: نفحص ونقارن وننصح بصراحة، ثم نسلّمك سيارتك ونبقى إلى جانبك بعد التسليم.",
+      en: "At Evay we believe choosing a car is a big decision, so we stay with you at every step: we inspect, compare and advise honestly — then hand over your car and remain by your side.",
+    },
     cta: { ar: "اقرأ قصتنا", en: "Read our story" },
     stats: [
       { value: 12, suffix: "+", label: { ar: "عامًا من الخبرة", en: "Years of experience" } },
@@ -47,6 +51,38 @@ export const C = {
       { value: 3, suffix: "", label: { ar: "مدن نخدمها", en: "Cities served" } },
     ],
     note: { ar: "الأرقام تقريبية.", en: "Figures are approximate." },
+  },
+
+  vision: {
+    eyebrow: { ar: "رؤيتنا ورسالتنا", en: "Vision & mission" },
+    vision: { label: { ar: "الرؤية", en: "Vision" }, text: { ar: "أن نكون الوجهة الأولى والأكثر ثقة لكل من يبحث عن سيارته في المنطقة.", en: "To be the most trusted destination for anyone choosing a car in the region." } },
+    mission: { label: { ar: "الرسالة", en: "Mission" }, text: { ar: "أن نبسّط رحلة اختيار السيارة بخبرة حقيقية، وشفافية كاملة، وخدمة لا تنتهي عند التسليم.", en: "To simplify the journey of choosing a car with real expertise, full transparency and service that doesn't end at handover." } },
+    values: [
+      { title: { ar: "الأمانة", en: "Integrity" }, body: { ar: "نقول الحقيقة حتى لو كلّفتنا صفقة.", en: "We tell the truth, even when it costs us a deal." } },
+      { title: { ar: "الدقة", en: "Precision" }, body: { ar: "لا نترك تفصيلة دون فحص.", en: "No detail goes uninspected." } },
+      { title: { ar: "الشغف", en: "Passion" }, body: { ar: "نحب السيارات، وهذا يظهر في عملنا.", en: "We love cars, and it shows in our work." } },
+      { title: { ar: "الالتزام", en: "Commitment" }, body: { ar: "وعودنا مكتوبة وتُنفَّذ في موعدها.", en: "Our promises are written down and delivered on time." } },
+    ],
+  },
+
+  partners: {
+    eyebrow: { ar: "شركاؤنا", en: "Our partners" },
+    title: { ar: "نعمل مع أفضل الجهات.", en: "WE WORK WITH THE BEST." },
+    body: { ar: "شبكة من الشركاء في التمويل والتأمين والصيانة والشحن تساعدنا على تقديم تجربة متكاملة.", en: "A network of partners in financing, insurance, servicing and charging that lets us deliver a complete experience." },
+    note: { ar: "الشعارات تجريبية.", en: "Logos are placeholders." },
+    names: ["NORDHAUS", "VELOX", "KINETIC", "ORBIT", "SOLACE", "MERIDIAN", "ATLAS", "ZENITH", "HELIX", "COBALT", "AURORA", "VERTEX"],
+  },
+
+  team: {
+    eyebrow: { ar: "فريقنا", en: "Our team" },
+    title: { ar: "الوجوه وراء الخدمة.", en: "THE PEOPLE BEHIND THE SERVICE." },
+    note: { ar: "الأسماء تجريبية.", en: "Names are placeholders." },
+    members: [
+      { name: { ar: "محمد العتيبي", en: "Mohammed Al-Otaibi" }, role: { ar: "الرئيس التنفيذي", en: "Chief Executive" } },
+      { name: { ar: "ليلى حداد", en: "Layla Haddad" }, role: { ar: "رئيسة الاستشارات", en: "Head of Advisory" } },
+      { name: { ar: "يوسف الشامي", en: "Youssef Al-Shami" }, role: { ar: "كبير مهندسي الفحص", en: "Chief Inspector" } },
+      { name: { ar: "نور القاسم", en: "Noor Al-Qasim" }, role: { ar: "مسؤولة علاقات العملاء", en: "Client Relations" } },
+    ],
   },
 
   marquee: {
@@ -149,8 +185,8 @@ export const C = {
 
   contactInfo: {
     email: "hello@evay.example",
-    phone: "+000 00 000 0000",
-    address: { ar: "الرياض · دبي", en: "Riyadh · Dubai" },
+    phone: { ar: "+966 50 000 0000", en: "+966 50 000 0000" },
+    address: { ar: "الرياض، حي العليا، طريق الملك فهد", en: "King Fahd Road, Al Olaya, Riyadh" },
     socials: [
       { label: "Instagram", href: "https://instagram.com" },
       { label: "LinkedIn", href: "https://linkedin.com" },
@@ -281,6 +317,12 @@ export const C = {
       studioValue: { ar: "الرياض · دبي · عن بُعد", en: "Riyadh · Dubai · Remote" },
       hours: { ar: "ساعات العمل", en: "Hours" },
       hoursValue: { ar: "الأحد – الخميس · ٩ ص – ٦ م", en: "Sun – Thu · 9am – 6pm" },
+      ph: {
+        name: { ar: "مثال: أحمد محمد", en: "e.g. Ahmed Mohamed" },
+        email: { ar: "name@example.com", en: "name@example.com" },
+        subject: { ar: "استفسار عن سيارة أو حجز استشارة", en: "A question about a car, or a consultation" },
+        message: { ar: "اكتب رسالتك هنا، وسنعاود الاتصال بك قريبًا…", en: "Tell us how we can help — we'll get back to you soon…" },
+      },
       demoNote: { ar: "يفتح النموذج تطبيق البريد لديك لإرسال الرسالة.", en: "The form opens your mail app to send the message." },
     },
     notFound: {

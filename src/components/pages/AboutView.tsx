@@ -6,6 +6,9 @@ import { C } from "@/lib/content";
 import { useLang } from "@/lib/i18n";
 import Reveal from "@/components/ui/Reveal";
 import Timeline from "@/components/automotive/Timeline";
+import VisionMission from "@/components/automotive/VisionMission";
+import Team from "@/components/automotive/Team";
+import Partners from "@/components/automotive/Partners";
 
 export default function AboutView() {
   const { t } = useLang();
@@ -32,7 +35,7 @@ export default function AboutView() {
               <div
                 className="group relative min-h-64 overflow-hidden border-t border-[#d7b078]/45 bg-gradient-to-b from-white/[0.035] to-transparent p-6 transition-all duration-500 hover:-translate-y-1 hover:from-[#d7b078]/[0.09] lg:p-8"
               >
-                <span className="pointer-events-none absolute -end-2 -top-8 font-display text-[12rem] font-black leading-none text-white/[0.025] transition-colors duration-500 group-hover:text-[#d7b078]/[0.08]" aria-hidden="true">0{index + 1}</span>
+                <span className="pointer-events-none absolute -end-2 -top-8 font-display text-[12rem] font-black leading-none text-fog/[0.04] transition-colors duration-500 group-hover:text-[#d7b078]/[0.08]" aria-hidden="true">0{index + 1}</span>
                 <span className="numeral inline-flex size-10 items-center justify-center border border-[#d7b078]/45 text-[0.72rem] tracking-[0.12em] text-[#d7b078]">
                   0{index + 1}
                 </span>
@@ -47,6 +50,8 @@ export default function AboutView() {
           </ul>
         </div>
       </section>
+
+      <VisionMission />
 
       <Timeline />
 
@@ -88,6 +93,8 @@ export default function AboutView() {
           </figure>
         </div>
       </section>
+      <Team />
+      <Partners />
     </>
   );
 }
