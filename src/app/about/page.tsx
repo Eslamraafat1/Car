@@ -3,10 +3,10 @@ import AboutView from "@/components/pages/AboutView";
 import { C } from "@/lib/content";
 
 export const metadata: Metadata = {
-  title: "عن أوريليس · About Aurelis",
+  title: "عن إيفاي · About Evay",
   description: `${C.pages.about.body.ar} — ${C.pages.about.body.en}`,
   openGraph: {
-    title: "AURELIS · About",
+    title: "EVAY · About",
     description: C.pages.about.body.en,
   },
 };

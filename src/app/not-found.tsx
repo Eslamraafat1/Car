@@ -101,7 +101,7 @@ export default function NotFound() {
 
             <div className="flex items-center justify-between gap-4">
               <span className="numeral text-[0.66rem] tracking-[0.26em] text-white/55">
-                AURELIS / 404
+                EVAY / 404
               </span>
               <span
                 className={`numeral rounded-full border px-3 py-1 text-[0.62rem] tracking-[0.18em] transition-colors duration-500 ${
@@ -153,7 +153,7 @@ export default function NotFound() {
                   }`}
                 >
                   <Power className="size-6" strokeWidth={1.8} />
-                  <span>{lang === "ar" ? "أمسك" : "HOLD"}</span>
+                  <span>{lang === "ar" ? "اضغط" : "HOLD"}</span>
                 </span>
               </button>
             </div>

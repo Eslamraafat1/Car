@@ -7,7 +7,7 @@ import VehicleCollection from "@/components/automotive/VehicleCollection";
 import FinalCTA from "@/components/automotive/FinalCTA";
 import { C } from "@/lib/content";
 import { useLang } from "@/lib/i18n";
-import { CATEGORY_LABELS, type Vehicle } from "@/lib/vehicles";
+import { CATEGORY_LABELS, type Vehicle, specValue } from "@/lib/vehicles";
 
 interface CarDetailViewProps {
   vehicle: Vehicle;
@@ -106,13 +106,13 @@ export default function CarDetailView({ vehicle, related }: CarDetailViewProps) 
                 {specs.map((spec) => (
                   <div key={spec.label.en} className="border-t border-line pt-3">
                     <dt className="text-[0.7rem] tracking-wider text-dim">{t(spec.label)}</dt>
-                    <dd className="mt-1 font-display text-[0.92rem] text-fog">{spec.value}</dd>
+                    <dd className="mt-1 font-display text-[0.92rem] text-fog">{specValue(spec.value, lang)}</dd>
                   </div>
                 ))}
               </dl>
 
               <a
-                href={`mailto:hello@aurelis.example?subject=${enquireSubject}`}
+                href={`mailto:hello@evay.example?subject=${enquireSubject}`}
                 className="group mt-7 inline-flex h-12 w-full items-center justify-center gap-2 rounded-full bg-fog px-7 text-[0.88rem] font-semibold text-ink transition-transform duration-300 hover:scale-[1.02] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-volt"
               >
                 <Mail className="size-4" aria-hidden="true" />

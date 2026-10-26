@@ -66,8 +66,8 @@ export default function EngineeringSection() {
 
         <p className="mt-8 text-[0.75rem] text-dim">
           {lang === "ar"
-            ? "الأرقام الواردة توضيحية لأغراض العرض."
-            : "Figures shown here are illustrative and for presentation only."}
+            ? "الأرقام الواردة تقريبية."
+            : "Figures shown here are approximate."}
         </p>
       </div>
     </section>

@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef } from "react";
-import type { BiStr } from "@/lib/content";
+import { C, type BiStr } from "@/lib/content";
 import { useLang } from "@/lib/i18n";
 import { gsap, useGSAP, usePrefersReducedMotion } from "@/lib/motion";
 import KineticHeading from "@/components/ui/KineticHeading";
@@ -21,12 +21,12 @@ const MILESTONES: { year: string; title: BiStr; body: BiStr }[] = [
   {
     year: "2020",
     title: { ar: "عصر الكهرباء", en: "The electric era" },
-    body: { ar: "دخلنا عالم السيارات الكهربائية وبنينا شراكات مع مزوّدي الشحن.", en: "We entered electric mobility and built partnerships with charging providers." },
+    body: { ar: "دخلنا عالم السيارات الكهربائية وأقمنا شراكات مع مزوّدي خدمات الشحن.", en: "We entered electric mobility and built partnerships with charging providers." },
   },
   {
     year: "2026",
     title: { ar: "اليوم", en: "Today" },
-    body: { ar: "٣ مدن وأكثر من ٨٥٠ عميل، ولسه بنبدأ.", en: "Three cities, 850+ clients — and we are only getting started." },
+    body: { ar: "ثلاث مدن وأكثر من ٨٥٠ عميلًا، وما زلنا في البداية.", en: "Three cities, 850+ clients — and we are only getting started." },
   },
 ];
 
@@ -58,10 +58,10 @@ export default function Timeline() {
   return (
     <section ref={rootRef} className="border-t border-line bg-ink py-16 lg:py-24" aria-labelledby="timeline-title">
       <div className="mx-auto w-full max-w-[1100px] px-4 sm:px-6 lg:px-10">
-        <p className="eyebrow text-volt">{t({ ar: "رحلتنا", en: "Our journey" })}</p>
+        <p className="eyebrow text-volt">{t(C.pages.about.journey)}</p>
         <KineticHeading
           id="timeline-title"
-          text={{ ar: "١٢ سنة من الثقة.", en: "TWELVE YEARS OF TRUST." }}
+          text={C.pages.about.journeyTitle}
           className="display h-section mt-4 text-fog"
         />
         <ol className="tl-list relative mt-12 space-y-10 ps-10 sm:ps-14">

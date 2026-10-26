@@ -503,14 +503,30 @@ body {
   content: "";
   position: absolute;
   inset-block: 0;
-  inset-inline-start: -60%;
+  left: 0;
   width: 45%;
+  opacity: 0;
   background: linear-gradient(100deg, transparent, rgba(255, 255, 255, 0.55), transparent);
   transform: skewX(-20deg) translateX(-120%);
   pointer-events: none;
 }
 .shine:hover::after { animation: shine-run 0.9s ease forwards; }
-@keyframes shine-run { to { transform: skewX(-20deg) translateX(520%); } }
+@keyframes shine-run {
+  0% { opacity: 1; }
+  100% { opacity: 1; transform: skewX(-20deg) translateX(520%); }
+}
 
 @keyframes gradient-pan { to { background-position: 200% 0; } }
 .gradient-pan { background-size: 200% 100%; animation: gradient-pan 6s linear infinite; }
+
+/* ---------- Arabic typography ---------- */
+
+/* Letter-spacing breaks Arabic letter joins — keep it off unless opted back in. */
+html[dir="rtl"] *:not(.keep-tracking),
+html[dir="rtl"] *:not(.keep-tracking)::before,
+html[dir="rtl"] *:not(.keep-tracking)::after {
+  letter-spacing: 0 !important;
+}
+html[dir="rtl"] .eyebrow { text-transform: none; font-size: 0.82rem; }
+html[dir="rtl"] body { line-height: 1.75; }
+html[dir="rtl"] .display { line-height: 1.2; }

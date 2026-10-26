@@ -22,7 +22,7 @@ export async function generateMetadata({ params }: CarPageProps): Promise<Metada
     title,
     description: `${vehicle.description.ar} — ${vehicle.description.en}`,
     openGraph: {
-      title: `AURELIS · ${title}`,
+      title: `EVAY · ${title}`,
       description: vehicle.description.en,
       images: [{ url: vehicle.image, width: 2400, height: 1600 }],
     },

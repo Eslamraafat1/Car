@@ -24,7 +24,7 @@ interface LangContextValue {
 
 const LangContext = createContext<LangContextValue | null>(null);
 
-const STORAGE_KEY = "aurelis-lang";
+const STORAGE_KEY = "evay-lang";
 
 function readStoredLang(): Lang {
   try {
@@ -65,7 +65,7 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
     const dir: Dir = lang === "ar" ? "rtl" : "ltr";
     document.documentElement.lang = lang;
     document.documentElement.dir = dir;
-    window.dispatchEvent(new CustomEvent<Lang>("aurelis:langchange", { detail: lang }));
+    window.dispatchEvent(new CustomEvent<Lang>("evay:langchange", { detail: lang }));
   }, [lang]);
 
   const t = useCallback((value: BiStr) => value[lang], [lang]);

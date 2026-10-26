@@ -97,7 +97,7 @@ export default function AutomotiveFooter() {
           className={`footer-wordmark mt-10 overflow-hidden ${wordOn ? "is-in" : ""}`}
           aria-hidden="true"
         >
-          <span className="footer-wordmark-text">AURELIS</span>
+          <span className="footer-wordmark-text keep-tracking">EVAY</span>
         </div>
       </div>
     </footer>

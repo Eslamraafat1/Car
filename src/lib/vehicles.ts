@@ -39,11 +39,11 @@ export const VEHICLES: Vehicle[] = [
     price: "$268,000",
     accent: "#ff6a2b",
     image: "/media/images/car-huracan-side.jpg",
-    alt: { ar: "لامبورغيني هوراكان برتقالي من الجانب", en: "Orange Lamborghini Huracán in profile" },
-    tagline: { ar: "خطوط حادة وإضاءة برتقالية.", en: "Sharp lines, warm light." },
+    alt: { ar: "لامبورغيني هوراكان إيفو برتقالية من الجانب", en: "Orange Lamborghini Huracán in profile" },
+    tagline: { ar: "خطوط حادة وحضور لا يُنسى.", en: "Sharp lines, unmistakable presence." },
     description: {
-      ar: "صورة توضيحية لسيارة وسطية بمقصورة مركّزة على السائق — عجلات واسعة، كتلة منخفضة، وحضور ما بيلخبطش.",
-      en: "An illustrative mid-engine frame: wide track, low mass and a presence that never overstates itself.",
+      ar: "محرك وسطي، قاعدة عجلات عريضة ووزن منخفض — سيارة تمنحك الأداء بثقة هادئة.",
+      en: "A mid-engine layout, wide track and low mass — performance delivered with calm confidence.",
     },
     specs: [
       { label: { ar: "الفئة", en: "Category" }, value: "Mid-engine" },
@@ -61,11 +61,11 @@ export const VEHICLES: Vehicle[] = [
     price: "$3,200,000",
     accent: "#e8232a",
     image: "/media/images/car-laferrari.jpg",
-    alt: { ar: "فيراري حمراء في صالة عرض", en: "Red Ferrari in a showroom" },
-    tagline: { ar: "هجين بنيوي في قلب أحمر.", en: "Hybrid structure, red heart." },
+    alt: { ar: "فيراري حمراء داخل صالة عرض", en: "Red Ferrari in a showroom" },
+    tagline: { ar: "هجين بقلب أحمر.", en: "Hybrid power, red heart." },
     description: {
-      ar: "سيارة فرمانية تجمّع بين محرك خلفي ومساعد كهربائي — هون بنعرضها كمثال تحريري على تصميم فرعي.",
-      en: "A flagship pairing a rear V12 with electric assist — shown here as an editorial example of the breed.",
+      ar: "سيارة رائدة تجمع محرك V12 الخلفي بدعم كهربائي، وتمثّل قمة هذه الفئة.",
+      en: "A flagship pairing a rear V12 with electric assist — the pinnacle of its class.",
     },
     specs: [
       { label: { ar: "الفئة", en: "Category" }, value: "Hypercar" },
@@ -83,11 +83,11 @@ export const VEHICLES: Vehicle[] = [
     price: "$232,000",
     accent: "#c9ceda",
     image: "/media/images/car-911-black.jpg",
-    alt: { ar: "بورشه ٩١١ سوداء بجانب جبلي", en: "Black Porsche 911 beside the mountains" },
-    tagline: { ar: "المنظور الطويل اللي بيعرف كل حاجة.", en: "The long view that knows the road." },
+    alt: { ar: "بورشه ٩١١ سوداء بجوار الجبال", en: "Black Porsche 911 beside the mountains" },
+    tagline: { ar: "رؤية بعيدة تعرف الطريق.", en: "The long view that knows the road." },
     description: {
-      ar: "خطوط هادئة، جنوط ذهبية، وظل طويل — بورشه ٩١١ بتفضل أنيقة حتى وهي في حدودها.",
-      en: "Calm surfaces, warm-metal wheels and a long shadow — a 911 that stays composed at its limits.",
+      ar: "أسطح هادئة وجنوط بلون المعدن الدافئ — بورشه ٩١١ تحافظ على أناقتها حتى أقصى حدودها.",
+      en: "Calm surfaces and warm-metal wheels — a 911 that stays composed at its limits.",
     },
     specs: [
       { label: { ar: "الفئة", en: "Category" }, value: "Sports" },
@@ -106,10 +106,10 @@ export const VEHICLES: Vehicle[] = [
     accent: "#f5f5f7",
     image: "/media/images/car-gt3-white.jpg",
     alt: { ar: "بورشه ٩١١ بيضاء على جانب الطريق", en: "White Porsche 911 parked roadside" },
-    tagline: { ar: "أبيض متسخ، وخط واحد للمسار.", en: "Clean white, one racing line." },
+    tagline: { ar: "أبيض نقي ومسار واحد.", en: "Clean white, one racing line." },
     description: {
-      ar: "نسخة مركّزة على الحلبة بتهوية مكشوفة وجناح خلفي ثابت — لقطة توضيحية.",
-      en: "A track-focused frame with exposed ducting and a fixed rear wing — illustrative photography.",
+      ar: "نسخة مصممة للحلبات بقنوات تهوية ظاهرة وجناح خلفي ثابت.",
+      en: "A track-focused build with exposed ducting and a fixed rear wing.",
     },
     specs: [
       { label: { ar: "الفئة", en: "Category" }, value: "Track sports" },
@@ -127,11 +127,11 @@ export const VEHICLES: Vehicle[] = [
     price: "$298,000",
     accent: "#e8232a",
     image: "/media/images/car-f8-red.jpg",
-    alt: { ar: "فيراري ف٨ حمراء في ضوء الصبح", en: "Red Ferrari F8 in morning light" },
-    tagline: { ar: "أحمر تحت شجر خضراء.", en: "Red under green leaves." },
+    alt: { ar: "فيراري إف ٨ حمراء في ضوء الصباح", en: "Red Ferrari F8 in morning light" },
+    tagline: { ar: "أحمر تحت أوراق الشجر.", en: "Red beneath green leaves." },
     description: {
-      ar: "محرك خلفي وسطي وخطوط مصممة لتمرير الهواء فوق الجسم — لقطة شارع توضيحية.",
-      en: "A mid-rear V8 with bodywork shaped to pass air over the deck — an illustrative street frame.",
+      ar: "محرك V8 خلفي-وسطي وهيكل مصمم لتمرير الهواء بسلاسة فوق الجسم.",
+      en: "A mid-rear V8 with bodywork shaped to pass air smoothly over the deck.",
     },
     specs: [
       { label: { ar: "الفئة", en: "Category" }, value: "Sports" },
@@ -149,11 +149,11 @@ export const VEHICLES: Vehicle[] = [
     price: "$86,000",
     accent: "#4da3ff",
     image: "/media/images/car-c63-neon.jpg",
-    alt: { ar: "مرسيدس AMG في ممر بضوء نيون", en: "Mercedes-AMG in a neon-lit bay" },
-    tagline: { ar: "نيون أحمر وأزرق على مقصورة هادئة.", en: "Red and blue neon over a hushed cabin." },
+    alt: { ar: "مرسيدس إيه إم جي تحت إضاءة النيون", en: "Mercedes-AMG in a neon-lit bay" },
+    tagline: { ar: "نيون ملوّن فوق مقصورة هادئة.", en: "Neon light over a hushed cabin." },
     description: {
-      ar: "سيدان أداء بتتقفل في ضوء استوديو — توازن بين رفاهية يومية وسلوك رياضي.",
-      en: "A performance sedan framed by studio light — the balance of daily luxury and sporting intent.",
+      ar: "سيدان بأداء رياضي يجمع بين رفاهية الاستخدام اليومي وروح السباق.",
+      en: "A performance sedan balancing daily luxury with racing spirit.",
     },
     specs: [
       { label: { ar: "الفئة", en: "Category" }, value: "Performance luxury" },
@@ -171,11 +171,11 @@ export const VEHICLES: Vehicle[] = [
     price: "$108,000",
     accent: "#c9ceda",
     image: "/media/images/car-sedan-teal.jpg",
-    alt: { ar: "سيدان فاخرة رمادية في ضوء النهار", en: "Grey executive sedan in daylight" },
-    tagline: { ar: "الراحة، بشكل جديد.", en: "Comfort, redefined." },
+    alt: { ar: "سيدان تنفيذية رمادية في ضوء النهار", en: "Grey executive sedan in daylight" },
+    tagline: { ar: "الراحة بتعريف جديد.", en: "Comfort, redefined." },
     description: {
-      ar: "مقصورة طويلة، ظلال ناعمة، وتقف هادية في أي مكان — صورة توضيحية لسيدان تنفيذية.",
-      en: "A long cabin, soft shadows and a quiet stance anywhere it parks — an illustrative executive sedan.",
+      ar: "مقصورة رحبة وهدوء لافت في كل مكان — الخيار الأمثل لمن يقدّر الفخامة الهادئة.",
+      en: "A spacious cabin and remarkable quiet — made for those who value understated luxury.",
     },
     specs: [
       { label: { ar: "الفئة", en: "Category" }, value: "Executive" },
@@ -193,11 +193,11 @@ export const VEHICLES: Vehicle[] = [
     price: "$145,000",
     accent: "#c9ceda",
     image: "/media/images/car-amg-harbor.jpg",
-    alt: { ar: "كوبيه فاخر بجانب المرفأ", en: "Luxury coupe by the harbour" },
-    tagline: { ar: "قوس طويل ووقفة هادية.", en: "A long arch, a still stance." },
+    alt: { ar: "كوبيه فاخرة بجانب الميناء", en: "Luxury coupe by the harbour" },
+    tagline: { ar: "انسيابية طويلة ووقفة واثقة.", en: "A long sweep, a confident stance." },
     description: {
-      ar: "جران توريزمو بخطوط منخفضة ومقدم ممتدة — لقطة ميناء توضيحية.",
-      en: "A gran tourer with low curves and a long nose — an illustrative harbour frame.",
+      ar: "جراند توريزمو بخطوط منخفضة ومقدمة ممتدة، مصممة لرحلات الطرق الطويلة.",
+      en: "A grand tourer with low lines and a long nose, built for effortless long-distance driving.",
     },
     specs: [
       { label: { ar: "الفئة", en: "Category" }, value: "Grand tourer" },
@@ -215,11 +215,11 @@ export const VEHICLES: Vehicle[] = [
     price: "$185,000",
     accent: "#e1a33f",
     image: "/media/images/car-gwagon.jpg",
-    alt: { ar: "دفع رباعي مربّع الشكل في الشارع", en: "Boxy luxury SUV on the street" },
-    tagline: { ar: "ورا كل طريق.", en: "Beyond every road." },
+    alt: { ar: "سيارة دفع رباعي فاخرة بتصميم مربّع", en: "Boxy luxury SUV on the street" },
+    tagline: { ar: "تتجاوز كل طريق.", en: "Beyond every road." },
     description: {
-      ar: "شكل صندوقي، ظهير خلفي بارز، وحضور بيتعرف من نص الشارع — لقطة مدينة توضيحية.",
-      en: "A boxy shell, a rear spare and a silhouette recognised mid-street — an illustrative city frame.",
+      ar: "هيكل مربّع وإطار احتياطي خلفي وحضور يُعرف من بعيد.",
+      en: "A boxy shell, a rear-mounted spare and a presence recognised from afar.",
     },
     specs: [
       { label: { ar: "الفئة", en: "Category" }, value: "Luxury SUV" },
@@ -237,11 +237,11 @@ export const VEHICLES: Vehicle[] = [
     price: "$72,000",
     accent: "#4da3ff",
     image: "/media/images/car-q7-snow.jpg",
-    alt: { ar: "دفع رباعي أبيض في جوّ بارد", en: "White SUV in cold light" },
-    tagline: { ar: "على التلج من غير توتر.", en: "Snow, without the tension." },
+    alt: { ar: "سيارة دفع رباعي بيضاء في أجواء باردة", en: "White SUV in cold light" },
+    tagline: { ar: "ثبات على الثلج بلا قلق.", en: "Snow, without the worry." },
     description: {
-      ar: "دفع رباعي بيشتغل على أسطح زجاجية بثبات — صورة توضيحية لشتوية باردة.",
-      en: "All-wheel drive holding a glassy surface with composure — an illustrative cold-weather frame.",
+      ar: "دفع رباعي يحافظ على ثباته فوق الأسطح الزلقة بثقة تامة.",
+      en: "All-wheel drive that stays composed on slippery surfaces.",
     },
     specs: [
       { label: { ar: "الفئة", en: "Category" }, value: "SUV" },
@@ -259,11 +259,11 @@ export const VEHICLES: Vehicle[] = [
     price: "$200,000",
     accent: "#4da3ff",
     image: "/media/images/car-roadster.jpg",
-    alt: { ar: "سيارة رياضية كهربائية بيضاء في استوديو", en: "White electric sports car in a studio" },
-    tagline: { ar: "الصمت. تقابل القوة.", en: "Silence. Meet power." },
+    alt: { ar: "سيارة كهربائية رياضية بيضاء في استوديو", en: "White electric sports car in a studio" },
+    tagline: { ar: "صمت يخفي قوة هائلة.", en: "Silence that hides immense power." },
     description: {
-      ar: "شكل نظيف وخطوط ضيقة بدون شبكة تقليدية — عرض توضيحية لتصميم كهربائي مستقبلي.",
-      en: "A clean shape with slim apertures and no conventional grille — an illustrative electric concept.",
+      ar: "تصميم نظيف بفتحات رفيعة ودون شبكة أمامية تقليدية — رؤية للمستقبل الكهربائي.",
+      en: "A clean shape with slim apertures and no conventional grille — a vision of the electric future.",
     },
     specs: [
       { label: { ar: "الفئة", en: "Category" }, value: "Electric concept" },
@@ -281,11 +281,11 @@ export const VEHICLES: Vehicle[] = [
     price: "$42,000",
     accent: "#4da3ff",
     image: "/media/images/car-model3.jpg",
-    alt: { ar: "سيدان كهربائية بيضاء على تلّ", en: "White electric sedan on a hillside" },
-    tagline: { ar: "مدى مريح وخطوط بسيطة.", en: "Range with restraint." },
+    alt: { ar: "سيدان كهربائية بيضاء على سفح تل", en: "White electric sedan on a hillside" },
+    tagline: { ar: "مدى كبير بتصميم بسيط.", en: "Generous range, simple design." },
     description: {
-      ar: "سيدان كهربائية بلغة بسيطة ومدى عملي للاستخدام اليومي — لقطة توضيحية.",
-      en: "An electric sedan with a plain-spoken shape and everyday range — an illustrative frame.",
+      ar: "سيدان كهربائية بتصميم عملي ومدى مناسب للاستخدام اليومي.",
+      en: "An electric sedan with a practical design and a range made for everyday use.",
     },
     specs: [
       { label: { ar: "الفئة", en: "Category" }, value: "Electric sedan" },
@@ -303,11 +303,11 @@ export const VEHICLES: Vehicle[] = [
     price: "$48,000",
     accent: "#4da3ff",
     image: "/media/images/car-modely-sunset.jpg",
-    alt: { ar: "كروس أوفر كهربائي في ضوء الغروب", en: "Electric crossover in sunset light" },
-    tagline: { ar: "عائلي، كهربائي، هادي.", en: "Family, electric, quiet." },
+    alt: { ar: "كروس أوفر كهربائية عند الغروب", en: "Electric crossover in sunset light" },
+    tagline: { ar: "للعائلة، كهربائية وهادئة.", en: "Family-ready, electric and quiet." },
     description: {
-      ar: "كروس أوفر مرتفع بخطوط ناعمة وضوء دافئ — صورة توضيحية لاستخدام يومي.",
-      en: "A raised crossover with soft surfacing and warm light — an illustrative daily-driver frame.",
+      ar: "كروس أوفر مرتفعة بأسطح ناعمة ومساحة رحبة للأسرة.",
+      en: "A raised crossover with soft surfacing and generous space for the family.",
     },
     specs: [
       { label: { ar: "الفئة", en: "Category" }, value: "Electric crossover" },
@@ -325,11 +325,11 @@ export const VEHICLES: Vehicle[] = [
     price: "$148,000",
     accent: "#8fa9ff",
     image: "/media/images/car-i8.jpg",
-    alt: { ar: "سيارة رياضية هجينة بيضاء على الرصيف", en: "White hybrid sports car at the kerb" },
-    tagline: { ar: "خطوط من المستقبل لسه شغالة.", en: "Future lines, still running." },
+    alt: { ar: "سيارة هجينة رياضية بيضاء على جانب الطريق", en: "White hybrid sports car at the kerb" },
+    tagline: { ar: "خطوط من المستقبل.", en: "Lines from the future." },
     description: {
-      ar: "هجين بمحرك كهربائي مساعد وأبواب ترتفع — لقطة شارع توضيحية.",
-      en: "A hybrid with electric assist and rising doors — an illustrative street frame.",
+      ar: "سيارة هجينة بدعم كهربائي وأبواب تُفتح للأعلى.",
+      en: "A hybrid with electric assist and upward-opening doors.",
     },
     specs: [
       { label: { ar: "الفئة", en: "Category" }, value: "Plug-in hybrid" },
@@ -347,11 +347,11 @@ export const VEHICLES: Vehicle[] = [
     price: "$68,000",
     accent: "#ff6a2b",
     image: "/media/images/car-challenger-neon.jpg",
-    alt: { ar: "موصلي أمريكي في ممر بإضاءة نيون", en: "American muscle car in a neon corridor" },
-    tagline: { ar: "كتلة، صوت، وضوء.", en: "Mass, note and light." },
+    alt: { ar: "سيارة ماسل أمريكية في ممر مضاء بالنيون", en: "American muscle car in a neon corridor" },
+    tagline: { ar: "قوة وصوت وحضور.", en: "Power, sound and presence." },
     description: {
-      ar: "موصلي كلاسيكي بلون داكن وإضاءة استوديو — صورة توضيحية.",
-      en: "A dark modern muscle car under studio lighting — an illustrative frame.",
+      ar: "سيارة ماسل حديثة بطابع داكن وحضور قوي على الطريق.",
+      en: "A modern muscle car with a dark character and commanding road presence.",
     },
     specs: [
       { label: { ar: "الفئة", en: "Category" }, value: "Muscle" },
@@ -368,4 +368,36 @@ export function getVehicle(slug: string): Vehicle | undefined {
 
 export function vehiclesByCategory(category: Category): Vehicle[] {
   return VEHICLES.filter((v) => v.category === category);
+}
+
+const SPEC_VALUES_AR: Record<string, string> = {
+  Sports: "رياضية",
+  "Track sports": "رياضية للحلبات",
+  "Mid-engine": "محرك وسطي",
+  Hypercar: "هايبركار",
+  "Performance luxury": "فخامة بأداء رياضي",
+  Executive: "تنفيذية",
+  "Grand tourer": "جراند توريزمو",
+  SUV: "دفع رباعي",
+  "Luxury SUV": "دفع رباعي فاخرة",
+  Muscle: "ماسل",
+  "Plug-in hybrid": "هجينة قابلة للشحن",
+  "Electric sedan": "سيدان كهربائية",
+  "Electric crossover": "كروس أوفر كهربائية",
+  "Electric concept": "نموذج كهربائي",
+  "V8 twin-turbo": "V8 بتوربينين",
+  "V12 hybrid": "V12 هجين",
+  "DC fast": "شحن سريع DC",
+  "AWD assist": "دفع رباعي مساند",
+  "4WD": "دفع رباعي",
+  AWD: "دفع رباعي",
+  RWD: "دفع خلفي",
+};
+
+/** Spec values are stored in English; Arabic readers get a localised label where one exists. */
+export function specValue(value: string, lang: "ar" | "en"): string {
+  if (lang === "en") return value;
+  const known = SPEC_VALUES_AR[value];
+  if (known) return known;
+  return value.replace(/ km$/, " كم");
 }

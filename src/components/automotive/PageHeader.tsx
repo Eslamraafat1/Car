@@ -20,19 +20,19 @@ const pageArt = {
     image: "/media/images/car-warehouse.jpg",
     accent: "#b7a1ff",
     mark: "01 / THE COLLECTION",
-    note: { ar: "اختيار مُنتقى", en: "THE CURATED COLLECTION" },
+    note: { ar: "مجموعة مختارة بعناية", en: "THE CURATED COLLECTION" },
   },
   about: {
     image: "/media/images/lab-tech.jpg",
     accent: "#d7b078",
     mark: "02 / THE STORY",
-    note: { ar: "الحكاية وراء الاختيار", en: "THE STORY BEHIND THE CHOICE" },
+    note: { ar: "القصة وراء كل اختيار", en: "THE STORY BEHIND THE CHOICE" },
   },
   contact: {
     image: "/media/images/car-amg-harbor.jpg",
     accent: "#75d6c3",
     mark: "03 / THE STUDIO",
-    note: { ar: "نقطة البداية لكل حكاية", en: "WHERE EVERY STORY BEGINS" },
+    note: { ar: "نقطة البداية لكل رحلة", en: "WHERE EVERY STORY BEGINS" },
   },
 } as const;
 
@@ -137,7 +137,7 @@ export default function PageHeader({ eyebrow, title, body, children }: PageHeade
           </figure>
 
 
-          <span className="absolute -bottom-4 end-5 z-10 hidden bg-ink px-3 py-1 font-display text-[0.62rem] tracking-[0.2em] text-dim sm:block">{lang === "ar" ? "إطار مختار" : "AURELIS / FRAME"}</span>
+          <span className="absolute -bottom-4 end-5 z-10 hidden bg-ink px-3 py-1 font-display text-[0.62rem] tracking-[0.2em] text-dim sm:block">{lang === "ar" ? "إطار مختار" : "EVAY / FRAME"}</span>
         </div>
       </div>
     </header>

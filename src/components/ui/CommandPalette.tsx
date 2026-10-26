@@ -19,10 +19,10 @@ const PAGES = [
 
 const LABELS = {
   title: { ar: "البحث السريع", en: "Quick search" },
-  placeholder: { ar: "دوّر على موديل أو صفحة…", en: "Search a model or page…" },
+  placeholder: { ar: "ابحث عن سيارة أو صفحة…", en: "Search a model or page…" },
   pages: { ar: "الصفحات", en: "Pages" },
-  models: { ar: "الموديلات", en: "Models" },
-  empty: { ar: "مفيش نتائج للبحث ده.", en: "Nothing matched that search." },
+  models: { ar: "السيارات", en: "Models" },
+  empty: { ar: "لا توجد نتائج مطابقة.", en: "Nothing matched that search." },
   hintKeys: { ar: "تنقّل", en: "Navigate" },
   hintGo: { ar: "افتح", en: "Open" },
   hintClose: { ar: "إغلاق", en: "Close" },

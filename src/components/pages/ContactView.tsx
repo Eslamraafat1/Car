@@ -7,7 +7,7 @@ import PageHeader from "@/components/automotive/PageHeader";
 import { C } from "@/lib/content";
 import { useLang } from "@/lib/i18n";
 
-const CONTACT_EMAIL = "hello@aurelis.example";
+const CONTACT_EMAIL = "hello@evay.example";
 const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 type Status = "idle" | "required" | "email" | "sent";
@@ -64,7 +64,7 @@ export default function ContactView() {
           <div className="lg:col-span-7">
             <form onSubmit={onSubmit} noValidate className="rounded-[24px] hairline bg-ink-2 p-6 lg:p-8">
               <div className="mb-7 flex items-center justify-between gap-4 border-b border-line pb-5">
-                <div><p className="eyebrow text-[#75d6c3]">AURELIS / INBOX</p><p className="mt-2 text-sm text-mist">{t({ ar: "رسالة واحدة كفاية لبدء حكاية.", en: "One note is all it takes to start a story." })}</p></div>
+                <div><p className="eyebrow text-[#75d6c3]">EVAY / INBOX</p><p className="mt-2 text-sm text-mist">{t({ ar: "رسالة واحدة تكفي لنبدأ.", en: "One note is all it takes to get started." })}</p></div>
                 <span className="flex size-11 shrink-0 items-center justify-center rounded-full border border-[#75d6c3]/35 text-[#75d6c3]"><Mail className="size-4" aria-hidden="true" /></span>
               </div>
               <div className="grid gap-5 sm:grid-cols-2">
@@ -156,7 +156,7 @@ export default function ContactView() {
               <div className="relative aspect-[16/10]">
                 <ImagePlaceholder />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-transparent to-[#75d6c3]/10" />
-                <span className="absolute start-5 top-5 rounded-full border border-white/20 bg-black/45 px-3 py-1.5 text-[0.62rem] tracking-[0.2em] text-white/80 backdrop-blur-md">AURELIS / STUDIO</span>
+                <span className="absolute start-5 top-5 rounded-full border border-white/20 bg-black/45 px-3 py-1.5 text-[0.62rem] tracking-[0.2em] text-white/80 backdrop-blur-md">EVAY / STUDIO</span>
                 <span className="absolute inset-x-5 bottom-5 flex items-end justify-between gap-3"><span className="eyebrow text-white/75">{t(C.pages.contact.studio)}</span><span className="size-2 rounded-full bg-[#75d6c3] shadow-[0_0_18px_rgba(117,214,195,.9)]" /></span>
               </div>
             </div>

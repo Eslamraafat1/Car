@@ -11,7 +11,7 @@ import KineticHeading from "@/components/ui/KineticHeading";
 import { CATEGORY_LABELS, VEHICLES, type Category, type Vehicle } from "@/lib/vehicles";
 
 type FilterKey = "all" | Category | "favorites";
-const FAVORITES_KEY = "aurelis-saved-vehicles";
+const FAVORITES_KEY = "evay-saved-vehicles";
 const EMPTY_FAVORITES: ReadonlySet<string> = new Set();
 let favoritesSnapshot: ReadonlySet<string> = EMPTY_FAVORITES;
 let favoritesLoaded = false;
@@ -338,7 +338,7 @@ export default function VehicleCollection({
           <p className="mt-10 rounded-2xl border border-dashed border-line p-8 text-center text-sm text-mist">
             {filter === "favorites"
               ? lang === "ar"
-                ? "لسه ما حفظتش أي عربية. اضغط على القلب لإضافتها للمفضلة."
+                ? "لم تحفظ أي سيارة بعد. اضغط على القلب لإضافتها إلى المفضلة."
                 : "No saved cars yet. Tap a heart to add a car to your favorites."
               : t(C.collection.empty)}
           </p>

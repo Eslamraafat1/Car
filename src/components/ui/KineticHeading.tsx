@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef } from "react";
+import { Fragment, useRef } from "react";
 import type { BiStr } from "@/lib/content";
 import { useLang } from "@/lib/i18n";
 import { gsap, useGSAP, usePrefersReducedMotion } from "@/lib/motion";
@@ -68,10 +68,12 @@ export default function KineticHeading({
       <span className="sr-only">{t(text)}</span>
       <span aria-hidden="true">
         {words.map((word, index) => (
-          <span key={`${word}-${index}`} className="kw-wrap">
-            <span className="kw">{word}</span>
+          <Fragment key={`${word}-${index}`}>
+            <span className="kw-wrap">
+              <span className="kw">{word}</span>
+            </span>
             {index < words.length - 1 ? " " : ""}
-          </span>
+          </Fragment>
         ))}
       </span>
     </Tag>

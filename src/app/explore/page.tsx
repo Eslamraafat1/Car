@@ -3,10 +3,10 @@ import ExploreView from "@/components/pages/ExploreView";
 import { C } from "@/lib/content";
 
 export const metadata: Metadata = {
-  title: "استعرض كل موديل · Explore Every Model",
+  title: "السيارات · Our Cars",
   description: `${C.pages.explore.body.ar} — ${C.pages.explore.body.en}`,
   openGraph: {
-    title: "AURELIS · Explore Every Model",
+    title: "EVAY · Explore Every Model",
     description: C.pages.explore.body.en,
   },
 };

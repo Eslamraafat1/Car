@@ -23,7 +23,7 @@ export default function AboutView() {
         <div className="pointer-events-none absolute start-[12%] top-0 hidden h-full w-px bg-gradient-to-b from-transparent via-[#d7b078]/40 to-transparent lg:block" aria-hidden="true" />
         <div className="mx-auto w-full max-w-[1400px] px-4 sm:px-6 lg:px-10">
           <div className="mb-8 flex items-end justify-between gap-4 border-b border-line pb-5">
-            <div><p className="eyebrow text-[#d7b078]">{t(C.pages.about.eyebrow)}</p><h2 className="display mt-3 text-[clamp(1.8rem,4vw,3.4rem)] text-fog">{t({ ar: "ما نؤمن به", en: "What we believe" })}</h2></div>
+            <div><p className="eyebrow text-[#d7b078]">{t(C.pages.about.eyebrow)}</p><h2 className="display mt-3 text-[clamp(1.8rem,4vw,3.4rem)] text-fog">{t(C.pages.about.believe)}</h2></div>
             <span className="numeral hidden text-[0.68rem] tracking-[0.22em] text-dim sm:block">01—03</span>
           </div>
           <ul className="grid gap-3 lg:grid-cols-3">

@@ -105,7 +105,7 @@ export default function CompanyIntro() {
             />
             <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
             <span className="intro-badge absolute bottom-5 start-5 rounded-full border border-white/25 bg-black/50 px-4 py-2 text-[0.7rem] tracking-[0.18em] text-white/90 backdrop-blur-md">
-              AURELIS · {lang === "ar" ? "منذ ٢٠١٢" : "SINCE 2012"}
+              EVAY · {lang === "ar" ? "منذ ٢٠١٢" : "SINCE 2012"}
             </span>
           </div>
         </div>

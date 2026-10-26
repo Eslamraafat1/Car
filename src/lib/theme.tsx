@@ -21,7 +21,7 @@ interface ThemeContextValue {
 
 const ThemeContext = createContext<ThemeContextValue | null>(null);
 
-const STORAGE_KEY = "aurelis-theme";
+const STORAGE_KEY = "evay-theme";
 
 function readStoredTheme(): Theme {
   try {
@@ -89,7 +89,7 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
     const root = document.documentElement;
     root.classList.toggle("dark", theme === "dark");
     root.style.colorScheme = theme;
-    window.dispatchEvent(new CustomEvent<Theme>("aurelis:themechange", { detail: theme }));
+    window.dispatchEvent(new CustomEvent<Theme>("evay:themechange", { detail: theme }));
   }, [theme]);
 
   // Applies the theme class synchronously so View Transitions captures the NEW

@@ -7,7 +7,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { ArrowLeft, ArrowRight, ChevronLeft, ChevronRight } from "lucide-react";
 import { C } from "@/lib/content";
 import { useLang } from "@/lib/i18n";
-import { getVehicle, type Vehicle } from "@/lib/vehicles";
+import { getVehicle, type Vehicle, specValue } from "@/lib/vehicles";
 
 const SLUGS = [
   "lamborghini-huracan-evo",
@@ -127,7 +127,7 @@ export default function AutomotiveShowcase() {
                 <div className="grid max-w-sm grid-cols-2 gap-x-8 gap-y-3 border-s border-white/25 ps-5 sm:gap-x-12 sm:ps-7">
                   {active.specs.slice(0, 2).map((spec) => <div key={spec.label.en}>
                     <p className="text-[0.65rem] uppercase tracking-[0.16em] text-white/55">{t(spec.label)}</p>
-                    <p className="mt-1 font-display text-lg font-semibold text-white sm:text-2xl">{spec.value}</p>
+                    <p className="mt-1 font-display text-lg font-semibold text-white sm:text-2xl">{specValue(spec.value, lang)}</p>
                   </div>)}
                 </div>
               </div>
@@ -173,7 +173,7 @@ export default function AutomotiveShowcase() {
               <dl className="grid grid-cols-2 gap-x-5 gap-y-3">
                 {active.specs.map((spec) => <div key={spec.label.en} className="border-t border-line pt-2">
                   <dt className="text-[0.66rem] tracking-wider text-dim">{t(spec.label)}</dt>
-                  <dd className="mt-1 font-display text-sm font-medium text-fog">{spec.value}</dd>
+                  <dd className="mt-1 font-display text-sm font-medium text-fog">{specValue(spec.value, lang)}</dd>
                 </div>)}
               </dl>
             </div>

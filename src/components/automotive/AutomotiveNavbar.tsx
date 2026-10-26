@@ -34,11 +34,22 @@ function getNavCta(pathname: string): { label: BiStr; href: string } {
   return { label: C.nav.cta, href: "/contact" };
 }
 
+/** The Evay mark: a rounded tile with three speed bars forming an "E". */
+export function EvayMark({ className = "" }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 32 32" fill="none" aria-hidden="true" className={className}>
+      <rect width="32" height="32" rx="9" fill="var(--c-volt)" />
+      <path d="M9 10h14M9 16h10M9 22h14" stroke="#fff" strokeWidth="2.6" strokeLinecap="round" />
+    </svg>
+  );
+}
+
 export default function AutomotiveNavbar() {
   const pathname = usePathname();
   const { t, lang, toggleLang } = useLang();
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
+  const [hovered, setHovered] = useState<string | null>(null);
   const sentinelRef = useRef<HTMLDivElement | null>(null);
   const menuButtonRef = useRef<HTMLButtonElement | null>(null);
   const panelRef = useRef<HTMLDivElement | null>(null);
@@ -104,67 +115,63 @@ export default function AutomotiveNavbar() {
   // a theme-surface PageHeader, so the white overlay tone must not apply there
   // (it would be white-on-white in the light theme).
   const overHero = !scrolled && pathname === "/";
+  const isActive = (href: string) =>
+    pathname === href || (href === "/explore" && pathname.startsWith("/cars/"));
   const navCta = getNavCta(pathname);
 
   return (
     <>
       <div ref={sentinelRef} className="pointer-events-none absolute top-0 h-px w-full" aria-hidden />
-      <header
-        className={`fixed inset-x-0 top-0 z-50 transition-[background-color,border-color,box-shadow] duration-500 ${
-          scrolled
-            ? "glass border-b border-line shadow-[0_18px_50px_-30px_rgba(0,0,0,0.35)]"
-            : "border-b border-transparent bg-transparent"
-        }`}
-      >
-        <div className="mx-auto flex h-16 max-w-[1400px] items-center gap-4 px-4 sm:px-6 lg:h-[4.5rem] lg:px-10">
+      <header className="fixed inset-x-0 top-0 z-50 px-3 pt-3 sm:px-6 sm:pt-4">
+        <div
+          className={`mx-auto flex h-14 max-w-[1240px] items-center gap-2 rounded-full border ps-4 pe-2 transition-[background-color,border-color,box-shadow,backdrop-filter] duration-500 sm:ps-5 lg:h-16 ${
+            overHero
+              ? "border-white/15 bg-black/30 backdrop-blur-xl"
+              : "glass border-line shadow-[0_18px_50px_-28px_rgba(0,0,0,0.45)]"
+          }`}
+        >
           <Link
             href="/"
-            className={`group flex items-center gap-2.5 rounded-sm transition-colors duration-300 ${
+            className={`group flex shrink-0 items-center gap-2.5 rounded-full transition-colors duration-300 ${
               overHero ? "text-white" : "text-fog"
             }`}
             aria-label={`${C.brand.name} — ${t(C.nav.home)}`}
           >
-            <svg width="26" height="26" viewBox="0 0 26 26" fill="none" aria-hidden="true" className="shrink-0">
-              <path
-                d="M3 20.5 11.2 5.5a1.9 1.9 0 0 1 3.4 0L22.8 20.5"
-                stroke="currentColor"
-                strokeWidth="2.2"
-                strokeLinecap="round"
-              />
-              <path d="M7.6 16.2h10.9" stroke="var(--c-volt)" strokeWidth="2.2" strokeLinecap="round" />
-            </svg>
-            <span className="font-display text-[0.98rem] font-semibold tracking-[0.34em]">
-              {lang === "ar" ? C.brand.nameAr : C.brand.name}
-            </span>
+            <EvayMark className="size-8 shrink-0 transition-transform duration-500 group-hover:rotate-[-8deg] group-hover:scale-110" />
+            <span className="keep-tracking font-display text-[1.05rem] font-bold tracking-[0.22em]">{C.brand.name}</span>
           </Link>
 
-          <nav aria-label={lang === "ar" ? "التنقل الرئيسي" : "Main navigation"} className="mx-auto hidden lg:block">
-            <ul className="flex items-center gap-1">
+          <nav
+            aria-label={lang === "ar" ? "التنقل الرئيسي" : "Main navigation"}
+            className="mx-auto hidden lg:block"
+            onPointerLeave={() => setHovered(null)}
+          >
+            <ul className="flex items-center gap-0.5">
               {NAV_ITEMS.map((item) => {
-                const active =
-                  pathname === item.href ||
-                  (item.href === "/explore" && pathname.startsWith("/cars/"));
+                const active = isActive(item.href);
+                const lit = hovered ? hovered === item.href : active;
                 return (
-                  <li key={item.href}>
+                  <li key={item.href} className="relative">
+                    {lit && (
+                      <motion.span
+                        layoutId="nav-pill"
+                        className={`absolute inset-0 rounded-full ${overHero ? "bg-white/15" : "bg-fog/[0.08]"}`}
+                        transition={{ type: "spring", stiffness: 420, damping: 34 }}
+                      />
+                    )}
                     <Link
                       href={item.href}
                       aria-current={active ? "page" : undefined}
-                      className={`relative inline-flex items-center rounded-full px-3.5 py-2 text-[0.82rem] tracking-wide transition-colors duration-300 ${
+                      onPointerEnter={() => setHovered(item.href)}
+                      onFocus={() => setHovered(item.href)}
+                      onBlur={() => setHovered(null)}
+                      className={`relative inline-flex h-10 items-center rounded-full px-5 text-[0.88rem] font-medium transition-colors duration-300 ${
                         overHero
-                          ? active
-                            ? "text-white"
-                            : "text-white/80 hover:text-white"
-                          : active
-                            ? "text-fog"
-                            : "text-mist hover:text-fog"
+                          ? lit ? "text-white" : "text-white/75"
+                          : lit ? "text-fog" : "text-mist"
                       }`}
                     >
                       {t(item.label)}
-                      <span
-                        className={`absolute inset-x-3.5 -bottom-0.5 h-px origin-center bg-volt transition-transform duration-300 ${
-                          active ? "scale-x-100" : "scale-x-0"
-                        }`}
-                      />
                     </Link>
                   </li>
                 );
@@ -172,49 +179,38 @@ export default function AutomotiveNavbar() {
             </ul>
           </nav>
 
-          <div className="ms-auto flex items-center gap-2 lg:ms-0">
+          <div className="ms-auto flex items-center gap-1.5 lg:ms-0">
             <button
               type="button"
               onClick={openSearch}
               aria-label={t(C.nav.search)}
               aria-haspopup="dialog"
-              className={`hidden h-9 items-center gap-2 rounded-full border px-3.5 text-[0.78rem] font-medium transition-colors duration-300 lg:inline-flex ${
-                overHero
-                  ? "border-white/30 text-white/90 hover:border-white/70 hover:text-white"
-                  : "border-line text-mist hover:border-volt hover:text-fog"
+              className={`hidden size-10 items-center justify-center rounded-full transition-colors duration-300 sm:inline-flex ${
+                overHero ? "text-white/85 hover:bg-white/15" : "text-mist hover:bg-fog/[0.08] hover:text-fog"
               }`}
             >
-              <Search className="size-3.5" strokeWidth={2} />
-              <span>{t(C.nav.search)}</span>
-              <kbd className="numeral rounded-md border border-line px-1.5 py-px text-[0.62rem] text-dim">
-                ⌘K
-              </kbd>
+              <Search className="size-[1.05rem]" strokeWidth={2} />
             </button>
 
             <button
               type="button"
               onClick={toggleLang}
               aria-label={t(C.nav.langLabel)}
-              className={`hidden h-9 items-center gap-1.5 rounded-full border px-3.5 text-[0.78rem] font-medium tracking-wider transition-colors duration-300 sm:inline-flex ${
-                overHero
-                  ? "border-white/30 text-white/90 hover:border-white/70 hover:text-white"
-                  : "border-line text-mist hover:border-volt hover:text-fog"
+              className={`keep-tracking hidden h-10 min-w-10 items-center justify-center rounded-full px-3 text-[0.8rem] font-semibold transition-colors duration-300 sm:inline-flex ${
+                overHero ? "text-white/85 hover:bg-white/15" : "text-mist hover:bg-fog/[0.08] hover:text-fog"
               }`}
             >
-              {lang === "ar" ? "EN" : "ع"}
+              {lang === "ar" ? "EN" : "عربي"}
             </button>
 
-            <ThemeToggle
-              variant={overHero ? "overlay" : "surface"}
-              className="hidden sm:inline-flex"
-            />
+            <ThemeToggle variant={overHero ? "overlay" : "surface"} className="hidden sm:inline-flex" />
 
             <Link
               href={navCta.href}
-              className="hidden h-9 items-center gap-1.5 rounded-full bg-fog px-4 text-[0.8rem] font-semibold text-ink transition-transform duration-300 hover:scale-[1.03] sm:inline-flex"
+              className="shine group relative ms-1 hidden h-10 items-center gap-1.5 overflow-hidden rounded-full bg-volt px-5 text-[0.84rem] font-semibold text-white transition-transform duration-300 hover:scale-[1.04] md:inline-flex"
             >
               {t(navCta.label)}
-              <ArrowUpRight className="size-3.5" strokeWidth={2.4} />
+              <ArrowUpRight className="size-3.5 transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 rtl:group-hover:-translate-x-0.5" strokeWidth={2.4} />
             </Link>
 
             <button
@@ -224,8 +220,8 @@ export default function AutomotiveNavbar() {
               aria-expanded={open}
               aria-haspopup="dialog"
               aria-label={t(C.nav.menu)}
-              className={`inline-flex size-10 items-center justify-center rounded-full border transition-colors duration-300 lg:hidden ${
-                overHero ? "border-white/30 text-white hover:border-white/70" : "border-line text-fog"
+              className={`inline-flex size-10 items-center justify-center rounded-full transition-colors duration-300 lg:hidden ${
+                overHero ? "bg-white/15 text-white" : "bg-fog/[0.08] text-fog"
               }`}
             >
               <Menu className="size-5" />
@@ -248,8 +244,9 @@ export default function AutomotiveNavbar() {
             transition={{ duration: 0.3, ease: [0.32, 0.72, 0, 1] }}
           >
             <div className="flex h-16 items-center px-4 sm:px-6">
-              <span className="font-display text-[0.98rem] font-semibold tracking-[0.34em] text-fog">
-                {lang === "ar" ? C.brand.nameAr : C.brand.name}
+              <span className="flex items-center gap-2.5 text-fog">
+                <EvayMark className="size-8" />
+                <span className="keep-tracking font-display text-[1.05rem] font-bold tracking-[0.22em]">{C.brand.name}</span>
               </span>
               <button
                 ref={closeButtonRef}

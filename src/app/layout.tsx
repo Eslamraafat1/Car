@@ -34,15 +34,15 @@ const grotesk = Space_Grotesk({
 export const metadata: Metadata = {
   metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000"),
   title: {
-    default: "AURELIS — شريكك في عالم السيارات | Premium Automotive Partner",
-    template: "%s · AURELIS",
+    default: "EVAY — شريكك في عالم السيارات | Premium Automotive Partner",
+    template: "%s · EVAY",
   },
   description:
-    "أوريليس: بروفايل شركة متخصصة في السيارات الفاخرة والكهربائية — خبرة وشفافية وخدمة ما بعد البيع. Aurelis is a premium automotive partner built on expertise, transparency and care.",
+    "إيفاي: بروفايل شركة متخصصة في السيارات الفاخرة والكهربائية — خبرة وشفافية وخدمة ما بعد البيع. Evay is a premium automotive partner built on expertise, transparency and care.",
   keywords: ["automotive", "company profile", "cars", "luxury cars", "electric cars", "سيارات", "بروفايل شركة"],
   openGraph: {
     type: "website",
-    title: "AURELIS — Premium Automotive Partner",
+    title: "EVAY — Premium Automotive Partner",
     description: "Expertise, transparency and care for every detail — luxury, performance and electric cars.",
     images: [{ url: "/media/images/hero-poster.jpg", width: 2400, height: 1600 }],
   },
@@ -56,7 +56,7 @@ export const viewport: Viewport = {
   ],
 };
 
-const themeInitScript = `(function(){try{var t=localStorage.getItem("aurelis-theme");var d=t==="dark";var r=document.documentElement;r.classList.toggle("dark",d);r.style.colorScheme=d?"dark":"light";}catch(e){}})();`;
+const themeInitScript = `(function(){try{var t=localStorage.getItem("evay-theme");var d=t==="dark";var r=document.documentElement;r.classList.toggle("dark",d);r.style.colorScheme=d?"dark":"light";}catch(e){}})();`;
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
