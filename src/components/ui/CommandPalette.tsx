@@ -3,7 +3,7 @@
 import { usePathname, useRouter } from "next/navigation";
 import { AnimatePresence, motion } from "framer-motion";
 import { useEffect, useMemo, useRef, useState } from "react";
-import { Car, CornerDownLeft, Home, Info, Mail, Search } from "lucide-react";
+import { BookOpen, Car, CornerDownLeft, Home, Info, Mail, Search } from "lucide-react";
 import { C } from "@/lib/content";
 import { useLang } from "@/lib/i18n";
 import { getLenis } from "@/lib/smooth-scroll";
@@ -14,6 +14,7 @@ const PAGES = [
   { href: "/", label: C.nav.home, Icon: Home },
   { href: "/explore", label: C.nav.explore, Icon: Car },
   { href: "/about", label: C.nav.about, Icon: Info },
+  { href: "/blog", label: C.nav.blog, Icon: BookOpen },
   { href: "/contact", label: C.nav.contact, Icon: Mail },
 ] as const;
 

@@ -37,6 +37,12 @@ const pageArt = {
     mark: "03 / THE STUDIO",
     note: { ar: "نقطة البداية لكل رحلة", en: "WHERE EVERY STORY BEGINS" },
   },
+  blog: {
+    image: "/media/images/night-city.jpg",
+    accent: "#ff8a5c",
+    mark: "04 / THE JOURNAL",
+    note: { ar: "أفكار من عالم السيارات", en: "NOTES FROM THE CAR WORLD" },
+  },
 } as const;
 
 /** Each destination gets its own art direction while sharing accessible page semantics. */
@@ -82,7 +88,9 @@ export default function PageHeader({ eyebrow, title, body, children }: PageHeade
     ? "about"
     : pathname.startsWith("/contact")
       ? "contact"
-      : "explore";
+      : pathname.startsWith("/blog")
+        ? "blog"
+        : "explore";
   const art = pageArt[page];
   const style = { "--page-accent": art.accent } as CSSProperties & { "--page-accent": string };
 
@@ -134,7 +142,7 @@ export default function PageHeader({ eyebrow, title, body, children }: PageHeade
             <div className="page-masthead-art-grid absolute inset-0" />
             <div className="absolute inset-x-0 bottom-0 flex items-end justify-between gap-4 p-5 sm:p-7">
               <figcaption className="eyebrow max-w-[22ch] text-white/80">{t(art.note)}</figcaption>
-              <span className="page-masthead-index numeral text-[clamp(2.2rem,5vw,4.5rem)] leading-none text-white/70">0{["explore", "about", "contact"].indexOf(page) + 1}</span>
+              <span className="page-masthead-index numeral text-[clamp(2.2rem,5vw,4.5rem)] leading-none text-white/70">0{["explore", "about", "contact", "blog"].indexOf(page) + 1}</span>
             </div>
             <span className="page-masthead-corner absolute start-4 top-4 size-8 border-s-2 border-t-2 sm:start-6 sm:top-6" />
             <span className="page-masthead-corner absolute end-4 bottom-4 size-8 rotate-180 border-s-2 border-t-2 sm:end-6 sm:bottom-6" />

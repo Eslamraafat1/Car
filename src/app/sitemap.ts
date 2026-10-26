@@ -1,10 +1,11 @@
 import type { MetadataRoute } from "next";
+import { BLOG_POSTS } from "@/lib/blog";
 import { VEHICLES } from "@/lib/vehicles";
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const staticRoutes = ["", "/explore", "/about", "/contact"].map(
+  const staticRoutes = ["", "/explore", "/about", "/blog", "/contact"].map(
     (path) => ({
       url: `${SITE_URL}${path}`,
       lastModified: new Date(),
@@ -20,5 +21,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.6,
   }));
 
-  return [...staticRoutes, ...vehicleRoutes];
+  const blogRoutes = BLOG_POSTS.map((post) => ({
+    url: `${SITE_URL}/blog/${post.slug}`,
+    lastModified: new Date(post.date),
+    changeFrequency: "monthly" as const,
+    priority: 0.6,
+  }));
+
+  return [...staticRoutes, ...vehicleRoutes, ...blogRoutes];
 }

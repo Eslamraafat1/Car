@@ -17,6 +17,7 @@ const NAV_ITEMS: NavItem[] = [
   { label: C.nav.home, href: "/" },
   { label: C.nav.explore, href: "/explore" },
   { label: C.nav.about, href: "/about" },
+  { label: C.nav.blog, href: "/blog" },
   { label: C.nav.contact, href: "/contact" },
 ];
 
@@ -28,7 +29,7 @@ const NAV_ITEMS: NavItem[] = [
  * (home + product/browsing pages) pushes the booking action.
  */
 function getNavCta(pathname: string): { label: BiStr; href: string } {
-  if (pathname === "/about" || pathname === "/contact") {
+  if (pathname === "/about" || pathname === "/contact" || pathname.startsWith("/blog")) {
     return { label: C.nav.ctaBrowse, href: "/explore" };
   }
   return { label: C.nav.cta, href: "/contact" };
@@ -116,7 +117,9 @@ export default function AutomotiveNavbar() {
   // (it would be white-on-white in the light theme).
   const overHero = !scrolled && pathname === "/";
   const isActive = (href: string) =>
-    pathname === href || (href === "/explore" && pathname.startsWith("/cars/"));
+    pathname === href ||
+    (href === "/explore" && pathname.startsWith("/cars/")) ||
+    (href === "/blog" && pathname.startsWith("/blog/"));
   const navCta = getNavCta(pathname);
 
   return (
@@ -273,14 +276,12 @@ export default function AutomotiveNavbar() {
                       href={item.href}
                       onClick={() => setOpen(false)}
                       aria-current={
-                        pathname === item.href ||
-                        (item.href === "/explore" && pathname.startsWith("/cars/"))
+                        isActive(item.href)
                           ? "page"
                           : undefined
                       }
                       className={`flex items-center justify-between py-4 font-display text-2xl font-semibold transition-colors ${
-                        pathname === item.href ||
-                        (item.href === "/explore" && pathname.startsWith("/cars/"))
+                        isActive(item.href)
                           ? "text-volt"
                           : "text-fog"
                       }`}
@@ -288,8 +289,7 @@ export default function AutomotiveNavbar() {
                       {t(item.label)}
                       <ArrowUpRight
                         className={`size-5 ${
-                          pathname === item.href ||
-                          (item.href === "/explore" && pathname.startsWith("/cars/"))
+                          isActive(item.href)
                             ? "text-volt"
                             : "text-mist"
                         }`}
