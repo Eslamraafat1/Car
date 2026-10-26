@@ -5,7 +5,6 @@ import Link from "next/link";
 import { ArrowLeft, ArrowRight, Mail } from "lucide-react";
 import VehicleCollection from "@/components/automotive/VehicleCollection";
 import FinalCTA from "@/components/automotive/FinalCTA";
-import ShowcaseSections from "@/components/automotive/ShowcaseSections";
 import { C } from "@/lib/content";
 import { useLang } from "@/lib/i18n";
 import { CATEGORY_LABELS, type Vehicle } from "@/lib/vehicles";
@@ -134,7 +133,6 @@ export default function CarDetailView({ vehicle, related }: CarDetailViewProps) 
         />
       )}
 
-      <ShowcaseSections page="car" />
       <FinalCTA />
     </>
   );

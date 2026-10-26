@@ -44,6 +44,18 @@ export default function CinematicVideo({
   const onPlayingChangeRef = useRef(onPlayingChange);
   const reduced = useReducedMotion();
   const [playing, setPlaying] = useState(false);
+  const [allowed, setAllowed] = useState(false);
+
+  /* The multi-megabyte clip is optional polish: it only loads once the page is
+     idle, and never on phones, data-saver or slow connections. */
+  useEffect(() => {
+    if (reduced) return;
+    const nav = navigator as Navigator & { connection?: { saveData?: boolean; effectiveType?: string } };
+    const slow = nav.connection?.saveData || /(^|-)2g$/.test(nav.connection?.effectiveType ?? "");
+    if (slow || !window.matchMedia("(min-width: 768px)").matches) return;
+    const id = window.setTimeout(() => setAllowed(true), 1800);
+    return () => window.clearTimeout(id);
+  }, [reduced]);
 
   useEffect(() => {
     onPlayingChangeRef.current = onPlayingChange;
@@ -73,7 +85,7 @@ export default function CinematicVideo({
   }, [handleRef, playing]);
 
   useEffect(() => {
-    if (reduced) return;
+    if (reduced || !allowed) return;
     const video = videoRef.current;
     if (!video) return;
 
@@ -98,7 +110,7 @@ export default function CinematicVideo({
       observer.disconnect();
       video.pause();
     };
-  }, [reduced]);
+  }, [reduced, allowed]);
 
   return (
     <div className={`absolute inset-0 overflow-hidden ${className}`} aria-hidden="true">
@@ -107,9 +119,10 @@ export default function CinematicVideo({
         alt={alt}
         fill
         sizes="100vw"
+        priority
         className={`object-cover ${posterClassName}`}
       />
-      {!reduced && (
+      {!reduced && allowed && (
         <video
           ref={videoRef}
           className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-1000 ${
@@ -120,7 +133,7 @@ export default function CinematicVideo({
           muted
           loop
           playsInline
-          preload="metadata"
+          preload="auto"
           disablePictureInPicture
           onPlaying={() => setPlaying(true)}
           onPause={() => setPlaying(false)}

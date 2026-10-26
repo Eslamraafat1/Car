@@ -384,17 +384,7 @@ body {
   background: linear-gradient(135deg, transparent 48%, color-mix(in srgb, var(--page-accent) 34%, transparent) 48.2%, transparent 48.6%), linear-gradient(180deg, transparent 50%, rgba(0,0,0,.78));
 }
 
-.page-masthead[data-page-header="electric"] .page-masthead-art { aspect-ratio: 1; border-radius: 50%; overflow: visible; }
-.page-masthead[data-page-header="electric"] .page-masthead-art > :is(img, div) { border-radius: inherit; }
-.page-masthead[data-page-header="electric"] .page-masthead-art-grid { border: 1px solid color-mix(in srgb, var(--page-accent) 50%, transparent); inset: 7%; border-radius: 50%; }
-.page-masthead[data-page-header="electric"] .page-masthead-art::before { content: ""; position: absolute; z-index: -1; inset: -8%; border: 1px solid color-mix(in srgb, var(--page-accent) 30%, transparent); border-radius: 50%; }
-.page-orbit { position: absolute; z-index: -1; inset-inline-start: 50%; top: 50%; border: 1px solid color-mix(in srgb, var(--page-accent) 28%, transparent); border-radius: 50%; pointer-events: none; }
-.page-orbit--outer { width: 115%; aspect-ratio: 1; transform: translate(-50%,-50%) rotate(-22deg) scaleY(.36); }
-.page-orbit--inner { width: 128%; aspect-ratio: 1; transform: translate(-50%,-50%) rotate(24deg) scaleY(.28); border-style: dashed; opacity: .6; }
 
-.page-masthead[data-page-header="performance"] .page-masthead-art { aspect-ratio: 4 / 3; border-radius: .35rem; border-color: color-mix(in srgb, var(--page-accent) 36%, transparent); }
-.page-masthead[data-page-header="performance"] .page-masthead-image { filter: saturate(.78) contrast(1.08); }
-.page-speedline { position: absolute; z-index: 2; inset-inline-start: -8%; top: 28%; width: 72%; height: 1px; background: linear-gradient(90deg, transparent, var(--page-accent), transparent); box-shadow: 0 12px 0 color-mix(in srgb, var(--page-accent) 42%, transparent), 0 24px 0 color-mix(in srgb, var(--page-accent) 22%, transparent); transform: skewY(-18deg); }
 
 .page-masthead[data-page-header="about"] .page-masthead-art { aspect-ratio: 4 / 5; max-height: 28rem; border-radius: .2rem; }
 .page-masthead[data-page-header="about"] .page-masthead-image { filter: sepia(.18) saturate(.72); }
@@ -403,32 +393,10 @@ body {
 .page-masthead[data-page-header="contact"] .page-masthead-art { aspect-ratio: 16 / 10; border-radius: 2rem .3rem 2rem .3rem; }
 .page-masthead[data-page-header="contact"] .page-masthead-art-grid { background-image: linear-gradient(90deg, transparent 49.8%, rgba(117,214,195,.2) 50%, transparent 50.2%), linear-gradient(transparent 49.8%, rgba(117,214,195,.2) 50%, transparent 50.2%), linear-gradient(180deg, transparent 50%, rgba(0,0,0,.7)); background-size: 42px 42px, 42px 42px, auto; }
 
-.showcase-page { position: relative; isolation: isolate; }
-.showcase-page[data-showcase-page="explore"] { --c-volt: #b7a1ff; --c-volt-deep: #8065d9; --c-ember: #e9a66f; }
-.showcase-page[data-showcase-page="electric"] { --c-volt: #6fe7df; --c-volt-deep: #20a9a4; --c-ember: #ffb873; }
-.showcase-page[data-showcase-page="performance"] { --c-volt: #ff6848; --c-volt-deep: #c83f2c; --c-ember: #ffb05f; }
-.showcase-page[data-showcase-page="about"] { --c-volt: #d7b078; --c-volt-deep: #987344; --c-ember: #db9273; }
-.showcase-page[data-showcase-page="contact"] { --c-volt: #75d6c3; --c-volt-deep: #369c8b; --c-ember: #e2b981; }
-.showcase-page[data-showcase-page="car"] { --c-volt: #ff9c61; --c-volt-deep: #d86c3b; }
 
-.showcase-page[data-showcase-page="electric"] .showcase-chapter:nth-child(even) { background: radial-gradient(60% 60% at 50% 40%, rgba(30,179,176,.075), transparent 75%); }
-.showcase-page[data-showcase-page="electric"] .showcase-chapter[data-kind="pins"] { background: linear-gradient(135deg, rgba(31,169,164,.09), transparent 62%); }
-.showcase-page[data-showcase-page="performance"] .showcase-chapter[data-kind="still"] { box-shadow: inset 4px 0 0 var(--c-volt); }
-.showcase-page[data-showcase-page="performance"] .showcase-chapter[data-kind="detail"] img { filter: contrast(1.08) saturate(.8); }
-.showcase-page[data-showcase-page="performance"] .showcase-chapter[data-kind="detail"] figure,
-.showcase-page[data-showcase-page="performance"] .showcase-chapter[data-kind="lineup"] .group.relative { border-radius: .35rem; }
-.showcase-page[data-showcase-page="about"] .showcase-chapter[data-kind="editorial"] { background: linear-gradient(90deg, rgba(215,176,120,.06), transparent 54%); }
-.showcase-page[data-showcase-page="about"] .showcase-chapter[data-kind="editorial"] img { filter: sepia(.12) saturate(.82); }
-.showcase-page[data-showcase-page="contact"] .showcase-chapter[data-kind="lineup"] { background: radial-gradient(70% 60% at 50% 70%, rgba(70,174,154,.09), transparent 75%); }
-.showcase-page[data-showcase-page="contact"] .showcase-chapter[data-kind="lineup"] img { filter: saturate(.86); }
 
 @media (min-width: 1024px) {
-  .page-masthead[data-page-header="electric"] .page-masthead-art { width: min(100%, 28rem); margin-inline: auto; }
   .page-masthead[data-page-header="about"] .page-masthead-art { margin-inline-start: auto; }
-}
-
-@media (max-width: 639px) {
-  .page-masthead[data-page-header="electric"] .page-masthead-art { width: min(82vw, 24rem); margin-inline: auto; }
 }
 
 .about-principles li:last-child { border-bottom: 0; }
@@ -436,61 +404,8 @@ body {
 .contact-art img { transition: transform 1s cubic-bezier(.2,.7,.1,1); }
 .contact-art:hover img { transform: scale(1.045); }
 .contact-studio form { position: relative; box-shadow: 0 28px 90px -58px rgba(117,214,195,.28); }
-.performance-specbar { --c-volt: #ff6848; }
-[data-final-page] { --c-volt: var(--final-accent); }
 
-/* ---------- finales: per-page closing set-pieces ---------- */
-.finale { background-color: #070809; }
-.finale[data-final-page="home"] > img { filter: saturate(.88) contrast(1.05); }
-.finale[data-final-page="explore"] { background: radial-gradient(80% 60% at 50% 0%, color-mix(in srgb, var(--final-accent) 12%, transparent), transparent 70%), #070809; }
-.finale[data-final-page="electric"] { background: radial-gradient(70% 55% at 50% 70%, color-mix(in srgb, var(--final-accent) 13%, transparent), transparent 72%), linear-gradient(180deg, #071012, #070809); }
-.finale[data-final-page="performance"] > img { filter: saturate(1.12) contrast(1.12); clip-path: polygon(0 0,100% 0,100% 100%,0 86%); }
-.finale[data-final-page="about"] { background: radial-gradient(60% 50% at 50% 12%, color-mix(in srgb, var(--final-accent) 10%, transparent), transparent 72%), #070809; }
-.finale[data-final-page="contact"] { background: radial-gradient(65% 55% at 62% 50%, color-mix(in srgb, var(--final-accent) 11%, transparent), transparent 72%), #070809; }
-
-@keyframes finale-flash {
-  0% { opacity: 0; }
-  12% { opacity: .85; }
-  100% { opacity: 0; }
-}
-.finale-flash { animation: finale-flash .9s ease-out forwards; }
-
-@keyframes finale-pulse {
-  0% { transform: scale(1); opacity: .85; }
-  100% { transform: scale(1.55); opacity: 0; }
-}
-.finale-pulse { animation: finale-pulse 1s ease-out forwards; }
-
-@keyframes credits-roll {
-  from { transform: translate3d(0, 0, 0); }
-  to { transform: translate3d(0, -50%, 0); }
-}
-.credits-roll { animation: credits-roll 48s linear infinite; }
-
-.credits-sign { width: 0; }
-.credits-sign--draw { animation: credits-sign 1.4s cubic-bezier(.22, .61, .36, 1) forwards; }
-@keyframes credits-sign { from { width: 0; } to { width: 100%; } }
-
-@keyframes sonar-sweep { to { transform: rotate(360deg); } }
-.sonar-sweep { animation: sonar-sweep 5.5s linear infinite; }
-
-@keyframes sonar-ping {
-  0% { transform: scale(.25); opacity: .95; }
-  100% { transform: scale(1.32); opacity: 0; }
-}
-.sonar-ping { animation: sonar-ping 2s cubic-bezier(.2, .6, .3, 1) forwards; }
-
-@keyframes charge-flow { to { background-position: 220% 0; } }
-.charge-flow {
-  background-image: linear-gradient(90deg, transparent, rgba(255, 255, 255, .55), transparent);
-  background-size: 60% 100%;
-  background-repeat: no-repeat;
-  animation: charge-flow 1s linear infinite;
-}
-
-.spotlight-frame { --mx: 50%; --my: 42%; }
 [data-collection-variant="electric"] { --c-volt: #6fe7df; background: radial-gradient(60% 45% at 50% 30%, rgba(37,173,165,.09), transparent 72%), #071012; }
-[data-collection-variant="performance"] { --c-volt: #ff6848; background: linear-gradient(165deg, #0b0909, #120b0a 55%, #090909); }
 [data-collection-variant="related"] { background: linear-gradient(180deg, var(--c-ink-2), var(--c-ink)); }
 
 /* ---------- kinetic typography ---------- */
@@ -508,27 +423,6 @@ body {
   display: inline-block;
   will-change: transform;
 }
-
-/* ---------- chapter sweep dividers ---------- */
-
-.chapter-sweep-run {
-  background: linear-gradient(90deg, transparent, var(--sweep-accent, var(--c-volt)), transparent);
-  transform: translateX(-140%);
-  opacity: 0;
-}
-
-.chapter-sweep.is-on .chapter-sweep-run {
-  animation: sweep-run 1.7s cubic-bezier(0.3, 0.7, 0.2, 1) forwards;
-}
-
-@keyframes sweep-run {
-  0% { transform: translateX(-140%); opacity: 0; }
-  18% { opacity: 1; }
-  100% { transform: translateX(320%); opacity: 0; }
-}
-
-.chapter-sweep-dot { transition: box-shadow 0.6s ease; }
-.chapter-sweep.is-on .chapter-sweep-dot { box-shadow: 0 0 18px var(--sweep-accent, var(--c-volt)); }
 
 /* ---------- footer wordmark ---------- */
 
@@ -589,14 +483,34 @@ body {
 @media (prefers-reduced-motion: reduce) {
   .page-masthead-image,
   .contact-art img { transition: none !important; }
-  .credits-roll,
-  .sonar-sweep,
-  .charge-flow,
-  .finale-flash,
-  .finale-pulse,
-  .sonar-ping,
-  .beam { animation: none !important; }
-  .chapter-sweep-run { display: none; }
+  .beam,
+  .float-slow,
+  .shine::after,
+  .gradient-pan { animation: none !important; }
   .footer-wordmark-text { background-position: 50% 0; opacity: 1; }
-  .credits-sign { width: 100%; }
 }
+
+/* ---------- ambient motion ---------- */
+
+@keyframes float-slow {
+  0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
+  50% { transform: translate3d(2.5%, -6%, 0) scale(1.08); }
+}
+.float-slow { animation: float-slow 14s ease-in-out infinite; }
+
+/* A soft light sweep across a button on hover. */
+.shine::after {
+  content: "";
+  position: absolute;
+  inset-block: 0;
+  inset-inline-start: -60%;
+  width: 45%;
+  background: linear-gradient(100deg, transparent, rgba(255, 255, 255, 0.55), transparent);
+  transform: skewX(-20deg) translateX(-120%);
+  pointer-events: none;
+}
+.shine:hover::after { animation: shine-run 0.9s ease forwards; }
+@keyframes shine-run { to { transform: skewX(-20deg) translateX(520%); } }
+
+@keyframes gradient-pan { to { background-position: 200% 0; } }
+.gradient-pan { background-size: 200% 100%; animation: gradient-pan 6s linear infinite; }

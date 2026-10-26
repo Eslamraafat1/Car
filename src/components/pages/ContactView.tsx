@@ -4,8 +4,6 @@ import { useState, type FormEvent } from "react";
 import Image from "next/image";
 import { Mail } from "lucide-react";
 import PageHeader from "@/components/automotive/PageHeader";
-import FinalCTA from "@/components/automotive/FinalCTA";
-import ShowcaseSections from "@/components/automotive/ShowcaseSections";
 import { C } from "@/lib/content";
 import { useLang } from "@/lib/i18n";
 
@@ -185,8 +183,6 @@ export default function ContactView() {
         </div>
       </section>
 
-      <ShowcaseSections page="contact" />
-      <FinalCTA />
     </>
   );
 }

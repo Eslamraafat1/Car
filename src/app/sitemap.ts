@@ -4,7 +4,7 @@ import { VEHICLES } from "@/lib/vehicles";
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const staticRoutes = ["", "/explore", "/electric", "/performance", "/about", "/contact"].map(
+  const staticRoutes = ["", "/explore", "/about", "/contact"].map(
     (path) => ({
       url: `${SITE_URL}${path}`,
       lastModified: new Date(),

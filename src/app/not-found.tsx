@@ -9,7 +9,7 @@ import { useLang } from "@/lib/i18n";
 import { usePrefersReducedMotion } from "@/lib/motion";
 import KineticHeading from "@/components/ui/KineticHeading";
 import MagneticButton from "@/components/ui/MagneticButton";
-import { useHold } from "@/components/finale/finale-kit";
+import { useHold } from "@/lib/use-hold";
 
 const RING_RADIUS = 84;
 const RING_CIRCUMFERENCE = 2 * Math.PI * RING_RADIUS;

@@ -16,8 +16,6 @@ type NavItem = { label: BiStr; href: string };
 const NAV_ITEMS: NavItem[] = [
   { label: C.nav.home, href: "/" },
   { label: C.nav.explore, href: "/explore" },
-  { label: C.nav.electric, href: "/electric" },
-  { label: C.nav.performance, href: "/performance" },
   { label: C.nav.about, href: "/about" },
   { label: C.nav.contact, href: "/contact" },
 ];

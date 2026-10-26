@@ -3,7 +3,7 @@
 import { usePathname, useRouter } from "next/navigation";
 import { AnimatePresence, motion } from "framer-motion";
 import { useEffect, useMemo, useRef, useState } from "react";
-import { Car, CornerDownLeft, Gauge, Home, Info, Mail, Search, Zap } from "lucide-react";
+import { Car, CornerDownLeft, Home, Info, Mail, Search } from "lucide-react";
 import { C } from "@/lib/content";
 import { useLang } from "@/lib/i18n";
 import { getLenis } from "@/lib/smooth-scroll";
@@ -13,8 +13,6 @@ import { CATEGORY_LABELS, VEHICLES } from "@/lib/vehicles";
 const PAGES = [
   { href: "/", label: C.nav.home, Icon: Home },
   { href: "/explore", label: C.nav.explore, Icon: Car },
-  { href: "/electric", label: C.nav.electric, Icon: Zap },
-  { href: "/performance", label: C.nav.performance, Icon: Gauge },
   { href: "/about", label: C.nav.about, Icon: Info },
   { href: "/contact", label: C.nav.contact, Icon: Mail },
 ] as const;

@@ -15,6 +15,7 @@ export default function CinematicHero() {
   const { t, lang } = useLang();
   const reduced = useReducedMotion();
   const [videoPlaying, setVideoPlaying] = useState(false);
+  const [videoReady, setVideoReady] = useState(false);
 
   const words = t(C.hero.title).split(" ");
 
@@ -84,7 +85,10 @@ export default function CinematicHero() {
           poster="/media/images/hero-poster.jpg"
           alt={lang === "ar" ? "سيارة تنطلق في شارع ليلي" : "Car running through a night street"}
           handleRef={videoHandle}
-          onPlayingChange={setVideoPlaying}
+          onPlayingChange={(playing) => {
+            setVideoPlaying(playing);
+            if (playing) setVideoReady(true);
+          }}
         />
       </div>
 
@@ -142,7 +146,7 @@ export default function CinematicHero() {
                 <ArrowDown className="size-4" strokeWidth={2} />
               </button>
 
-              {!reduced && (
+              {!reduced && videoReady && (
                 <button
                   type="button"
                   onClick={() => videoHandle.current?.toggle()}

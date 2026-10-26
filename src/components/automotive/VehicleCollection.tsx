@@ -110,7 +110,7 @@ function TiltShell({ children }: { children: ReactNode }) {
 
 interface VehicleCollectionProps {
   vehicles?: Vehicle[];
-  variant?: "showroom" | "electric" | "performance" | "related";
+  variant?: "showroom" | "related";
   /** Full editorial header (eyebrow + title + body). */
   withHeader?: boolean;
   /** Simple section heading shown above the grid. */
@@ -235,10 +235,10 @@ export default function VehicleCollection({
 
         <motion.ul
           layout
-          className={`mt-8 grid grid-cols-1 gap-5 ${variant === "electric" ? "sm:grid-cols-2 lg:grid-cols-2" : "sm:grid-cols-2 lg:grid-cols-3"}`}
+          className={`mt-8 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3`}
         >
           <AnimatePresence mode="popLayout" initial={false}>
-            {visible.map((vehicle, cardIndex) => (
+            {visible.map((vehicle) => (
               <motion.li
                 key={vehicle.slug}
                 layout
@@ -248,12 +248,12 @@ export default function VehicleCollection({
                 transition={{ duration: 0.42, ease: [0.32, 0.72, 0, 1] }}
               >
                 <TiltShell>
-                  <article className={`group relative h-full overflow-hidden border transition-all duration-500 ${variant === "performance" ? "rounded-[5px] border-white/10 bg-[#120d0d] hover:border-[#ff6848]/70" : variant === "electric" ? "rounded-[28px] border-[#6fe7df]/15 bg-[#091214] hover:border-[#6fe7df]/55" : variant === "related" ? "rounded-[16px] border-line bg-ink" : "rounded-[22px] border-line bg-ink hover:border-volt/60"}`}>
+                  <article className={`group relative h-full overflow-hidden border transition-all duration-500 ${variant === "related" ? "rounded-[16px] border-line bg-ink" : "rounded-[22px] border-line bg-ink hover:border-volt/60"}`}>
                     <Link
                       href={`/cars/${vehicle.slug}`}
                       className="flex h-full flex-col focus-visible:outline-none"
                     >
-                      <div className={`relative overflow-hidden ${variant === "performance" ? "aspect-[16/10]" : variant === "electric" ? "aspect-[16/10]" : "aspect-[4/3]"}`}>
+                      <div className={`relative overflow-hidden aspect-[4/3]`}>
                         <Image
                           src={vehicle.image}
                           alt={t(vehicle.alt)}
@@ -262,9 +262,7 @@ export default function VehicleCollection({
                           className="object-cover transition-transform duration-[900ms] ease-out group-hover:scale-[1.07]"
                           loading="lazy"
                         />
-                        <div className={`pointer-events-none absolute inset-0 bg-gradient-to-t from-black/90 via-black/15 to-transparent ${variant === "performance" ? "from-[#150908] via-[#150908]/20" : variant === "electric" ? "from-[#031011] via-[#031011]/10" : ""}`} />
-                        {variant === "electric" && <span className="pointer-events-none absolute bottom-4 end-4 rounded-full border border-[#6fe7df]/40 bg-[#071416]/75 px-3 py-1.5 text-[0.62rem] tracking-[0.18em] text-[#a3fff7] backdrop-blur-md">ELECTRIC / 0{cardIndex + 1}</span>}
-                        {variant === "performance" && <span className="pointer-events-none absolute bottom-4 end-4 font-display text-[3.8rem] font-black leading-none text-white/20">0{cardIndex + 1}</span>}
+                        <div className={`pointer-events-none absolute inset-0 bg-gradient-to-t from-black/90 via-black/15 to-transparent`} />
                         <span className="absolute start-4 top-4 rounded-full border border-white/20 bg-black/60 px-3 py-1 text-[0.66rem] tracking-[0.16em] text-white/85 backdrop-blur-sm">
                           {t(CATEGORY_LABELS[vehicle.category])}
                         </span>
@@ -274,7 +272,7 @@ export default function VehicleCollection({
                         />
                       </div>
 
-                      <div className={`flex flex-1 flex-col p-5 lg:p-6 ${variant === "electric" ? "bg-gradient-to-b from-[#0c1a1c] to-[#091214]" : ""}`}>
+                      <div className={`flex flex-1 flex-col p-5 lg:p-6 `}>
                         <div className="flex items-start justify-between gap-3">
                           <div>
                             <p className="eyebrow text-mist">{vehicle.brand}</p>
@@ -291,7 +289,6 @@ export default function VehicleCollection({
                           {t(vehicle.tagline)}
                         </p>
 
-                        {variant === "electric" && <dl className="mt-5 grid grid-cols-2 gap-3">{vehicle.specs.slice(0, 2).map((spec) => <div key={spec.label.en} className="border-t border-[#6fe7df]/20 pt-2"><dt className="text-[0.64rem] text-[#8db6b4]">{t(spec.label)}</dt><dd className="mt-1 font-display text-[0.88rem] text-[#c7fffa]">{spec.value}</dd></div>)}</dl>}
 
                         <div className="mt-auto flex items-center justify-between gap-3 border-t border-line pt-4">
                           <span className="numeral text-[0.9rem] text-fog">

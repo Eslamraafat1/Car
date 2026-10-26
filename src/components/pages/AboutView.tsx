@@ -3,9 +3,10 @@
 import Image from "next/image";
 import PageHeader from "@/components/automotive/PageHeader";
 import FinalCTA from "@/components/automotive/FinalCTA";
-import ShowcaseSections from "@/components/automotive/ShowcaseSections";
 import { C } from "@/lib/content";
 import { useLang } from "@/lib/i18n";
+import Reveal from "@/components/ui/Reveal";
+import Timeline from "@/components/automotive/Timeline";
 
 export default function AboutView() {
   const { t } = useLang();
@@ -23,12 +24,13 @@ export default function AboutView() {
         <div className="mx-auto w-full max-w-[1400px] px-4 sm:px-6 lg:px-10">
           <div className="mb-8 flex items-end justify-between gap-4 border-b border-line pb-5">
             <div><p className="eyebrow text-[#d7b078]">{t(C.pages.about.eyebrow)}</p><h2 className="display mt-3 text-[clamp(1.8rem,4vw,3.4rem)] text-fog">{t({ ar: "ما نؤمن به", en: "What we believe" })}</h2></div>
-            <span className="numeral hidden text-[0.68rem] tracking-[0.22em] text-dim sm:block">FIELD NOTES / 01—03</span>
+            <span className="numeral hidden text-[0.68rem] tracking-[0.22em] text-dim sm:block">01—03</span>
           </div>
           <ul className="grid gap-3 lg:grid-cols-3">
             {C.pages.about.points.map((point, index) => (
-              <li
-                key={point.title.en}
+              <li key={point.title.en}>
+              <Reveal delay={index * 0.1} className="h-full">
+              <div
                 className="group relative min-h-64 overflow-hidden border-t border-[#d7b078]/45 bg-gradient-to-b from-white/[0.035] to-transparent p-6 transition-all duration-500 hover:-translate-y-1 hover:from-[#d7b078]/[0.09] lg:p-8"
               >
                 <span className="pointer-events-none absolute -end-2 -top-8 font-display text-[12rem] font-black leading-none text-white/[0.025] transition-colors duration-500 group-hover:text-[#d7b078]/[0.08]" aria-hidden="true">0{index + 1}</span>
@@ -39,11 +41,15 @@ export default function AboutView() {
                   {t(point.title)}
                 </h3>
                 <p className="relative mt-3 max-w-[40ch] text-[0.9rem] leading-relaxed text-mist">{t(point.body)}</p>
+              </div>
+              </Reveal>
               </li>
             ))}
           </ul>
         </div>
       </section>
+
+      <Timeline />
 
       <section className="border-t border-line bg-ink-2 py-16 lg:py-24">
         <div className="mx-auto grid w-full max-w-[1400px] gap-6 px-4 sm:px-6 lg:grid-cols-12 lg:px-10">
@@ -62,7 +68,7 @@ export default function AboutView() {
               />
             </div>
             <figcaption className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/90 to-transparent p-5 text-[0.8rem] text-white/80">
-              {t(C.design.caption)}
+              {t({ ar: "استوديو العرض الخاص بنا", en: "Our showroom studio" })}
             </figcaption>
           </figure>
 
@@ -78,13 +84,12 @@ export default function AboutView() {
               />
             </div>
             <figcaption className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/90 to-transparent p-5 text-[0.8rem] text-white/80">
-              {t(C.details.items[3].title)}
+              {t({ ar: "مقصورة بتفاصيل مختارة", en: "Cabins finished to the last detail" })}
             </figcaption>
           </figure>
         </div>
       </section>
 
-      <ShowcaseSections page="about" />
       <FinalCTA />
     </>
   );

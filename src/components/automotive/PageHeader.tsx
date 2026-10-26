@@ -22,28 +22,16 @@ const pageArt = {
     mark: "01 / THE COLLECTION",
     note: { ar: "اختيار مُنتقى", en: "THE CURATED COLLECTION" },
   },
-  electric: {
-    image: "/media/images/card-electric.jpg",
-    accent: "#6fe7df",
-    mark: "02 / ELECTRIC",
-    note: { ar: "طاقة هادئة · حركة بلا حدود", en: "QUIET ENERGY · UNBOUND MOTION" },
-  },
-  performance: {
-    image: "/media/images/performance-car.jpg",
-    accent: "#ff6848",
-    mark: "03 / PERFORMANCE",
-    note: { ar: "منحنى · سرعة · تحكم", en: "APEX · SPEED · CONTROL" },
-  },
   about: {
     image: "/media/images/lab-tech.jpg",
     accent: "#d7b078",
-    mark: "04 / THE JOURNAL",
+    mark: "02 / THE STORY",
     note: { ar: "الحكاية وراء الاختيار", en: "THE STORY BEHIND THE CHOICE" },
   },
   contact: {
     image: "/media/images/car-amg-harbor.jpg",
     accent: "#75d6c3",
-    mark: "05 / THE STUDIO",
+    mark: "03 / THE STUDIO",
     note: { ar: "نقطة البداية لكل حكاية", en: "WHERE EVERY STORY BEGINS" },
   },
 } as const;
@@ -87,15 +75,11 @@ export default function PageHeader({ eyebrow, title, body, children }: PageHeade
     { scope: rootRef, dependencies: [reduced], revertOnUpdate: true },
   );
 
-  const page = pathname.startsWith("/electric")
-    ? "electric"
-    : pathname.startsWith("/performance")
-      ? "performance"
-      : pathname.startsWith("/about")
-        ? "about"
-        : pathname.startsWith("/contact")
-          ? "contact"
-          : "explore";
+  const page = pathname.startsWith("/about")
+    ? "about"
+    : pathname.startsWith("/contact")
+      ? "contact"
+      : "explore";
   const art = pageArt[page];
   const style = { "--page-accent": art.accent } as CSSProperties & { "--page-accent": string };
 
@@ -112,7 +96,7 @@ export default function PageHeader({ eyebrow, title, body, children }: PageHeade
       </div>
 
       <div className="relative mx-auto grid w-full max-w-[1500px] items-center gap-10 px-4 pb-12 pt-28 sm:px-6 sm:pb-16 lg:grid-cols-12 lg:gap-12 lg:px-10 lg:pb-20 lg:pt-36">
-        <div className={`relative z-10 lg:col-span-7 ${page === "electric" ? "lg:order-2" : ""}`}>
+        <div className={`relative z-10 lg:col-span-7`}>
           <div className="flex items-center gap-3">
             <span className="page-masthead-diamond size-2 rotate-45" />
             <p className="eyebrow page-masthead-eyebrow">{t(eyebrow)}</p>
@@ -130,7 +114,7 @@ export default function PageHeader({ eyebrow, title, body, children }: PageHeade
           </div>
         </div>
 
-        <div className={`relative lg:col-span-5 ${page === "electric" ? "lg:order-1" : ""}`}>
+        <div className={`relative lg:col-span-5`}>
           <figure className={`page-masthead-art page-masthead-art--${page} group relative isolate overflow-hidden border border-white/10 bg-ink-2`}>
             <div className="page-masthead-parallax absolute inset-0 will-change-transform">
               <Image
@@ -146,14 +130,13 @@ export default function PageHeader({ eyebrow, title, body, children }: PageHeade
             <div className="page-masthead-art-grid absolute inset-0" />
             <div className="absolute inset-x-0 bottom-0 flex items-end justify-between gap-4 p-5 sm:p-7">
               <figcaption className="eyebrow max-w-[22ch] text-white/80">{t(art.note)}</figcaption>
-              <span className="page-masthead-index numeral text-[clamp(2.2rem,5vw,4.5rem)] leading-none text-white/70">0{["explore", "electric", "performance", "about", "contact"].indexOf(page) + 1}</span>
+              <span className="page-masthead-index numeral text-[clamp(2.2rem,5vw,4.5rem)] leading-none text-white/70">0{["explore", "about", "contact"].indexOf(page) + 1}</span>
             </div>
             <span className="page-masthead-corner absolute start-4 top-4 size-8 border-s-2 border-t-2 sm:start-6 sm:top-6" />
             <span className="page-masthead-corner absolute end-4 bottom-4 size-8 rotate-180 border-s-2 border-t-2 sm:end-6 sm:bottom-6" />
           </figure>
-          {page === "electric" && <span className="page-orbit page-orbit--outer" aria-hidden="true" />}
-          {page === "electric" && <span className="page-orbit page-orbit--inner" aria-hidden="true" />}
-          {page === "performance" && <span className="page-speedline" aria-hidden="true" />}
+
+
           <span className="absolute -bottom-4 end-5 z-10 hidden bg-ink px-3 py-1 font-display text-[0.62rem] tracking-[0.2em] text-dim sm:block">{lang === "ar" ? "إطار مختار" : "AURELIS / FRAME"}</span>
         </div>
       </div>

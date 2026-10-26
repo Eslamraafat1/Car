@@ -34,16 +34,16 @@ const grotesk = Space_Grotesk({
 export const metadata: Metadata = {
   metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000"),
   title: {
-    default: "AURELIS — تجربة سيارات سينمائية | Cinematic Automotive Experience",
+    default: "AURELIS — شريكك في عالم السيارات | Premium Automotive Partner",
     template: "%s · AURELIS",
   },
   description:
-    "تجربة رقمية سينمائية للسيارات بالعربي والإنجليزي — قصص متحركة، موديلات، وتفاصيل مصنوعة بدقة. A cinematic, bilingual automotive storytelling experience.",
-  keywords: ["automotive", "cinematic", "cars", "Next.js", "GSAP", "تجربة سيارات"],
+    "أوريليس: بروفايل شركة متخصصة في السيارات الفاخرة والكهربائية — خبرة وشفافية وخدمة ما بعد البيع. Aurelis is a premium automotive partner built on expertise, transparency and care.",
+  keywords: ["automotive", "company profile", "cars", "luxury cars", "electric cars", "سيارات", "بروفايل شركة"],
   openGraph: {
     type: "website",
-    title: "AURELIS — Cinematic Automotive Experience",
-    description: "A premium automotive storytelling experience in Arabic and English.",
+    title: "AURELIS — Premium Automotive Partner",
+    description: "Expertise, transparency and care for every detail — luxury, performance and electric cars.",
     images: [{ url: "/media/images/hero-poster.jpg", width: 2400, height: 1600 }],
   },
 };
