@@ -11,6 +11,7 @@ import WordBand from "@/components/ui/WordBand";
 import VisionMission from "@/components/automotive/VisionMission";
 import Awards from "@/components/automotive/Awards";
 import ProfileCTA from "@/components/automotive/ProfileCTA";
+import PhotoMosaic from "@/components/automotive/PhotoMosaic";
 import Team from "@/components/automotive/Team";
 import Partners from "@/components/automotive/Partners";
 
@@ -83,6 +84,7 @@ export default function AboutView() {
           </figure>
         </div>
       </section>
+      <PhotoMosaic />
       <Awards />
       <Team />
       <Partners />

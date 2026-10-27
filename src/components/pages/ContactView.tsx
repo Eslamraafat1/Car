@@ -5,6 +5,7 @@ import { Clock, Mail, MapPin, Phone } from "lucide-react";
 import dynamic from "next/dynamic";
 import PageHeader from "@/components/automotive/PageHeader";
 import Reveal from "@/components/ui/Reveal";
+import OpenNow from "@/components/automotive/OpenNow";
 import FaqSection from "@/components/automotive/FaqSection";
 
 const Globe = dynamic(() => import("@/components/three/Globe"), { ssr: false });
@@ -63,6 +64,7 @@ export default function ContactView() {
       />
 
       <section className="bg-ink pt-12 lg:pt-16" aria-label={t(C.pages.contact.eyebrow)}>
+        <div className="mx-auto mb-4 w-full max-w-[1400px] px-4 sm:px-6 lg:px-10"><OpenNow /></div>
         <ul className="mx-auto grid w-full max-w-[1400px] gap-3 px-4 sm:grid-cols-2 sm:px-6 lg:grid-cols-4 lg:gap-4 lg:px-10">
           {[
             { Icon: Mail, label: C.pages.contact.email, value: C.contactInfo.email, href: `mailto:${C.contactInfo.email}`, ltr: true },

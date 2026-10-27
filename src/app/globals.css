@@ -594,3 +594,11 @@ html[dir="rtl"] .keep-tracking { font-family: var(--font-grotesk), system-ui, sa
 @keyframes fade-in { to { opacity: 1; } }
 .fade-late { opacity: 0; animation: fade-in 1s ease-out 1.5s forwards; }
 @media (prefers-reduced-motion: reduce) { .fade-late { opacity: 1; animation: none; } }
+
+/* car page: character entrance, no JS state needed */
+@keyframes ch-char-in { from { transform: translateY(115%); } to { transform: none; } }
+.ch-char { animation: ch-char-in 0.9s cubic-bezier(0.2, 0.8, 0.1, 1) both; animation-delay: calc(0.25s + var(--i, 0) * 0.04s); }
+@media (prefers-reduced-motion: reduce) { .ch-char { animation: none; } }
+
+/* lift the floating back-to-top above the car page's sticky buy bar */
+html.has-buybar .back-top { bottom: calc(5.4rem + env(safe-area-inset-bottom)); }

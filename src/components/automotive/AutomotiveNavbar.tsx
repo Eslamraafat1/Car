@@ -119,18 +119,27 @@ export default function AutomotiveNavbar() {
   const overHero = !scrolled && pathname === "/";
   const litKey = hovered ?? NAV_ITEMS.find((i) => pathname === i.href || (i.href === "/explore" && pathname.startsWith("/cars/")))?.href ?? null;
 
-  /* The highlight pill glides to the hovered (or current) link — plain DOM writes, no animation library. */
+  /* The highlight pill glides to the hovered (or current) link — plain DOM writes, no animation library.
+     It is re-placed whenever the list resizes (fonts loading, language switch, new menu items). */
   useEffect(() => {
     const pill = pillRef.current;
     const li = litKey ? itemRefs.current[litKey] : null;
     if (!pill) return;
-    if (!li) {
-      pill.style.opacity = "0";
-      return;
-    }
-    pill.style.width = `${li.offsetWidth}px`;
-    pill.style.transform = `translateX(${li.offsetLeft}px)`;
-    pill.style.opacity = "1";
+    const place = () => {
+      if (!li) {
+        pill.style.opacity = "0";
+        return;
+      }
+      pill.style.width = `${li.offsetWidth}px`;
+      pill.style.transform = `translateX(${li.offsetLeft}px)`;
+      pill.style.opacity = "1";
+    };
+    place();
+    const list = pill.parentElement;
+    if (!list) return;
+    const ro = new ResizeObserver(place);
+    ro.observe(list);
+    return () => ro.disconnect();
   }, [litKey, lang, overHero]);
   const isActive = (href: string) =>
     pathname === href ||

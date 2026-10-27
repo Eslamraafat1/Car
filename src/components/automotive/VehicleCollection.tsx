@@ -4,14 +4,24 @@ import Image from "next/image";
 import Link from "next/link";
 import { useMemo, useRef, useState, useSyncExternalStore, type ReactNode, useEffect } from "react";
 import { AnimatePresence, MotionConfig, motion } from "framer-motion";
-import { ArrowRight, Heart } from "lucide-react";
+import { ArrowRight, Heart, Search } from "lucide-react";
 import { FILTER_EVENT } from "@/components/automotive/ExploreCategories";
 import { C, type BiStr } from "@/lib/content";
 import { useLang } from "@/lib/i18n";
 import KineticHeading from "@/components/ui/KineticHeading";
 import { CATEGORY_LABELS, VEHICLES, type Category, type Vehicle } from "@/lib/vehicles";
+import { priceNumber } from "@/lib/vehicle-extra";
 
 type FilterKey = "all" | Category | "favorites";
+type SortKey = "featured" | "priceAsc" | "priceDesc" | "newest";
+
+const SORTS: { key: SortKey; label: BiStr }[] = [
+  { key: "featured", label: { ar: "الأبرز", en: "Featured" } },
+  { key: "priceAsc", label: { ar: "السعر: الأقل أولًا", en: "Price: low to high" } },
+  { key: "priceDesc", label: { ar: "السعر: الأعلى أولًا", en: "Price: high to low" } },
+  { key: "newest", label: { ar: "الأحدث", en: "Newest" } },
+];
+const SEARCH_LABEL: BiStr = { ar: "ابحث عن ماركة أو موديل", en: "Search a brand or model" };
 const FAVORITES_KEY = "evay-saved-vehicles";
 const EMPTY_FAVORITES: ReadonlySet<string> = new Set();
 let favoritesSnapshot: ReadonlySet<string> = EMPTY_FAVORITES;
@@ -143,13 +153,25 @@ export default function VehicleCollection({
     { key: "favorites", ar: "المفضلة", en: "Saved" },
   ];
 
+  const [query, setQuery] = useState("");
+  const [sort, setSort] = useState<SortKey>("featured");
+
   const visible = useMemo(
     () => {
-      if (filter === "all") return vehicles;
-      if (filter === "favorites") return vehicles.filter((vehicle) => favorites.has(vehicle.slug));
-      return vehicles.filter((vehicle) => vehicle.category === filter);
+      let list =
+        filter === "all"
+          ? vehicles
+          : filter === "favorites"
+            ? vehicles.filter((vehicle) => favorites.has(vehicle.slug))
+            : vehicles.filter((vehicle) => vehicle.category === filter);
+      const q = query.trim().toLowerCase();
+      if (q) list = list.filter((v) => `${v.brand} ${v.model}`.toLowerCase().includes(q));
+      if (sort === "priceAsc") list = [...list].sort((a, b) => priceNumber(a) - priceNumber(b));
+      else if (sort === "priceDesc") list = [...list].sort((a, b) => priceNumber(b) - priceNumber(a));
+      else if (sort === "newest") list = [...list].sort((a, b) => b.year - a.year);
+      return list;
     },
-    [vehicles, filter, favorites],
+    [vehicles, filter, favorites, query, sort],
   );
 
   const toggleFavorite = (slug: string) => {
@@ -226,6 +248,32 @@ export default function VehicleCollection({
                   </button>
                 );
               })}
+            </div>
+          )}
+
+          {withFilters && (
+            <div className="flex w-full flex-wrap items-center gap-2 lg:w-auto">
+              <label className="relative min-w-0 flex-1 lg:w-60 lg:flex-none">
+                <span className="sr-only">{t(SEARCH_LABEL)}</span>
+                <Search className="pointer-events-none absolute start-3.5 top-1/2 size-4 -translate-y-1/2 text-dim" />
+                <input
+                  type="search"
+                  value={query}
+                  onChange={(e) => setQuery(e.target.value)}
+                  placeholder={t(SEARCH_LABEL)}
+                  className="h-11 w-full rounded-full border border-line bg-ink ps-10 pe-4 text-fog outline-none transition-colors placeholder:text-dim focus:border-volt"
+                />
+              </label>
+              <label className="shrink-0">
+                <span className="sr-only">{lang === "ar" ? "ترتيب" : "Sort"}</span>
+                <select
+                  value={sort}
+                  onChange={(e) => setSort(e.target.value as SortKey)}
+                  className="h-11 rounded-full border border-line bg-ink px-4 text-fog outline-none transition-colors focus:border-volt"
+                >
+                  {SORTS.map((o) => <option key={o.key} value={o.key}>{t(o.label)}</option>)}
+                </select>
+              </label>
             </div>
           )}
 
