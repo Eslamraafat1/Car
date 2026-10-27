@@ -602,3 +602,32 @@ html[dir="rtl"] .keep-tracking { font-family: var(--font-grotesk), system-ui, sa
 
 /* lift the floating back-to-top above the car page's sticky buy bar */
 html.has-buybar .back-top { bottom: calc(5.4rem + env(safe-area-inset-bottom)); }
+
+/* ---------- car page: launch sequence (driven by --p, set from scroll) ---------- */
+.ls-img { transform: translate3d(calc(var(--p, 0) * -5%), 0, 0) scale(calc(1.05 + var(--p, 0) * 0.17)); }
+.ls-vignette { background: radial-gradient(75% 70% at 50% 50%, transparent 35%, rgba(0, 0, 0, 0.85)); opacity: calc(0.15 + var(--p, 0) * 0.85); }
+.ls-tint { opacity: calc(var(--p, 0) * 1.2); }
+.ls-ghost > p { transform: translate3d(calc(var(--p, 0) * 18% - 8%), 0, 0); }
+.ls-streak { opacity: calc(var(--p, 0) * var(--o, 0.4) * 2); transform: translate3d(calc(var(--p, 0) * var(--v, 100) * -1vw), 0, 0); }
+.ls-hint { opacity: calc(1 - var(--p, 0) * 6); }
+.ls-hud { opacity: min(1, calc(0.35 + var(--p, 0) * 8)); }
+.ls-mark { transition: color 0.3s, border-color 0.3s, background-color 0.3s; }
+.ls-mark[data-on="true"] { color: #fff; border-color: rgba(255, 255, 255, 0.9); background: rgba(255, 255, 255, 0.14); }
+.ls-flash { opacity: 0; transform: translateY(-50%) scale(0.92); transition: opacity 0.35s, transform 0.45s cubic-bezier(0.2, 0.8, 0.1, 1); text-shadow: 0 0 60px rgba(255, 255, 255, 0.45); }
+.ls-flash[data-on="true"] { opacity: 0.95; transform: translateY(-50%) scale(1); }
+
+/* ---------- car page: day story ---------- */
+.ds-sun { background: radial-gradient(circle, #fff7d6 0%, #ffd36a 45%, rgba(255, 190, 80, 0) 72%); box-shadow: 0 0 90px 30px rgba(255, 200, 100, 0.55); }
+.ds-moon { background: radial-gradient(circle at 35% 35%, #fff, #cfd8ee 60%, #9aa7c9); box-shadow: 0 0 60px 14px rgba(180, 200, 255, 0.45); }
+.ds-stars {
+  opacity: var(--night, 0);
+  background-image:
+    radial-gradient(1.5px 1.5px at 12% 18%, #fff, transparent), radial-gradient(1px 1px at 28% 42%, #fff, transparent),
+    radial-gradient(1.5px 1.5px at 46% 12%, #cfe0ff, transparent), radial-gradient(1px 1px at 63% 36%, #fff, transparent),
+    radial-gradient(2px 2px at 78% 16%, #fff, transparent), radial-gradient(1px 1px at 90% 44%, #cfe0ff, transparent),
+    radial-gradient(1px 1px at 8% 56%, #fff, transparent), radial-gradient(1.5px 1.5px at 36% 62%, #fff, transparent),
+    radial-gradient(1px 1px at 72% 58%, #fff, transparent), radial-gradient(1.5px 1.5px at 54% 28%, #fff, transparent);
+}
+.ds-photo { filter: brightness(calc(1 - var(--night, 0) * 0.26)) saturate(calc(1 - var(--night, 0) * 0.12)); }
+
+@media (max-width: 1023px) { html.has-buybar .back-top { opacity: 0; pointer-events: none; } }

@@ -5,9 +5,10 @@ import VehicleCollection from "@/components/automotive/VehicleCollection";
 import SpecsStory from "@/components/automotive/SpecsStory";
 import CarHero from "@/components/car/CarHero";
 import PerformanceGauges from "@/components/car/PerformanceGauges";
-import ImageLens from "@/components/car/ImageLens";
+import LaunchSequence from "@/components/car/LaunchSequence";
+import SpecBand from "@/components/car/SpecBand";
 import CarHighlights from "@/components/car/CarHighlights";
-import FinanceCalc from "@/components/car/FinanceCalc";
+import DayStory from "@/components/car/DayStory";
 import StickyBuyBar from "@/components/car/StickyBuyBar";
 import NextCar from "@/components/car/NextCar";
 import KineticHeading from "@/components/ui/KineticHeading";
@@ -29,6 +30,7 @@ export default function CarDetailView({ vehicle, related }: CarDetailViewProps) 
   return (
     <>
       <CarHero vehicle={vehicle} />
+      <SpecBand vehicle={vehicle} />
 
       <section id="car-overview" className="relative bg-ink py-16 lg:py-24" aria-label={t(C.car.detail)}>
         <div className="mx-auto grid w-full max-w-[1400px] gap-10 px-4 sm:px-6 lg:grid-cols-12 lg:gap-16 lg:px-10">
@@ -72,10 +74,10 @@ export default function CarDetailView({ vehicle, related }: CarDetailViewProps) 
       </section>
 
       <PerformanceGauges vehicle={vehicle} />
-      <ImageLens vehicle={vehicle} />
+      <LaunchSequence vehicle={vehicle} />
       <SpecsStory vehicle={vehicle} />
       <CarHighlights vehicle={vehicle} />
-      <FinanceCalc vehicle={vehicle} />
+      <DayStory vehicle={vehicle} />
 
       {related.length > 0 && (
         <VehicleCollection vehicles={related} variant="related" withHeader={false} withFilters={false} title={C.car.related} />

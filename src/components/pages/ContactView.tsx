@@ -12,6 +12,14 @@ const Globe = dynamic(() => import("@/components/three/Globe"), { ssr: false });
 import { C } from "@/lib/content";
 import { useLang } from "@/lib/i18n";
 
+const TOPICS = [
+  { ar: "شراء سيارة", en: "Buying a car" },
+  { ar: "حجز تجربة قيادة", en: "Book a test drive" },
+  { ar: "بيع أو استبدال سيارتي", en: "Sell or trade in" },
+  { ar: "الصيانة والضمان", en: "Service & warranty" },
+  { ar: "شراكة تجارية", en: "Partnership" },
+] as const;
+
 const CONTACT_EMAIL = "hello@evay.example";
 const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
@@ -99,6 +107,26 @@ export default function ContactView() {
               <div className="mb-7 flex items-center justify-between gap-4 border-b border-line pb-5">
                 <div><p className="eyebrow text-[#75d6c3]">EVAY / INBOX</p><p className="mt-2 text-sm text-mist">{t({ ar: "رسالة واحدة تكفي لنبدأ.", en: "One note is all it takes to get started." })}</p></div>
                 <span className="flex size-11 shrink-0 items-center justify-center rounded-full border border-[#75d6c3]/35 text-[#75d6c3]"><Mail className="size-4" aria-hidden="true" /></span>
+              </div>
+              <p className="text-[0.78rem] text-dim">{t({ ar: "أنا مهتم بـ", en: "I'm interested in" })}</p>
+              <div className="mb-6 mt-3 flex flex-wrap gap-2" role="group" aria-label={t({ ar: "نوع الطلب", en: "Request type" })}>
+                {TOPICS.map((topic) => {
+                  const selected = form.subject === t(topic);
+                  return (
+                    <button
+                      key={topic.en}
+                      type="button"
+                      aria-pressed={selected}
+                      onClick={() => {
+                        setForm((prev) => ({ ...prev, subject: t(topic) }));
+                        if (status !== "idle") setStatus("idle");
+                      }}
+                      className={`h-10 rounded-full border px-4 text-[0.82rem] font-medium transition-all duration-300 ${selected ? "border-transparent bg-volt text-white" : "border-line text-mist hover:border-volt hover:text-fog"}`}
+                    >
+                      {t(topic)}
+                    </button>
+                  );
+                })}
               </div>
               <div className="grid gap-5 sm:grid-cols-2">
                 {fields.map((field) => (
