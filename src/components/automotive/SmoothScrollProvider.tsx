@@ -13,10 +13,15 @@ export default function SmoothScrollProvider() {
   const reduced = useReducedMotion();
 
   useEffect(() => {
-    if (reduced) {
+    /* Touch devices already have native momentum scrolling — Lenis would only
+       fight it and add per-frame work, so it is desktop-only. */
+    const coarse = window.matchMedia("(pointer: coarse)").matches;
+    if (reduced || coarse) {
       registerLenis(null);
-      ScrollTrigger.refresh();
-      return;
+      const onLoad = () => ScrollTrigger.refresh();
+      if (document.readyState === "complete") onLoad();
+      else window.addEventListener("load", onLoad, { once: true });
+      return () => window.removeEventListener("load", onLoad);
     }
 
     const lenis = new Lenis({
@@ -35,7 +40,6 @@ export default function SmoothScrollProvider() {
     gsap.ticker.add(raf);
     gsap.ticker.lagSmoothing(0);
 
-    const refreshFrame = window.requestAnimationFrame(() => ScrollTrigger.refresh());
     const onLoad = () => window.requestAnimationFrame(() => ScrollTrigger.refresh());
     window.addEventListener("load", onLoad);
 
@@ -48,7 +52,6 @@ export default function SmoothScrollProvider() {
 
     return () => {
       window.removeEventListener("load", onLoad);
-      window.cancelAnimationFrame(refreshFrame);
       window.cancelAnimationFrame(fontsFrame);
       gsap.ticker.remove(raf);
       lenis.off("scroll", onScroll);

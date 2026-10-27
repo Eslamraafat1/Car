@@ -75,7 +75,7 @@ export default function WhyEvay() {
               <svg viewBox="0 0 120 120" className="absolute inset-0 -rotate-90" aria-hidden="true">
                 <circle cx="60" cy="60" r="52" fill="none" stroke="var(--c-line)" strokeWidth="5" />
                 <circle cx="60" cy="60" r="52" fill="none" stroke="var(--c-volt)" strokeWidth="5" strokeLinecap="round" strokeDasharray="327" strokeDashoffset={ringSeen ? 20 : 327} style={{ transition: "stroke-dashoffset 2.2s cubic-bezier(.2,.8,.1,1)" }} />
-                <circle cx="60" cy="60" r="42" fill="none" stroke="var(--c-line)" strokeWidth="1" strokeDasharray="2 5" className="spin-slow origin-center" />
+                <circle cx="60" cy="60" r="42" fill="none" stroke="var(--c-line)" strokeWidth="1" strokeDasharray="2 5" />
               </svg>
               <div className="absolute inset-0 grid place-items-center">
                 <ShieldCheck className="size-10 text-volt sm:size-14" strokeWidth={1.4} />
@@ -92,7 +92,7 @@ export default function WhyEvay() {
           <Tile delay={0.14}>
             <span className="relative inline-flex size-7 items-center justify-center text-volt">
               <Clock className="size-7" strokeWidth={1.6} />
-              <span className="spin-slow absolute inset-0 origin-center [animation-duration:6s]"><span className="absolute left-1/2 top-[10%] h-[34%] w-px -translate-x-1/2 bg-volt" /></span>
+              <span className="absolute left-1/2 top-[10%] h-[34%] w-px origin-bottom -translate-x-1/2 rotate-[35deg] bg-volt transition-transform duration-700 group-hover:rotate-[215deg]" />
             </span>
             <div className="mt-auto pt-6"><Figure item={find("response")} /></div>
           </Tile>
@@ -105,7 +105,7 @@ export default function WhyEvay() {
           <Tile delay={0.26}>
             <span className="relative inline-flex size-7 text-volt">
               <MapPin className="size-7" strokeWidth={1.6} />
-              <span className="absolute -inset-2 animate-ping rounded-full border border-volt/40" />
+              <span className="absolute -inset-2 rounded-full border border-volt/30 transition-transform duration-500 group-hover:scale-125" />
             </span>
             <div className="mt-auto pt-6"><Figure item={find("cities")} /></div>
           </Tile>

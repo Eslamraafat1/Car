@@ -5,6 +5,8 @@ export type Three = typeof ThreeNs;
 export interface SceneApi {
   /** Called every rendered frame. `dt` is seconds since the previous frame. */
   update: (time: number, dt: number) => void;
+  /** When it returns true the frame is skipped entirely (nothing changed). */
+  idle?: () => boolean;
   resize?: (width: number, height: number) => void;
   dispose?: () => void;
 }
@@ -24,6 +26,8 @@ interface MountOptions {
   maxDpr?: number;
   /** Render a single still frame and never animate. */
   still?: boolean;
+  /** Frame-rate ceiling on lite devices (phones / low-core CPUs). */
+  liteFps?: number;
 }
 
 /**
@@ -35,7 +39,7 @@ interface MountOptions {
 export async function mountThree(
   container: HTMLElement,
   setup: (ctx: SceneContext) => SceneApi | Promise<SceneApi>,
-  { maxDpr = 1.75, still = false }: MountOptions = {},
+  { maxDpr = 1.75, still = false, liteFps = 30 }: MountOptions = {},
 ): Promise<() => void> {
   const THREE = await import("three");
 
@@ -46,8 +50,11 @@ export async function mountThree(
     return () => {};
   }
 
-  const lite = window.matchMedia("(max-width: 767px)").matches || (navigator.hardwareConcurrency ?? 8) <= 4;
-  renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, lite ? Math.min(maxDpr, 1.5) : maxDpr));
+  const lite =
+    window.matchMedia("(max-width: 1023px)").matches ||
+    window.matchMedia("(pointer: coarse)").matches ||
+    (navigator.hardwareConcurrency ?? 8) <= 4;
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, lite ? Math.min(maxDpr, 1.25) : maxDpr));
   renderer.setClearColor(0x000000, 0);
   const canvas = renderer.domElement;
   canvas.style.cssText = "position:absolute;inset:0;width:100%;height:100%;display:block;";
@@ -69,12 +76,18 @@ export async function mountThree(
   let last = performance.now();
   const start = last;
 
+  const minGap = lite ? 1000 / liteFps - 2 : 0;
   const frame = (now: number) => {
     raf = 0;
     if (disposed) return;
-    const dt = Math.min((now - last) / 1000, 0.1);
+    const gap = now - last;
+    if (!still && gap < minGap) {
+      if (visible && !document.hidden) raf = requestAnimationFrame(frame);
+      return;
+    }
+    const dt = Math.min(gap / 1000, 0.1);
     last = now;
-    api.update((now - start) / 1000, dt);
+    if (still || !api.idle?.()) api.update((now - start) / 1000, dt);
     if (!still && visible && !document.hidden) raf = requestAnimationFrame(frame);
   };
   const kick = () => {
@@ -88,7 +101,8 @@ export async function mountThree(
     ({ w, h } = rect());
     renderer.setSize(w, h, false);
     api.resize?.(w, h);
-    if (still || !raf) frame(performance.now());
+    // resizing clears the canvas, so always repaint even when the scene reports idle
+    api.update((performance.now() - start) / 1000, 0.016);
   });
   ro.observe(container);
   api.resize?.(w, h);

@@ -81,7 +81,7 @@ export default function ServicesStack({ eyebrow = C.engineering.eyebrow, title =
                     loading="lazy"
                   />
                   <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent" />
-                  {tile.tag && <span className="absolute bottom-4 start-4 rounded-full border border-white/25 bg-black/50 px-3.5 py-1.5 text-[0.72rem] text-white/90 backdrop-blur-md">{t(tile.tag)}</span>}
+                  {tile.tag && <span className="absolute bottom-4 start-4 rounded-full border border-white/25 bg-black/50 px-3.5 py-1.5 text-[0.72rem] text-white/90 lg:backdrop-blur-md">{t(tile.tag)}</span>}
                 </div>
                 <div className="relative flex flex-col justify-center p-6 sm:p-10 lg:col-span-6 lg:p-14">
                   <span className="numeral font-display text-[clamp(3.5rem,9vw,7rem)] font-bold leading-none text-fog/[0.08]" aria-hidden="true">0{i + 1}</span>

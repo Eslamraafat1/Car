@@ -22,7 +22,7 @@ export default function StatsBand() {
   const { t } = useLang();
   return (
     <section className="relative overflow-hidden border-y border-line bg-ink-2" aria-label={t(C.intro.eyebrow)}>
-      <div className="float-slow pointer-events-none absolute start-1/2 top-1/2 size-[30rem] -translate-x-1/2 -translate-y-1/2 rounded-full bg-volt/10 blur-[120px]" aria-hidden="true" />
+      <div className="pointer-events-none absolute start-1/2 top-1/2 size-[30rem] -translate-x-1/2 -translate-y-1/2 rounded-full glow" aria-hidden="true" />
       <div className="relative mx-auto grid w-full max-w-[1400px] grid-cols-2 divide-line px-4 sm:px-6 lg:grid-cols-4 lg:divide-x lg:px-10">
         {C.intro.stats.map((s) => <Figure key={s.label.en} value={s.value} suffix={s.suffix} label={t(s.label)} />)}
       </div>

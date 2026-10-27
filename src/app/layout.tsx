@@ -1,6 +1,5 @@
 import type { Metadata, Viewport } from "next";
 import { Inter, IBM_Plex_Sans_Arabic, Readex_Pro, Space_Grotesk } from "next/font/google";
-import { MotionConfig } from "framer-motion";
 import "./globals.css";
 import { LanguageProvider } from "@/lib/i18n";
 import { ThemeProvider } from "@/lib/theme";
@@ -9,7 +8,7 @@ import AutomotiveNavbar from "@/components/automotive/AutomotiveNavbar";
 import AutomotiveFooter from "@/components/automotive/AutomotiveFooter";
 import ScrollProgress from "@/components/ui/ScrollProgress";
 import BackToTop from "@/components/ui/BackToTop";
-import CommandPalette from "@/components/ui/CommandPalette";
+import LazyCommandPalette from "@/components/ui/LazyCommandPalette";
 import CursorAura from "@/components/ui/CursorAura";
 import Loader from "@/components/ui/Loader";
 
@@ -21,16 +20,18 @@ const inter = Inter({
 
 const arabic = IBM_Plex_Sans_Arabic({
   subsets: ["arabic"],
-  weight: ["300", "400", "500", "600", "700"],
+  weight: ["400", "600"],
   variable: "--font-ar",
   display: "swap",
+  preload: false,
 });
 
 const arabicDisplay = Readex_Pro({
   subsets: ["arabic"],
-  weight: ["400", "500", "600", "700"],
+  weight: ["600"],
   variable: "--font-ar-display",
   display: "swap",
+  preload: false,
 });
 
 const grotesk = Space_Grotesk({
@@ -77,7 +78,6 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       <body className="min-h-full bg-ink text-fog">
         <script dangerouslySetInnerHTML={{ __html: themeInitScript }} />
         <Loader />
-        <MotionConfig reducedMotion="user">
           <ThemeProvider>
             <LanguageProvider>
               <SmoothScrollProvider />
@@ -89,14 +89,13 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
                 تخطَّ إلى المحتوى · Skip to content
               </a>
               <AutomotiveNavbar />
-              <CommandPalette />
+              <LazyCommandPalette />
               <main id="main-content">{children}</main>
               <AutomotiveFooter />
               <BackToTop />
               <CursorAura />
             </LanguageProvider>
           </ThemeProvider>
-        </MotionConfig>
       </body>
     </html>
   );

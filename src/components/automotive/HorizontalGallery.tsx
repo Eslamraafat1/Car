@@ -90,7 +90,7 @@ export default function HorizontalGallery() {
                 />
                 <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/85 via-black/10 to-black/20" />
                 <span className="numeral absolute start-5 top-4 font-display text-5xl font-bold leading-none text-white/25">0{i + 1}</span>
-                <span className="absolute end-4 top-4 inline-flex size-10 items-center justify-center rounded-full border border-white/30 bg-black/30 text-white backdrop-blur-md transition-all duration-300 group-hover:scale-110 group-hover:bg-white group-hover:text-black">
+                <span className="absolute end-4 top-4 inline-flex size-10 items-center justify-center rounded-full border border-white/30 bg-black/30 text-white lg:backdrop-blur-md transition-all duration-300 group-hover:scale-110 group-hover:bg-white group-hover:text-black">
                   <ArrowUpRight className="size-4 rtl:-scale-x-100" />
                 </span>
                 <div className="absolute inset-x-0 bottom-0 p-5 text-white sm:p-6">

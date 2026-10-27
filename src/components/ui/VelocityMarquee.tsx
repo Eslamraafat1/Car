@@ -37,6 +37,11 @@ export default function VelocityMarquee({
         trigger: rootRef.current,
         start: "top bottom",
         end: "bottom top",
+        onToggle: (self) => {
+          // no point animating a belt nobody can see
+          if (self.isActive) tween.resume();
+          else tween.pause();
+        },
         onUpdate: (self) => {
           const v = self.getVelocity();
           tween.timeScale(1 + Math.min(Math.abs(v) / 350, 5));

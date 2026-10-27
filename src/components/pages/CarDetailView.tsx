@@ -48,7 +48,7 @@ export default function CarDetailView({ vehicle, related }: CarDetailViewProps) 
             <div className="mx-auto w-full max-w-[1400px]">
               <Link
                 href="/explore"
-                className="group inline-flex items-center gap-2 rounded-full border border-white/25 bg-black/55 px-4 py-2 text-[0.8rem] text-white backdrop-blur-sm transition-colors duration-300 hover:border-white/70 focus-visible:outline focus-visible:outline-2 focus-visible:outline-volt"
+                className="group inline-flex items-center gap-2 rounded-full border border-white/25 bg-black/55 px-4 py-2 text-[0.8rem] text-white lg:backdrop-blur-sm transition-colors duration-300 hover:border-white/70 focus-visible:outline focus-visible:outline-2 focus-visible:outline-volt"
               >
                 {lang === "ar" ? (
                   <ArrowRight className="size-4 transition-transform duration-300 group-hover:-translate-x-1" strokeWidth={2.2} />
@@ -61,10 +61,10 @@ export default function CarDetailView({ vehicle, related }: CarDetailViewProps) 
 
             <div className="mx-auto w-full max-w-[1400px]">
               <div className="flex flex-wrap items-center gap-3">
-                <span className="rounded-full border border-white/25 bg-black/60 px-3 py-1 text-[0.68rem] tracking-[0.16em] text-white/85 backdrop-blur-sm">
+                <span className="rounded-full border border-white/25 bg-black/60 px-3 py-1 text-[0.68rem] tracking-[0.16em] text-white/85 lg:backdrop-blur-sm">
                   {t(CATEGORY_LABELS[vehicle.category])}
                 </span>
-                <span className="numeral rounded-full border border-white/20 px-3 py-1 text-[0.68rem] tracking-[0.16em] text-white/70 backdrop-blur-sm">
+                <span className="numeral rounded-full border border-white/20 px-3 py-1 text-[0.68rem] tracking-[0.16em] text-white/70 lg:backdrop-blur-sm">
                   {vehicle.year}
                 </span>
                 <span className="rounded-full border border-ember/40 bg-ember/15 px-3 py-1 text-[0.68rem] tracking-[0.14em] text-ember">

@@ -12,7 +12,7 @@ export default function Testimonials() {
 
   return (
     <section className="relative isolate overflow-hidden bg-ink py-20 lg:py-32" aria-labelledby="testimonials-title">
-      <div className="float-slow pointer-events-none absolute -end-24 top-1/3 -z-10 size-[24rem] rounded-full bg-volt/10 blur-[110px]" aria-hidden="true" />
+      <div className="pointer-events-none absolute -end-24 top-1/3 -z-10 size-[24rem] rounded-full glow" aria-hidden="true" />
       <div className="mx-auto w-full max-w-[1400px] px-4 sm:px-6 lg:px-10">
         <Reveal>
           <p className="eyebrow text-volt">{t(C.testimonials.eyebrow)}</p>

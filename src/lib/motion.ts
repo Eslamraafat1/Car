@@ -5,6 +5,8 @@ import { useEffect, useState, useSyncExternalStore } from "react";
 
 if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger, useGSAP);
+  // the iOS/Android URL bar growing or shrinking must not trigger a full refresh
+  ScrollTrigger.config({ ignoreMobileResize: true });
 }
 
 export { gsap, ScrollTrigger, useGSAP };

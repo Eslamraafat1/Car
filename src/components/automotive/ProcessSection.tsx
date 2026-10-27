@@ -36,7 +36,7 @@ export default function ProcessSection() {
     <section ref={rootRef} className="relative bg-ink-2" style={{ height: `${steps.length * 85 + 60}svh` }} aria-labelledby="process-title">
       <div className="sticky top-0 flex h-svh flex-col justify-center overflow-hidden pt-20">
         <div className="pointer-events-none absolute inset-0 opacity-[0.5]" aria-hidden="true">
-          <div className="absolute -end-24 top-[18%] size-[30rem] rounded-full bg-volt/10 blur-[120px]" />
+          <div className="absolute -end-24 top-[18%] size-[30rem] rounded-full glow" />
         </div>
         <div className="mx-auto grid w-full max-w-[1400px] gap-8 px-4 sm:px-6 lg:grid-cols-12 lg:items-center lg:gap-14 lg:px-10">
           <div className="lg:col-span-6">

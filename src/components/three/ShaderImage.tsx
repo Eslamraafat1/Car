@@ -52,6 +52,8 @@ export default function ShaderImage({ src, className = "" }: { src: string; clas
   useEffect(() => {
     const el = ref.current;
     if (!el || reduced) return;
+    // touch devices have no pointer to ripple around — keep the plain <Image> there
+    if (window.matchMedia("(pointer: coarse)").matches) return;
     let cancelled = false;
 
     const dispose = mountThreeWhenNear(

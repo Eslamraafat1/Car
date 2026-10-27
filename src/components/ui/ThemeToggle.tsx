@@ -1,6 +1,5 @@
 "use client";
 
-import { AnimatePresence, motion } from "framer-motion";
 import { Moon, Sun } from "lucide-react";
 import { useLang } from "@/lib/i18n";
 import { useTheme } from "@/lib/theme";
@@ -36,22 +35,8 @@ export default function ThemeToggle({ variant = "surface", className = "" }: The
       title={t(theme === "dark" ? LABELS.toLight : LABELS.toDark)}
       className={`group relative inline-flex size-10 items-center justify-center overflow-hidden rounded-full border transition-colors duration-300 ${tone} ${className}`}
     >
-      <AnimatePresence mode="wait" initial={false}>
-        <motion.span
-          key={theme}
-          initial={{ rotate: -110, opacity: 0, scale: 0.5 }}
-          animate={{ rotate: 0, opacity: 1, scale: 1 }}
-          exit={{ rotate: 110, opacity: 0, scale: 0.5 }}
-          transition={{ duration: 0.28, ease: [0.32, 0.72, 0, 1] }}
-          className="absolute inset-0 flex items-center justify-center"
-        >
-          {theme === "dark" ? (
-            <Moon className="size-[1.05rem]" strokeWidth={1.9} />
-          ) : (
-            <Sun className="size-[1.05rem]" strokeWidth={1.9} />
-          )}
-        </motion.span>
-      </AnimatePresence>
+      <Moon className={`absolute size-[1.05rem] transition-all duration-300 ${theme === "dark" ? "rotate-0 scale-100 opacity-100" : "-rotate-90 scale-50 opacity-0"}`} strokeWidth={1.9} />
+      <Sun className={`absolute size-[1.05rem] transition-all duration-300 ${theme === "dark" ? "rotate-90 scale-50 opacity-0" : "rotate-0 scale-100 opacity-100"}`} strokeWidth={1.9} />
     </button>
   );
 }

@@ -20,7 +20,7 @@ const FRAG = /* glsl */ `
   precision highp float;
   uniform sampler2D uA, uB;
   uniform vec2 uMouse;
-  uniform float uP, uDir, uAspect, uAspA, uAspB, uTime, uVel, uIntro;
+  uniform float uP, uDir, uAspect, uAspA, uAspB, uTime, uVel, uIntro, uTaps;
   varying vec2 vUv;
 
   vec2 cover(vec2 uv, float imgAsp, float zoom) {
@@ -32,13 +32,14 @@ const FRAG = /* glsl */ `
   vec3 sampleBlur(sampler2D t, vec2 uv, float asp, float amt, float zoom, float split) {
     vec3 c = vec3(0.0);
     for (int i = 0; i < 8; i++) {
-      float o = (float(i) / 7.0 - 0.5) * amt;
+      if (float(i) >= uTaps) break;
+      float o = (float(i) / max(uTaps - 1.0, 1.0) - 0.5) * amt;
       float r = texture2D(t, cover(uv + vec2(o + split, 0.0), asp, zoom)).r;
       float g = texture2D(t, cover(uv + vec2(o, 0.0), asp, zoom)).g;
       float b = texture2D(t, cover(uv + vec2(o - split, 0.0), asp, zoom)).b;
       c += vec3(r, g, b);
     }
-    return c / 8.0;
+    return c / max(uTaps, 1.0);
   }
 
   void main() {
@@ -61,9 +62,15 @@ const FRAG = /* glsl */ `
 
     float amt = motion * 0.12 + uVel * 0.01;
     float split = motion * 0.012 + 0.0012 + uVel * 0.01;
-    vec3 colA = sampleBlur(uA, uvA, uAspA, amt, 1.0 - 0.05 * e, split);
-    vec3 colB = sampleBlur(uB, uvB, uAspB, amt, 1.0 - 0.05 * (1.0 - e) + 0.0, split);
-    vec3 col = colA * mA + colB * mB;
+    vec3 col;
+    if (e < 0.999 || uVel > 0.02) {
+      vec3 colA = sampleBlur(uA, uvA, uAspA, amt, 1.0 - 0.05 * e, split);
+      vec3 colB = sampleBlur(uB, uvB, uAspB, amt, 1.0 - 0.05 * (1.0 - e), split);
+      col = colA * mA + colB * mB;
+    } else {
+      // at rest: one plain fetch
+      col = texture2D(uB, cover(uv, uAspB, 1.0)).rgb;
+    }
 
     // light bar where the two frames meet
     float edgeA = uDir > 0.0 ? (1.0 - e * shift) : (e * shift);
@@ -142,6 +149,7 @@ export default function HeroCarouselScene({
           uTime: { value: 0 },
           uVel: { value: 0 },
           uIntro: { value: 0 },
+          uTaps: { value: lite ? 4 : 8 },
         };
         const plane = new THREE.Mesh(
           new THREE.PlaneGeometry(2, 2),
@@ -150,7 +158,7 @@ export default function HeroCarouselScene({
         scene.add(plane);
 
         /* dust */
-        const COUNT = lite ? 60 : 130;
+        const COUNT = lite ? 0 : 130;
         const pos = new Float32Array(COUNT * 3);
         const speed = new Float32Array(COUNT);
         for (let i = 0; i < COUNT; i++) {
@@ -172,7 +180,7 @@ export default function HeroCarouselScene({
           const r = el.getBoundingClientRect();
           target.set((e.clientX - r.left) / r.width, 1 - (e.clientY - r.top) / r.height);
         };
-        window.addEventListener("pointermove", onMove, { passive: true });
+        if (!lite) window.addEventListener("pointermove", onMove, { passive: true });
 
         // transition state
         let current = 0;
@@ -207,6 +215,7 @@ export default function HeroCarouselScene({
         let announced = false;
 
         return {
+          idle: () => lite && t0 !== -2 && uniforms.uP.value >= 1 && intro >= 1 && vel < 0.02,
           update(time, dt) {
             if (!announced) {
               announced = true;
@@ -239,7 +248,7 @@ export default function HeroCarouselScene({
               if (x > 1.05) x = -1.05;
               p.setXYZ(i, x, p.getY(i) + Math.sin(time * 0.4 + i) * 0.0006, 0);
             }
-            p.needsUpdate = true;
+            if (COUNT) p.needsUpdate = true;
 
             renderer.render(scene, camera);
           },

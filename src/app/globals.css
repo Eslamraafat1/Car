@@ -184,12 +184,29 @@ body {
 }
 
 .glass {
-  background: color-mix(in srgb, var(--c-ink-2) 74%, transparent);
-  backdrop-filter: blur(18px) saturate(140%);
-  -webkit-backdrop-filter: blur(18px) saturate(140%);
+  background: color-mix(in srgb, var(--c-ink-2) 86%, transparent);
+  backdrop-filter: blur(12px) saturate(130%);
+  -webkit-backdrop-filter: blur(12px) saturate(130%);
+}
+
+/* Soft light without a blur filter: a radial gradient is far cheaper to paint. */
+.glow {
+  border-radius: 9999px;
+  background: radial-gradient(closest-side, color-mix(in srgb, var(--glow, var(--c-volt)) var(--glow-a, 14%), transparent), transparent);
+}
+
+@media (pointer: coarse), (max-width: 1023px) {
+  .glass { backdrop-filter: none; -webkit-backdrop-filter: none; background: color-mix(in srgb, var(--c-ink-2) 94%, transparent); }
+}
+
+/* iOS zooms the page when a field under 16px takes focus. */
+html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
+@media (max-width: 1023px) {
+  input, textarea, select { font-size: 16px !important; }
 }
 
 .grain::after {
+  display: none;
   content: "";
   position: absolute;
   inset: 0;
@@ -442,16 +459,6 @@ body {
 }
 
 .evay-loader { display: none; }
-@keyframes ld-scroll { to { transform: translateX(-50%); } }
-.ld-scroll { animation: ld-scroll var(--ld-speed, 30s) linear infinite; }
-@keyframes ld-road { to { background-position: -200px 0; } }
-.ld-road { background-image: repeating-linear-gradient(90deg, rgba(255,255,255,.7) 0 56px, transparent 56px 112px); background-size: 112px 100%; animation: ld-road 0.45s linear infinite; }
-@keyframes ld-bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-2.5px); } }
-.ld-bounce { animation: ld-bounce 0.28s ease-in-out infinite; }
-@keyframes ld-spin { to { transform: rotate(360deg); } }
-.ld-spin { animation: ld-spin 0.32s linear infinite; transform-box: view-box; }
-@keyframes ld-beam { 0%, 100% { opacity: 0.85; } 50% { opacity: 1; } }
-.ld-beam { animation: ld-beam 1.2s ease-in-out infinite; }
 html.has-loader .evay-loader { display: flex; }
 html.has-loader body { overflow: hidden; }
 
@@ -575,3 +582,15 @@ html[dir="rtl"] .keep-tracking { font-family: var(--font-grotesk), system-ui, sa
   .profile-page { transform: none !important; box-shadow: none !important; width: 210mm !important; height: 297mm !important; }
   * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
 }
+
+/* mobile menu entrance (CSS only) */
+@keyframes menu-in { from { opacity: 0; } to { opacity: 1; } }
+@keyframes menu-item-in { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: none; } }
+.menu-panel { animation: menu-in 0.25s ease-out both; }
+.menu-item { animation: menu-item-in 0.45s cubic-bezier(0.32, 0.72, 0, 1) both; }
+@media (prefers-reduced-motion: reduce) { .menu-panel, .menu-item { animation: none; } }
+
+/* decorative layers that appear after the first paint so they never compete for LCP */
+@keyframes fade-in { to { opacity: 1; } }
+.fade-late { opacity: 0; animation: fade-in 1s ease-out 1.5s forwards; }
+@media (prefers-reduced-motion: reduce) { .fade-late { opacity: 1; animation: none; } }

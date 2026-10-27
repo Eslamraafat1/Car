@@ -102,7 +102,7 @@ export default function PageHeader({ eyebrow, title, body, children }: PageHeade
       className="page-masthead relative isolate overflow-hidden border-b border-line bg-ink"
     >
       <div className="pointer-events-none absolute inset-0" aria-hidden="true">
-        <div className="page-masthead-glow absolute -top-48 end-[-10%] size-[36rem] rounded-full blur-[110px]" />
+        <div className="page-masthead-glow absolute -top-48 end-[-10%] size-[36rem] rounded-full" />
         <div className="page-masthead-grid absolute inset-0 opacity-30" />
       </div>
 

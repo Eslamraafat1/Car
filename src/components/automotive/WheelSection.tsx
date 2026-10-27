@@ -36,8 +36,8 @@ export default function WheelSection() {
     <section ref={rootRef} className="relative h-[330svh] bg-ink text-fog" aria-labelledby="wheel-title">
       <div className="sticky top-0 h-svh overflow-hidden">
         <div className="pointer-events-none absolute inset-0" aria-hidden="true">
-          <div className="absolute start-[10%] top-[15%] size-[34rem] rounded-full bg-[#1f7bff]/15 blur-[120px]" />
-          <div className="absolute bottom-[-10%] end-[5%] size-[30rem] rounded-full bg-[#ff6a2b]/10 blur-[120px]" />
+          <div className="absolute start-[10%] top-[15%] size-[34rem] rounded-full glow [--glow:#1f7bff] [--glow-a:20%]" />
+          <div className="absolute bottom-[-10%] end-[5%] size-[30rem] rounded-full glow [--glow:#ff6a2b] [--glow-a:14%]" />
           <div className="absolute inset-0 opacity-[0.06] [background-image:linear-gradient(var(--c-fog)_1px,transparent_1px),linear-gradient(90deg,var(--c-fog)_1px,transparent_1px)] [background-size:56px_56px] [mask-image:radial-gradient(60%_60%_at_60%_50%,#000,transparent)]" />
         </div>
 

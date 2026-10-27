@@ -44,7 +44,7 @@ export default function AutomotiveFooter() {
       {/* call to action */}
       <div className="relative">
         <DotGrid className="absolute inset-0 -z-10 [mask-image:radial-gradient(70%_80%_at_50%_45%,#000,transparent)]" />
-        <div className="float-slow pointer-events-none absolute start-[-8%] top-[10%] -z-10 size-[26rem] rounded-full bg-volt/20 blur-[120px]" aria-hidden="true" />
+        <div className="pointer-events-none absolute start-[-8%] top-[10%] -z-10 size-[26rem] rounded-full glow [--glow-a:24%]" aria-hidden="true" />
         <div className="mx-auto w-full max-w-[1400px] px-4 pb-20 pt-24 sm:px-6 lg:px-10 lg:pb-28 lg:pt-36">
           <p className="eyebrow text-volt">{t(FOOT_EYEBROW)}</p>
           <div className="mt-5 flex flex-col gap-10 lg:flex-row lg:items-end lg:justify-between">

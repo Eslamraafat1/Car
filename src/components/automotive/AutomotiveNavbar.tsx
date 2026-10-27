@@ -2,7 +2,6 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { AnimatePresence, motion } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 import { Menu, X, Search, ArrowUpRight } from "lucide-react";
 import { C, type BiStr } from "@/lib/content";
@@ -51,6 +50,8 @@ export default function AutomotiveNavbar() {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
   const [hovered, setHovered] = useState<string | null>(null);
+  const itemRefs = useRef<Record<string, HTMLLIElement | null>>({});
+  const pillRef = useRef<HTMLSpanElement | null>(null);
   const sentinelRef = useRef<HTMLDivElement | null>(null);
   const menuButtonRef = useRef<HTMLButtonElement | null>(null);
   const panelRef = useRef<HTMLDivElement | null>(null);
@@ -116,6 +117,21 @@ export default function AutomotiveNavbar() {
   // a theme-surface PageHeader, so the white overlay tone must not apply there
   // (it would be white-on-white in the light theme).
   const overHero = !scrolled && pathname === "/";
+  const litKey = hovered ?? NAV_ITEMS.find((i) => pathname === i.href || (i.href === "/explore" && pathname.startsWith("/cars/")))?.href ?? null;
+
+  /* The highlight pill glides to the hovered (or current) link — plain DOM writes, no animation library. */
+  useEffect(() => {
+    const pill = pillRef.current;
+    const li = litKey ? itemRefs.current[litKey] : null;
+    if (!pill) return;
+    if (!li) {
+      pill.style.opacity = "0";
+      return;
+    }
+    pill.style.width = `${li.offsetWidth}px`;
+    pill.style.transform = `translateX(${li.offsetLeft}px)`;
+    pill.style.opacity = "1";
+  }, [litKey, lang, overHero]);
   const isActive = (href: string) =>
     pathname === href ||
     (href === "/explore" && pathname.startsWith("/cars/")) ||
@@ -129,7 +145,7 @@ export default function AutomotiveNavbar() {
         <div
           className={`mx-auto flex h-14 max-w-[1240px] items-center gap-2 rounded-full border ps-4 pe-2 transition-[background-color,border-color,box-shadow,backdrop-filter] duration-500 sm:ps-5 lg:h-16 ${
             overHero
-              ? "border-white/15 bg-black/30 backdrop-blur-xl"
+              ? "border-white/15 bg-black/30 lg:backdrop-blur-xl"
               : "glass border-line shadow-[0_18px_50px_-28px_rgba(0,0,0,0.45)]"
           }`}
         >
@@ -149,19 +165,17 @@ export default function AutomotiveNavbar() {
             className="mx-auto hidden lg:block"
             onPointerLeave={() => setHovered(null)}
           >
-            <ul className="flex items-center gap-0.5">
+            <ul className="relative flex items-center gap-0.5">
+              <span
+                ref={pillRef}
+                aria-hidden="true"
+                className={`pointer-events-none absolute inset-y-0 left-0 rounded-full opacity-0 transition-[transform,width,opacity] duration-300 ease-[cubic-bezier(.32,.72,0,1)] ${overHero ? "bg-white/15" : "bg-fog/[0.08]"}`}
+              />
               {NAV_ITEMS.map((item) => {
                 const active = isActive(item.href);
-                const lit = hovered ? hovered === item.href : active;
+                const lit = litKey === item.href;
                 return (
-                  <li key={item.href} className="relative">
-                    {lit && (
-                      <motion.span
-                        layoutId="nav-pill"
-                        className={`absolute inset-0 rounded-full ${overHero ? "bg-white/15" : "bg-fog/[0.08]"}`}
-                        transition={{ type: "spring", stiffness: 420, damping: 34 }}
-                      />
-                    )}
+                  <li key={item.href} ref={(el) => { itemRefs.current[item.href] = el; }} className="relative">
                     <Link
                       href={item.href}
                       aria-current={active ? "page" : undefined}
@@ -233,18 +247,13 @@ export default function AutomotiveNavbar() {
         </div>
       </header>
 
-      <AnimatePresence>
-        {open && (
-          <motion.div
+      {open && (
+          <div
             ref={panelRef}
             role="dialog"
             aria-modal="true"
             aria-label={t(C.nav.menu)}
-            className="fixed inset-0 z-[60] flex flex-col bg-ink/95 backdrop-blur-2xl lg:hidden"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.3, ease: [0.32, 0.72, 0, 1] }}
+            className="menu-panel fixed inset-0 z-[60] flex flex-col bg-ink/[0.98] lg:hidden"
           >
             <div className="flex h-16 items-center px-4 sm:px-6">
               <span className="flex items-center gap-2.5 text-fog">
@@ -265,12 +274,10 @@ export default function AutomotiveNavbar() {
             <nav aria-label={lang === "ar" ? "قائمة الجوال" : "Mobile navigation"} className="flex-1 overflow-y-auto px-6 pb-10">
               <ul className="mt-6 flex flex-col gap-1">
                 {NAV_ITEMS.map((item, index) => (
-                  <motion.li
+                  <li
                     key={item.href}
-                    initial={{ opacity: 0, y: 22 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.05 + index * 0.055, duration: 0.45, ease: [0.32, 0.72, 0, 1] }}
-                    className="border-b border-line"
+                    className="menu-item border-b border-line"
+                    style={{ animationDelay: `${0.05 + index * 0.055}s` }}
                   >
                     <Link
                       href={item.href}
@@ -296,7 +303,7 @@ export default function AutomotiveNavbar() {
                         strokeWidth={1.8}
                       />
                     </Link>
-                  </motion.li>
+                  </li>
                 ))}
               </ul>
 
@@ -319,9 +326,8 @@ export default function AutomotiveNavbar() {
                 </Link>
               </div>
             </nav>
-          </motion.div>
-        )}
-      </AnimatePresence>
+          </div>
+      )}
     </>
   );
 }

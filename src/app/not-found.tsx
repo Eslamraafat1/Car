@@ -91,7 +91,7 @@ export default function NotFound() {
         </div>
 
         <div className="lg:col-span-5">
-          <div className="relative mx-auto w-full max-w-sm overflow-hidden rounded-[28px] border border-white/12 bg-white/[0.03] p-7 backdrop-blur-md">
+          <div className="relative mx-auto w-full max-w-sm overflow-hidden rounded-[28px] border border-white/12 bg-white/[0.03] p-7 lg:backdrop-blur-md">
             {!reduced && ignited && (
               <span
                 className="finale-flash pointer-events-none absolute inset-0 bg-white/85"

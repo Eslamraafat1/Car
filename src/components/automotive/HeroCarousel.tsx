@@ -28,7 +28,10 @@ type Mode = "gl" | "dom";
 function canWebGL() {
   try {
     const c = document.createElement("canvas");
-    return Boolean(c.getContext("webgl2") || c.getContext("webgl"));
+    const gl = (c.getContext("webgl2") || c.getContext("webgl")) as WebGLRenderingContext | null;
+    // iOS caps live contexts, so give the probe's back immediately
+    gl?.getExtension("WEBGL_lose_context")?.loseContext();
+    return Boolean(gl);
   } catch {
     return false;
   }
@@ -40,6 +43,11 @@ function subscribeLoader(cb: () => void) {
   return () => mo.disconnect();
 }
 const loaderSnapshot = () => document.documentElement.classList.contains("has-loader");
+/** Phones, tablets and low-core CPUs get a lightweight CSS slideshow — no WebGL, no three.js download. */
+const isLite = () =>
+  window.matchMedia("(max-width: 1023px)").matches ||
+  window.matchMedia("(pointer: coarse)").matches ||
+  (navigator.hardwareConcurrency ?? 8) <= 4;
 
 /**
  * Home — the opening carousel. WebGL sweeps one car out and the next one in
@@ -55,8 +63,10 @@ export default function HeroCarousel() {
   const glOk = useSyncExternalStore(() => () => {}, canWebGL, () => false);
   // keep WebGL idle while the intro loader plays so the two never fight for the main thread
   const loaderActive = useSyncExternalStore(subscribeLoader, loaderSnapshot, () => false);
+  const lite = useSyncExternalStore(() => () => {}, isLite, () => true);
   const [glReady, setGlReady] = useState(false);
   const [index, setIndex] = useState(0);
+  const [prev, setPrev] = useState(0);
   const [dir, setDir] = useState<1 | -1>(1);
   const [hover, setHover] = useState(false);
   const [offscreen, setOffscreen] = useState(false);
@@ -73,7 +83,7 @@ export default function HeroCarousel() {
   const urls = useMemo(() => cars.map((c) => c.hero), [cars]);
   const n = cars.length;
 
-  const mode: Mode = !reduced && glOk && !loaderActive ? "gl" : "dom";
+  const mode: Mode = !reduced && glOk && !lite && !loaderActive ? "gl" : "dom";
   const go = useCallback(
     (to: number, forward: boolean) => {
       const next = ((to % n) + n) % n;
@@ -81,13 +91,14 @@ export default function HeroCarousel() {
       // "next" enters from the reading-end side: right in LTR, left in RTL
       const visual: 1 | -1 = rtl ? ((-d) as 1 | -1) : d;
       setDir(visual);
+      setPrev(index);
       setIndex(next);
       apiRef.current?.go(next, visual);
     },
-    [n, rtl],
+    [n, rtl, index],
   );
-  const next = useCallback(() => go(index + 1, true), [go, index]);
-  const prev = useCallback(() => go(index - 1, false), [go, index]);
+  const goNext = useCallback(() => go(index + 1, true), [go, index]);
+  const goPrev = useCallback(() => go(index - 1, false), [go, index]);
 
   // pause when off-screen or the tab is hidden
   useEffect(() => {
@@ -119,13 +130,13 @@ export default function HeroCarousel() {
     if (Math.abs(dx) > 48 && Math.abs(dx) > Math.abs(e.clientY - s.y)) {
       // dragging toward the reading start means "next"
       const towardNext = rtl ? dx > 0 : dx < 0;
-      if (towardNext) next();
-      else prev();
+      if (towardNext) goNext();
+      else goPrev();
     }
   };
   const onKeyDown = (e: React.KeyboardEvent) => {
-    if (e.key === "ArrowRight") (rtl ? prev : next)();
-    if (e.key === "ArrowLeft") (rtl ? next : prev)();
+    if (e.key === "ArrowRight") (rtl ? goPrev : goNext)();
+    if (e.key === "ArrowLeft") (rtl ? goNext : goPrev)();
   };
 
   // entrance
@@ -168,22 +179,25 @@ export default function HeroCarousel() {
 
       {/* stage */}
       <div className="hc-stage absolute inset-0 will-change-transform">
-        {cars.map((c, i) => {
-          const visible = mode === "dom" ? i === index : mode === "gl" && !glReady ? i === 0 : false;
-          if (mode === "gl" && glReady) return null;
-          if (!visible && !(i === 0)) return null;
+        {mode === "dom" && cars.map((c, i) => {
+          const active = i === index;
+          if (!(active || i === prev || i === 0)) return null;
           return (
             <Image
               key={c.slug}
               src={c.hero}
-              alt={i === index ? t(c.car.alt) : ""}
+              alt={active ? t(c.car.alt) : ""}
               fill
               priority={i === 0}
               sizes="100vw"
-              className={`object-cover transition-opacity duration-1000 ${visible ? "opacity-100" : "opacity-0"}`}
+              className="object-cover transition-[opacity,transform] duration-[1100ms] ease-[cubic-bezier(.2,.8,.1,1)]"
+              style={{ opacity: active ? 1 : 0, transform: active ? "none" : `translate3d(${dir * -3}%,0,0) scale(1.06)` }}
             />
           );
         })}
+        {mode === "gl" && !glReady && (
+          <Image src={cars[0].hero} alt={t(cars[0].car.alt)} fill priority sizes="100vw" className="object-cover" />
+        )}
         {mode === "gl" && <HeroCarouselScene urls={urls} apiRef={apiRef} onReady={() => setGlReady(true)} />}
       </div>
 
@@ -192,7 +206,7 @@ export default function HeroCarousel() {
       <div className="pointer-events-none absolute inset-0 grain" />
 
       {/* ghost brand word */}
-      <div className="pointer-events-none absolute inset-x-0 top-[18%] overflow-hidden" aria-hidden="true" dir="ltr">
+      <div className="fade-late pointer-events-none absolute inset-x-0 top-[18%] overflow-hidden" aria-hidden="true" dir="ltr">
         <p
           className="keep-tracking whitespace-nowrap font-display text-[clamp(6rem,23vw,24rem)] font-black uppercase leading-none text-transparent transition-transform duration-[1400ms] ease-[cubic-bezier(.2,.7,.1,1)] [-webkit-text-stroke:1px_rgba(255,255,255,0.16)]"
           style={{ transform: `translateX(calc(${(-index * 9).toFixed(1)}% + 6%))` }}
@@ -206,7 +220,7 @@ export default function HeroCarousel() {
         <div className="hc-intro flex items-start justify-between gap-4">
           <div className="max-w-xl">
             <p className="eyebrow inline-flex items-center gap-2 text-[#7db4ff]">
-              <span className="size-1.5 animate-pulse rounded-full bg-[#4da3ff]" />
+              <span className="size-1.5 rounded-full bg-[#4da3ff]" />
               {t(C.hero.eyebrow)}
             </p>
             <p className="hide-short mt-3 max-w-md text-[0.92rem] leading-relaxed text-white/75 sm:text-[1rem]">{t(C.hero.sub)}</p>
@@ -284,7 +298,7 @@ export default function HeroCarousel() {
             </Link>
             <Link
               href="/explore"
-              className="inline-flex h-12 items-center gap-2 rounded-full border border-white/30 px-6 text-[0.88rem] font-medium text-white backdrop-blur-sm transition-colors duration-300 hover:border-white hover:bg-white/10 sm:px-7"
+              className="inline-flex h-12 items-center gap-2 rounded-full border border-white/30 px-6 text-[0.88rem] font-medium text-white lg:backdrop-blur-sm transition-colors duration-300 hover:border-white hover:bg-white/10 sm:px-7"
             >
               {t(C.hero.primary)}
               <Arrow className="size-4" strokeWidth={2.2} />
@@ -303,10 +317,10 @@ export default function HeroCarousel() {
         {/* controls */}
         <div className="hc-intro mt-5 flex items-center gap-3 sm:mt-7">
           <div className="flex gap-2">
-            <button type="button" onClick={prev} aria-label={lang === "ar" ? "السابق" : "Previous"} className="inline-flex size-11 items-center justify-center rounded-full border border-white/30 bg-black/25 text-white backdrop-blur-md transition-all duration-300 hover:scale-105 hover:bg-white hover:text-black">
+            <button type="button" onClick={goPrev} aria-label={lang === "ar" ? "السابق" : "Previous"} className="inline-flex size-11 items-center justify-center rounded-full border border-white/30 bg-black/25 text-white lg:backdrop-blur-md transition-all duration-300 hover:scale-105 hover:bg-white hover:text-black">
               <Prev className="size-5" />
             </button>
-            <button type="button" onClick={next} aria-label={lang === "ar" ? "التالي" : "Next"} className="inline-flex size-11 items-center justify-center rounded-full border border-white/30 bg-black/25 text-white backdrop-blur-md transition-all duration-300 hover:scale-105 hover:bg-white hover:text-black">
+            <button type="button" onClick={goNext} aria-label={lang === "ar" ? "التالي" : "Next"} className="inline-flex size-11 items-center justify-center rounded-full border border-white/30 bg-black/25 text-white lg:backdrop-blur-md transition-all duration-300 hover:scale-105 hover:bg-white hover:text-black">
               <Next className="size-5" />
             </button>
           </div>
@@ -321,7 +335,7 @@ export default function HeroCarousel() {
                         key={`${index}-${paused}`}
                         className="hc-bar absolute inset-0 origin-start bg-white rtl:origin-right"
                         style={{ animationDuration: `${AUTOPLAY_MS}ms`, animationPlayState: paused ? "paused" : "running" }}
-                        onAnimationEnd={next}
+                        onAnimationEnd={goNext}
                       />
                     )}
                   </span>

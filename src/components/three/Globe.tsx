@@ -183,7 +183,7 @@ export default function Globe() {
           },
         };
       },
-      { maxDpr: 2, still },
+      { maxDpr: 2, still, liteFps: 24 },
     );
 
     return () => {

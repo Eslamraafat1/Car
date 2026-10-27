@@ -68,7 +68,7 @@ export default function CompanyIntro() {
   return (
     <section id="story" ref={rootRef} className="relative h-[280svh] bg-ink sm:h-[300svh]" aria-labelledby="intro-title">
       <div className="sticky top-0 flex h-svh flex-col justify-start overflow-hidden pt-24 sm:justify-center sm:pt-24">
-        <div className="float-slow pointer-events-none absolute -start-32 top-10 size-[26rem] rounded-full bg-volt/10 blur-[110px]" aria-hidden="true" />
+        <div className="pointer-events-none absolute -start-32 top-10 size-[26rem] rounded-full glow" aria-hidden="true" />
         <div className="mx-auto grid w-full max-w-[1400px] items-center gap-6 px-4 sm:gap-8 sm:px-6 lg:grid-cols-12 lg:gap-14 lg:px-10">
           <div className="lg:col-span-7">
             <div className="flex items-center gap-3">
@@ -96,7 +96,7 @@ export default function CompanyIntro() {
             <div className="intro-frame relative aspect-[4/5] overflow-hidden rounded-[28px] hairline bg-ink-2">
               <Image src="/media/images/design-profile.jpg" alt={lang === "ar" ? "سيارة في استوديو العرض" : "A car in the showroom studio"} fill sizes="40vw" className="intro-img object-cover will-change-transform" loading="lazy" />
               <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
-              <span className="absolute bottom-5 start-5 rounded-full border border-white/25 bg-black/50 px-4 py-2 text-[0.7rem] text-white/90 backdrop-blur-md">
+              <span className="absolute bottom-5 start-5 rounded-full border border-white/25 bg-black/50 px-4 py-2 text-[0.7rem] text-white/90 lg:backdrop-blur-md">
                 EVAY · {lang === "ar" ? "منذ ٢٠١٢" : "SINCE 2012"}
               </span>
             </div>

@@ -1,7 +1,7 @@
 "use client";
 
 import { usePathname, useRouter } from "next/navigation";
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, MotionConfig, motion } from "framer-motion";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { BookOpen, Car, CornerDownLeft, Home, Info, Mail, Search } from "lucide-react";
 import { C } from "@/lib/content";
@@ -161,7 +161,7 @@ export default function CommandPalette() {
   let lastGroup: Result["group"] | null = null;
 
   return (
-    <>
+    <MotionConfig reducedMotion="user">
       <AnimatePresence>
         {open && (
           <motion.div
@@ -178,7 +178,7 @@ export default function CommandPalette() {
               type="button"
               aria-label={t(LABELS.hintClose)}
               onClick={() => setOpen(false)}
-              className="absolute inset-0 cursor-default bg-black/45 backdrop-blur-sm"
+              className="absolute inset-0 cursor-default bg-black/45 lg:backdrop-blur-sm"
             />
 
             <motion.div
@@ -280,6 +280,6 @@ export default function CommandPalette() {
           </motion.div>
         )}
       </AnimatePresence>
-    </>
+    </MotionConfig>
   );
 }

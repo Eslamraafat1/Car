@@ -1,12 +1,13 @@
 "use client";
 
-import { useEffect, useRef, useState, type ReactNode } from "react";
-import { usePrefersReducedMotion } from "@/lib/motion";
+import { useEffect, useRef, type ReactNode } from "react";
 
 /**
- * Fades + rises its children the first time they enter the viewport.
- * Renders immediately (no transition) under reduced motion and disconnects
- * the observer once shown.
+ * Fades + rises its children the first time they scroll into view.
+ *
+ * Content is visible in the server HTML and stays visible if scripts are slow
+ * or fail; only blocks that start below the fold are hidden (imperatively, no
+ * re-render) once hydrated. Nothing animates under reduced motion.
  */
 export default function Reveal({
   children,
@@ -20,40 +21,35 @@ export default function Reveal({
   className?: string;
 }) {
   const ref = useRef<HTMLDivElement | null>(null);
-  const reduced = usePrefersReducedMotion();
-  const [shownState, setShown] = useState(false);
-  const shown = reduced || shownState;
 
   useEffect(() => {
-    if (reduced) return;
     const el = ref.current;
-    if (!el) return;
+    if (!el || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    if (el.getBoundingClientRect().top < window.innerHeight * 0.96) return; // already on screen
+
+    el.style.opacity = "0";
+    el.style.transform = `translate3d(0, ${y}px, 0)`;
     const io = new IntersectionObserver(
       ([entry]) => {
-        if (entry.isIntersecting) {
-          setShown(true);
-          io.disconnect();
-        }
+        if (!entry.isIntersecting) return;
+        io.disconnect();
+        el.style.transition = `opacity 0.8s cubic-bezier(0.22, 0.61, 0.36, 1) ${delay}s, transform 0.8s cubic-bezier(0.22, 0.61, 0.36, 1) ${delay}s`;
+        el.style.opacity = "1";
+        el.style.transform = "none";
       },
-      { threshold: 0.12, rootMargin: "0px 0px -6% 0px" },
+      { threshold: 0.1, rootMargin: "0px 0px -5% 0px" },
     );
     io.observe(el);
-    return () => io.disconnect();
-  }, [reduced]);
+    return () => {
+      io.disconnect();
+      el.style.opacity = "";
+      el.style.transform = "";
+      el.style.transition = "";
+    };
+  }, [delay, y]);
 
   return (
-    <div
-      ref={ref}
-      className={className}
-      style={{
-        opacity: shown ? 1 : 0,
-        transform: shown ? "none" : `translateY(${y}px)`,
-        transition: reduced
-          ? "none"
-          : `opacity 0.85s cubic-bezier(0.22, 0.61, 0.36, 1) ${delay}s, transform 0.85s cubic-bezier(0.22, 0.61, 0.36, 1) ${delay}s`,
-        willChange: reduced ? undefined : "opacity, transform",
-      }}
-    >
+    <div ref={ref} className={className}>
       {children}
     </div>
   );

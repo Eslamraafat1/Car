@@ -149,7 +149,7 @@ export default function WheelScene({ progress }: { progress: MutableRefObject<Wh
         const onMove = (e: PointerEvent) => {
           pointer.set((e.clientX / window.innerWidth - 0.5) * 2, (e.clientY / window.innerHeight - 0.5) * 2);
         };
-        window.addEventListener("pointermove", onMove, { passive: true });
+        if (!lite) window.addEventListener("pointermove", onMove, { passive: true });
 
         const fit = (w: number, h: number) => {
           camera.aspect = w / h;
@@ -165,6 +165,7 @@ export default function WheelScene({ progress }: { progress: MutableRefObject<Wh
         let cur = 0;
 
         return {
+          idle: () => lite && Math.abs(progress.current.value - cur) < 0.0004 && Math.abs(pointer.x) < 2,
           update(time, dt) {
             const target = progress.current.value;
             cur += (target - cur) * Math.min(1, dt * 5);
@@ -176,7 +177,7 @@ export default function WheelScene({ progress }: { progress: MutableRefObject<Wh
               parts[k].position.z = explode[k] * ex * 1.15;
             });
 
-            spin += dt * (0.25 + (1 - ex) * 0.35);
+            spin += dt * (lite ? 0 : 0.25 + (1 - ex) * 0.35) + (target - cur) * 2;
             const yaw = -0.55 - ex * 0.62 + Math.sin(time * 0.5) * 0.06 + pointer.x * 0.22;
             wheel.rotation.y += (yaw - wheel.rotation.y) * Math.min(1, dt * 4);
             wheel.rotation.x += (0.18 + pointer.y * 0.12 - wheel.rotation.x) * Math.min(1, dt * 4);

@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { useRef } from "react";
 import { Download, FileText } from "lucide-react";
@@ -61,7 +62,7 @@ export default function ProfileCTA() {
               <div className="absolute inset-0 translate-x-1.5 translate-y-1 rounded-[10px] bg-fog/15 [transform:translateZ(-15px)]" />
               {/* cover */}
               <div className="absolute inset-0 overflow-hidden rounded-[10px] bg-[#0b0d12] p-6 text-white shadow-[0_40px_80px_-30px_rgba(0,0,0,0.55)]">
-                <div className="absolute inset-0 bg-[url('/media/hero/f8.webp')] bg-cover bg-center opacity-55" />
+                <Image src="/media/images/car-f8-red.jpg" alt="" fill sizes="22rem" quality={60} loading="lazy" className="object-cover opacity-55" />
                 <div className="absolute inset-0 bg-gradient-to-t from-[#0b0d12] via-[#0b0d12]/40 to-[#0b0d12]/70" />
                 <div className="relative flex h-full flex-col justify-between">
                   <div className="flex items-center gap-2">
@@ -76,7 +77,7 @@ export default function ProfileCTA() {
                 </div>
               </div>
             </div>
-            <div className="float-slow absolute -end-6 -top-8 -z-10 size-44 rounded-full bg-volt/25 blur-[70px]" aria-hidden="true" />
+            <div className="absolute -end-6 -top-8 -z-10 size-44 rounded-full glow [--glow-a:30%]" aria-hidden="true" />
           </div>
         </div>
       </div>

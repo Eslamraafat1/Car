@@ -3,7 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useMemo, useRef, useState, useSyncExternalStore, type ReactNode, useEffect } from "react";
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, MotionConfig, motion } from "framer-motion";
 import { ArrowRight, Heart } from "lucide-react";
 import { FILTER_EVENT } from "@/components/automotive/ExploreCategories";
 import { C, type BiStr } from "@/lib/content";
@@ -162,6 +162,7 @@ export default function VehicleCollection({
   const headingId = withHeader ? "collection-title" : title ? "collection-list-title" : undefined;
 
   return (
+    <MotionConfig reducedMotion="user">
     <section
       id="collection"
       data-collection-variant={variant}
@@ -269,7 +270,7 @@ export default function VehicleCollection({
                           loading="lazy"
                         />
                         <div className={`pointer-events-none absolute inset-0 bg-gradient-to-t from-black/90 via-black/15 to-transparent`} />
-                        <span className="absolute start-4 top-4 rounded-full border border-white/20 bg-black/60 px-3 py-1 text-[0.66rem] tracking-[0.16em] text-white/85 backdrop-blur-sm">
+                        <span className="absolute start-4 top-4 rounded-full border border-white/20 bg-black/60 px-3 py-1 text-[0.66rem] tracking-[0.16em] text-white/85 lg:backdrop-blur-sm">
                           {t(CATEGORY_LABELS[vehicle.category])}
                         </span>
                         <span
@@ -326,7 +327,7 @@ export default function VehicleCollection({
                             ? `إضافة ${vehicle.model} للمفضلة`
                             : `Save ${vehicle.model}`
                       }
-                      className="absolute end-4 top-4 z-20 inline-flex size-11 items-center justify-center rounded-full border border-white/20 bg-black/55 text-white shadow-lg backdrop-blur-md transition-[background-color,color,transform] duration-300 hover:scale-105 hover:bg-black/80 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+                      className="absolute end-4 top-4 z-20 inline-flex size-11 items-center justify-center rounded-full border border-white/20 bg-black/55 text-white shadow-lg lg:backdrop-blur-md transition-[background-color,color,transform] duration-300 hover:scale-105 hover:bg-black/80 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
                     >
                       <Heart
                         className={`size-[1.1rem] transition-colors ${favorites.has(vehicle.slug) ? "fill-rose-500 text-rose-500" : "text-white"}`}
@@ -351,5 +352,6 @@ export default function VehicleCollection({
         )}
       </div>
     </section>
+    </MotionConfig>
   );
 }
