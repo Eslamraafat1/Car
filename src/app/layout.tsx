@@ -3,6 +3,7 @@ import { Inter, IBM_Plex_Sans_Arabic, Readex_Pro, Space_Grotesk } from "next/fon
 import "./globals.css";
 import { LanguageProvider } from "@/lib/i18n";
 import { ThemeProvider } from "@/lib/theme";
+import { SITE_URL } from "@/lib/site-url";
 import SmoothScrollProvider from "@/components/automotive/SmoothScrollProvider";
 import AutomotiveNavbar from "@/components/automotive/AutomotiveNavbar";
 import AutomotiveFooter from "@/components/automotive/AutomotiveFooter";
@@ -41,7 +42,7 @@ const grotesk = Space_Grotesk({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000"),
+  metadataBase: new URL(SITE_URL),
   title: {
     default: "EVAY — شريكك في عالم السيارات | Premium Automotive Partner",
     template: "%s · EVAY",
